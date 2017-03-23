@@ -1,0 +1,5 @@
+---
+applications:
+- name: PreventionAdvisor
+  random-route: false
+  memory: 256M

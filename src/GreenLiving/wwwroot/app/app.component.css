@@ -1,0 +1,12 @@
+li {
+    font-size: large;
+}
+
+div.panel-heading {
+   font-size: x-large; 
+}
+
+.PDFImage {
+    width: 18px;
+    cursor: pointer;
+}
