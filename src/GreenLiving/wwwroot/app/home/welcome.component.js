@@ -8,7 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var core_1 = require("@angular/core");
 var WelcomeComponent = (function () {
     function WelcomeComponent() {
-        this.pageTitle = 'Welcome';
+        this.pageTitle = 'Prevention Advisor';
     }
     return WelcomeComponent;
 }());
