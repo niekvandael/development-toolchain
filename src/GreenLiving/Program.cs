@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace GetStartedDotnet
 {
@@ -14,8 +15,8 @@ namespace GetStartedDotnet
 
             var host = new WebHostBuilder()
                 .UseKestrel()
-				.UseContentRoot(System.IO.Directory.GetCurrentDirectory())
                 .UseConfiguration(config)
+                .UseContentRoot(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location))
                 .UseStartup<Startup>()
                 .Build();
             host.Run();
