@@ -6,7 +6,7 @@
     <RuntimeFrameworkVersion>1.1.0</RuntimeFrameworkVersion>
     <DebugType>portable</DebugType>
     <PreserveCompilationContext>true</PreserveCompilationContext>
-    <AssemblyName>GreenLiving</AssemblyName>
+    <AssemblyName>PreventionAdvisor</AssemblyName>
     <OutputType>Exe</OutputType>
   </PropertyGroup>
 
