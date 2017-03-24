@@ -19,6 +19,6 @@ namespace PreventionAdvisor.Models
         public String Salt { get; set; }
         public String Phone { get; set; }
         public Address Address { get; set; }
-        public IList<Organization> Organizations { get; set; }
+        public ICollection<Organization> Organizations { get; set; }
     }
 }
