@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace GetStartedDotnet.Controllers
+namespace PreventionAdvisor.Controllers
 {
     public class HomeController : Controller
     {
