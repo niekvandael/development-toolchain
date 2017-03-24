@@ -4,11 +4,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MySQL.Data.Entity.Extensions;
-using GetStartedDotnet.Models;
 using System;
 using Newtonsoft.Json;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using PreventionAdvisor;
+using PreventionAdvisor.Models;
 
 public class Startup
 {
@@ -47,7 +48,7 @@ public class Startup
         if (!string.IsNullOrEmpty(databaseUri))
         {
             // add database context
-            services.AddDbContext<GreenLivingDbContext>(options => options.UseMySQL(getConnectionString(databaseUri)));
+            services.AddDbContext<PreventionAdvisorDbContext>(options => options.UseMySQL(getConnectionString(databaseUri)));
         }
         
         // Add framework services.
@@ -103,7 +104,7 @@ public class Startup
             app.UseExceptionHandler("/Home/Error");
         }
 
-        var context = (app.ApplicationServices.GetService(typeof(GreenLivingDbContext)) as GreenLivingDbContext);
+        var context = (app.ApplicationServices.GetService(typeof(PreventionAdvisorDbContext)) as PreventionAdvisorDbContext);
 //        context?.Database.Migrate();
 
         app.UseStaticFiles();
@@ -124,6 +125,7 @@ public class Startup
                 );
         });
 
-       
+
+        DbInitializer.Initialize(context);
     }
 }

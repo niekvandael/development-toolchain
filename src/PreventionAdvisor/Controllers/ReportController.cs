@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using GetStartedDotnet.Models;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
@@ -9,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.IO;
 using System.Net.Http.Headers;
+using PreventionAdvisor.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,9 +18,9 @@ namespace GreenLiving.Controllers
     public class ReportController : Controller
     {
         private readonly HtmlEncoder _htmlEncoder;
-        private readonly GreenLivingDbContext _dbContext;
+        private readonly PreventionAdvisorDbContext _dbContext;
 
-        public ReportController(HtmlEncoder htmlEncoder, GreenLivingDbContext dbContext = null)
+        public ReportController(HtmlEncoder htmlEncoder, PreventionAdvisorDbContext dbContext = null)
         {
             _dbContext = dbContext;
             _htmlEncoder = htmlEncoder;

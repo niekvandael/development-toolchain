@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 
-namespace GetStartedDotnet
+namespace PreventionAdvisor
 {
     public class Program
     {
