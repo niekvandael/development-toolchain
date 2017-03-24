@@ -14,6 +14,7 @@ namespace GetStartedDotnet
 
             var host = new WebHostBuilder()
                 .UseKestrel()
+				.UseContentRoot(System.IO.Directory.GetCurrentDirectory())
                 .UseConfiguration(config)
                 .UseStartup<Startup>()
                 .Build();
