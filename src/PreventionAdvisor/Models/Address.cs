@@ -6,6 +6,7 @@ namespace PreventionAdvisor.Models
 {
     public class Address
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public Guid Id { get; set; }
         public String Street { get; set; }
