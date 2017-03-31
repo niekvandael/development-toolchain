@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.IO;
 using System.Net.Http.Headers;
 using PreventionAdvisor.Models;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -27,6 +28,7 @@ namespace GreenLiving.Controllers
         }
 
         // GET: api/values
+        [Authorize]
         [HttpGet("{id}")]
         public ActionResult Get(string id)
         {

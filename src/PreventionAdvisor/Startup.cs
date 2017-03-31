@@ -10,6 +10,8 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using PreventionAdvisor;
 using PreventionAdvisor.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 public class Startup
 {
@@ -54,8 +56,14 @@ public class Startup
         // Add framework services.
         services.AddMvc();
 
-        // Add NodeJS
-        services.AddNodeServices();
+        // Add Identity
+        services.AddIdentity<User, IdentityRole>(config =>
+        {
+            config.User.RequireUniqueEmail = true;
+            config.Password.RequiredLength = 8;
+            config.Cookies.ApplicationCookie.LoginPath = "/Auth/Login";
+        })
+        .AddEntityFrameworkStores<PreventionAdvisorDbContext>();
     }
 
     private string getConnectionString(string databaseUri)
@@ -89,7 +97,7 @@ public class Startup
         return connectionString;
     }
 
-    public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+    public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, UserManager<User> userManager)
     {
         loggerFactory.AddConsole(Configuration.GetSection("Logging"));
         loggerFactory.AddDebug();
@@ -109,6 +117,9 @@ public class Startup
 
         app.UseStaticFiles();
 
+        // Use identity
+        app.UseIdentity();
+
         app.UseMvc(routes =>
         {
             routes.MapRoute(
@@ -126,6 +137,7 @@ public class Startup
         });
 
 
-        DbInitializer.Initialize(context);
+
+        DbInitializer.Initialize(context, userManager);
     }
 }
