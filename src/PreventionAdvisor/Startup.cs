@@ -12,6 +12,9 @@ using PreventionAdvisor;
 using PreventionAdvisor.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Threading.Tasks;
 
 public class Startup
 {
@@ -54,7 +57,14 @@ public class Startup
         }
         
         // Add framework services.
-        services.AddMvc();
+
+        // Always use HTTPS
+
+        services.AddMvc(config => {
+#if !DEBUG
+                config.Filters.Add(new RequireHttpsAttribute());
+#endif
+        });
 
         // Add Identity
         services.AddIdentity<User, IdentityRole>(config =>
@@ -62,6 +72,21 @@ public class Startup
             config.User.RequireUniqueEmail = true;
             config.Password.RequiredLength = 8;
             config.Cookies.ApplicationCookie.LoginPath = "/Auth/Login";
+            config.Cookies.ApplicationCookie.Events = new CookieAuthenticationEvents()
+            {
+                OnRedirectToLogin = async ctx => {
+                    if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == 200)
+                    {
+                        ctx.Response.StatusCode = 401;
+                    }
+                    else {
+                        ctx.Response.Redirect(ctx.RedirectUri);
+                    }
+
+                    await Task.Yield();
+                }
+            }
+
         })
         .AddEntityFrameworkStores<PreventionAdvisorDbContext>();
     }

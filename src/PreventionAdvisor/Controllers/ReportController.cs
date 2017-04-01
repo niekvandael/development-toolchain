@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace GreenLiving.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class ReportController : Controller
     {
@@ -28,10 +29,12 @@ namespace GreenLiving.Controllers
         }
 
         // GET: api/values
-        [Authorize]
+        
         [HttpGet("{id}")]
         public ActionResult Get(string id)
         {
+            var userName = this.User.Identity.Name; // this is the username
+
             //            var url = @"http://localhost:3000/api/generatePDF/" + id;  /* TEST -URL */
 
             var url = @"http://greenlivingpdf.mybluemix.net/api/generatePDF/" + id;
