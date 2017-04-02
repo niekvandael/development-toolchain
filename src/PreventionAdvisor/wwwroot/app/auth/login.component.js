@@ -11,13 +11,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var auth_service_1 = require("./auth.service");
+var user_1 = require("./user");
 var LoginComponent = (function () {
     function LoginComponent(_authService) {
         this._authService = _authService;
         this.pageTitle = 'Login';
+        this.user = new user_1.User();
     }
     LoginComponent.prototype.login = function () {
-        this._authService.login({});
+        this._authService.login(this.user).subscribe(function (data) { return console.log(data); });
     };
     return LoginComponent;
 }());

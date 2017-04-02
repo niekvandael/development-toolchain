@@ -7,18 +7,25 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 
-import { IUser } from './user';
+import { CommonComponent } from '../shared/common.component';
+import { User } from './user';
 
 @Injectable()
 export class AuthService {
-    private _loginUrl = 'api/Login';
 
-    constructor(private _http: Http) { }
+    private _commonComponent: CommonComponent;
+    private _apiLocation: string;
+    private _loginUrl: string;
 
-    login(user: IUser): Observable<IUser[]> {
-        return this._http.post(this._loginUrl, user)
-            .map((response: Response) => <IUser[]>response.json())
-            .do(data => console.log('All: ' + JSON.stringify(data)))
+    constructor(private _http: Http) {
+        this._commonComponent = new CommonComponent();
+        this._apiLocation = this._commonComponent.getAPILocation();
+        this._loginUrl = this._apiLocation + '/Auth/Login';
+    }
+
+    public login(user: User): Observable<User[]> {
+        return this._http.post(this._loginUrl, user /*TODO: Change object to plain values*/)
+            .map((response: Response) => <User[]>response.json())
             .catch(this.handleError);
     }
 

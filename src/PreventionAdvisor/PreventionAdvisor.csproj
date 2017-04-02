@@ -23,6 +23,8 @@
     <Content Include="wwwroot\app\auth\user.ts" />
     <Content Include="wwwroot\app\auth\login.component.html" />
     <Content Include="wwwroot\app\auth\login.component.ts" />
+    <Content Include="wwwroot\app\shared\common.component.ts" />
+    <Content Include="wwwroot\app\shared\common.component.tss" />
     <Content Include="wwwroot\js\site.js" />
     <Content Include="wwwroot\js\site.min.js" />
   </ItemGroup>

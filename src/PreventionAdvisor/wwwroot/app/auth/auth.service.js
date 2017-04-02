@@ -16,15 +16,17 @@ require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/map");
 require("rxjs/add/observable/throw");
+var common_component_1 = require("../shared/common.component");
 var AuthService = (function () {
     function AuthService(_http) {
         this._http = _http;
-        this._loginUrl = 'api/Login';
+        this._commonComponent = new common_component_1.CommonComponent();
+        this._apiLocation = this._commonComponent.getAPILocation();
+        this._loginUrl = this._apiLocation + '/Auth/Login';
     }
     AuthService.prototype.login = function (user) {
-        return this._http.post(this._loginUrl, user)
+        return this._http.post(this._loginUrl, user /*TODO: Change object to plain values*/)
             .map(function (response) { return response.json(); })
-            .do(function (data) { return console.log('All: ' + JSON.stringify(data)); })
             .catch(this.handleError);
     };
     AuthService.prototype.handleError = function (error) {

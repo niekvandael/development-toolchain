@@ -10,6 +10,7 @@ var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var http_1 = require("@angular/http");
 var router_1 = require("@angular/router");
+var forms_1 = require("@angular/forms");
 var app_component_1 = require("./app.component");
 var welcome_component_1 = require("./home/welcome.component");
 var login_component_1 = require("./auth/login.component");
@@ -33,7 +34,8 @@ AppModule = __decorate([
                 { path: '', redirectTo: 'welcome', pathMatch: 'full' },
                 { path: '**', redirectTo: 'welcome', pathMatch: 'full' }
             ]),
-            product_module_1.ProductModule
+            product_module_1.ProductModule,
+            forms_1.FormsModule
         ],
         declarations: [
             app_component_1.AppComponent,
