@@ -1,20 +1,7 @@
-﻿<div class="panel panel-primary">
-    <div class="panel-heading">
-        {{pageTitle}}
-    </div>
-    <div class="panel-body">
-        <div class="row">
-            <img src="./app/assets/images/logo.jpg"
-                 class="img-responsive center-block"
-                 style="max-height:300px;padding-bottom:50px" />
-        </div>
-
-        <div class="row">
-            <h3 class="text-center" (click)="downloadPDF()"><a>Click here to download a PDF</a></h3>
-            <div class="text-center">Developed by:</div>
-            <h3 class="text-center">Niek Vandael</h3>
-
-            <div class="text-center">Angular 2 with TypeScript and dotnet core 1.0.3 sample App - {{pageTitle}}</div>
-        </div>
+﻿<div style="width:100%; text-align:center">
+{{pageTitle}}
+    <div>
+        <button [routerLink]="['/register']">Registreren</button>
+        <button [routerLink]="['/login']">Aanmelden</button>
     </div>
 </div>

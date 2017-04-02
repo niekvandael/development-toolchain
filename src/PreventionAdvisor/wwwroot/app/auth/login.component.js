@@ -10,28 +10,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var router_1 = require("@angular/router");
-var ProductDetailGuard = (function () {
-    function ProductDetailGuard(_router) {
-        this._router = _router;
+var auth_service_1 = require("./auth.service");
+var LoginComponent = (function () {
+    function LoginComponent(_authService) {
+        this._authService = _authService;
+        this.pageTitle = 'Login';
     }
-    ProductDetailGuard.prototype.canActivate = function (route) {
-        var id = +route.url[1].path;
-        if (isNaN(id) || id < 1) {
-            alert('Invalid product Id');
-            // start a new navigation to redirect to list page
-            this._router.navigate(['/products']);
-            // abort current navigation
-            return false;
-        }
-        ;
-        return true;
+    LoginComponent.prototype.login = function () {
+        this._authService.login({});
     };
-    return ProductDetailGuard;
+    return LoginComponent;
 }());
-ProductDetailGuard = __decorate([
-    core_1.Injectable(),
-    __metadata("design:paramtypes", [router_1.Router])
-], ProductDetailGuard);
-exports.ProductDetailGuard = ProductDetailGuard;
-//# sourceMappingURL=product-guard.service.js.map
+LoginComponent = __decorate([
+    core_1.Component({
+        templateUrl: 'app/auth/login.component.html'
+    }),
+    __metadata("design:paramtypes", [auth_service_1.AuthService])
+], LoginComponent);
+exports.LoginComponent = LoginComponent;
+//# sourceMappingURL=login.component.js.map

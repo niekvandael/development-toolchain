@@ -1,7 +1,7 @@
 {
     "name": "product-management",
     "version": "1.0.0",
-    "description": "Package for the Acme Product Management sample application",
+    "description": "Angular 2 Application",
     "scripts": {
         "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
         "tsc": "tsc",

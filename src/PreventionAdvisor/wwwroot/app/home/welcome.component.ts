@@ -4,5 +4,14 @@ import { Component } from '@angular/core';
     templateUrl: 'app/home/welcome.component.html'
 })
 export class WelcomeComponent {
-    public pageTitle: string = 'Prevention Advisor';
+    public pageTitle: string = 'Werkplek Rapporten';
+
+
+    login(): void {
+        alert('login');
+    }
+
+    register(): void {
+        alert('Register');
+    }
 }

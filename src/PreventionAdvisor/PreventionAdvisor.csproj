@@ -11,6 +11,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\app\NewFolder\**" />
+    <Content Remove="wwwroot\app\NewFolder\**" />
+    <EmbeddedResource Remove="wwwroot\app\NewFolder\**" />
+    <None Remove="wwwroot\app\NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="wwwroot\app\app.component.html" />
+    <Content Include="wwwroot\app\auth\auth.service.ts" />
+    <Content Include="wwwroot\app\auth\user.ts" />
+    <Content Include="wwwroot\app\auth\login.component.html" />
+    <Content Include="wwwroot\app\auth\login.component.ts" />
     <Content Include="wwwroot\js\site.js" />
     <Content Include="wwwroot\js\site.min.js" />
   </ItemGroup>

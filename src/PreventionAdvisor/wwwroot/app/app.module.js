@@ -5,14 +5,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var http_1 = require("@angular/http");
 var router_1 = require("@angular/router");
 var app_component_1 = require("./app.component");
 var welcome_component_1 = require("./home/welcome.component");
+var login_component_1 = require("./auth/login.component");
 /* Feature Modules */
 var product_module_1 = require("./products/product.module");
+/* Feature Service */
+var auth_service_1 = require("./auth/auth.service");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -25,6 +29,7 @@ AppModule = __decorate([
             http_1.HttpModule,
             router_1.RouterModule.forRoot([
                 { path: 'welcome', component: welcome_component_1.WelcomeComponent },
+                { path: 'login', component: login_component_1.LoginComponent },
                 { path: '', redirectTo: 'welcome', pathMatch: 'full' },
                 { path: '**', redirectTo: 'welcome', pathMatch: 'full' }
             ]),
@@ -32,9 +37,13 @@ AppModule = __decorate([
         ],
         declarations: [
             app_component_1.AppComponent,
-            welcome_component_1.WelcomeComponent
+            welcome_component_1.WelcomeComponent,
+            login_component_1.LoginComponent
         ],
-        bootstrap: [app_component_1.AppComponent]
+        bootstrap: [app_component_1.AppComponent],
+        providers: [
+            auth_service_1.AuthService
+        ]
     })
 ], AppModule);
 exports.AppModule = AppModule;

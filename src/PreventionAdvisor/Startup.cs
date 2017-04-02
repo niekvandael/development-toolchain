@@ -74,18 +74,20 @@ public class Startup
             config.Cookies.ApplicationCookie.LoginPath = "/Auth/Login";
             config.Cookies.ApplicationCookie.Events = new CookieAuthenticationEvents()
             {
-                OnRedirectToLogin = async ctx => {
+                OnRedirectToLogin = async ctx =>
+                {
                     if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == 200)
                     {
                         ctx.Response.StatusCode = 401;
                     }
-                    else {
+                    else
+                    {
                         ctx.Response.Redirect(ctx.RedirectUri);
                     }
 
                     await Task.Yield();
                 }
-            }
+            };
 
         })
         .AddEntityFrameworkStores<PreventionAdvisorDbContext>();

@@ -16,34 +16,26 @@ require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/map");
 require("rxjs/add/observable/throw");
-var ProductService = (function () {
-    function ProductService(_http) {
+var AuthService = (function () {
+    function AuthService(_http) {
         this._http = _http;
-        this._productsUrl = 'api/Products';
-        this._productUrl = 'api/Products/';
+        this._loginUrl = 'api/Login';
     }
-    ProductService.prototype.getProducts = function () {
-        return this._http.get(this._productsUrl)
+    AuthService.prototype.login = function (user) {
+        return this._http.post(this._loginUrl, user)
             .map(function (response) { return response.json(); })
             .do(function (data) { return console.log('All: ' + JSON.stringify(data)); })
             .catch(this.handleError);
     };
-    ProductService.prototype.getProduct = function (id) {
-        return this._http.get(this._productUrl + id)
-            .map(function (response) { return response.json(); })
-            .catch(this.handleError);
-    };
-    ProductService.prototype.handleError = function (error) {
-        // in a real world app, we may send the server to some remote logging infrastructure
-        // instead of just logging it to the console
+    AuthService.prototype.handleError = function (error) {
         console.error(error);
         return Observable_1.Observable.throw(error.json().error || 'Server error');
     };
-    return ProductService;
+    return AuthService;
 }());
-ProductService = __decorate([
+AuthService = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [http_1.Http])
-], ProductService);
-exports.ProductService = ProductService;
-//# sourceMappingURL=product.service.js.map
+], AuthService);
+exports.AuthService = AuthService;
+//# sourceMappingURL=auth.service.js.map
