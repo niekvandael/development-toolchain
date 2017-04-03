@@ -31,14 +31,17 @@ namespace GreenLiving.Controllers
         // GET: api/values
         
         [HttpGet("{id}")]
-        public ActionResult Get(string id)
+        public int DownloadReport(string id)
         {
+            return 123;
+/*
             var userName = this.User.Identity.Name; // this is the username
 
-            //            var url = @"http://localhost:3000/api/generatePDF/" + id;  /* TEST -URL */
+                        var url = @"http://localhost:3000/api/generatePDF/" + id; 
 
             var url = @"http://greenlivingpdf.mybluemix.net/api/generatePDF/" + id;
             return Redirect(url);
+ */
         }
 
     }

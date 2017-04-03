@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace PreventionAdvisor.Controllers
 {
+    [Route("api/[controller]")]
     public class AuthController : Controller
     {
         private SignInManager<User> _signInManager;
@@ -17,45 +18,25 @@ namespace PreventionAdvisor.Controllers
             this._signInManager = signInManager;
         }
 
-        public IActionResult Login()
-        {
-            if (User.Identity.IsAuthenticated) {
-                return RedirectToAction("Index", "Home");
-            }
-            return View();
-        }
-
-        [HttpPost]
+        [HttpPost("/api/login")]
         public async Task<ActionResult> Login(LoginViewModel vm, string returnUrl) {
-            if (ModelState.IsValid) {
-                var signInResult = await _signInManager.PasswordSignInAsync(vm.Username, vm.Password, true, false);
+            var result = await _signInManager.PasswordSignInAsync(vm.Username, vm.Password, false, false);
 
-                if (signInResult.Succeeded)
-                {
-                    if (string.IsNullOrWhiteSpace(returnUrl))
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                    else {
-                        return Redirect(returnUrl);
-                    }
-                    
-                }
-                else {
-                    ModelState.AddModelError("", "Username or password incorrect");
-                }
-
+            if (result.Succeeded)
+            {
+                return Ok();
             }
-            
-            return View();
+
+
+            return BadRequest("Failed to login");
         }
 
+        [HttpPost("/api/logout")]
         public async Task<ActionResult> Logout() {
             if (User.Identity.IsAuthenticated) {
                 await _signInManager.SignOutAsync();
             }
-
-            return RedirectToAction("Index", "Home");
+            return Ok();
         }
     }
 }

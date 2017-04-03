@@ -20,5 +20,15 @@ export class LoginComponent {
         );
     }
 
+    public logout() {
+        this._authService.logout().subscribe(
+            (data) => console.log(data)
+        );
+    }
 
+    public download() {
+        this._authService.downloadReport().subscribe(
+            (data) => console.log(data)
+        );
+    }
 }

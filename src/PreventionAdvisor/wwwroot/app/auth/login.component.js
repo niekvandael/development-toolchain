@@ -21,6 +21,12 @@ var LoginComponent = (function () {
     LoginComponent.prototype.login = function () {
         this._authService.login(this.user).subscribe(function (data) { return console.log(data); });
     };
+    LoginComponent.prototype.logout = function () {
+        this._authService.logout().subscribe(function (data) { return console.log(data); });
+    };
+    LoginComponent.prototype.download = function () {
+        this._authService.downloadReport().subscribe(function (data) { return console.log(data); });
+    };
     return LoginComponent;
 }());
 LoginComponent = __decorate([

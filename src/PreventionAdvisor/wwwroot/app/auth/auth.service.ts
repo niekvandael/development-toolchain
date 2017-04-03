@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, RequestOptions, Headers } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
@@ -15,16 +15,47 @@ export class AuthService {
 
     private _commonComponent: CommonComponent;
     private _apiLocation: string;
+
     private _loginUrl: string;
+    private _logoutUrl: string;
+    private _reportUrl: string; // TODO DELETE
 
     constructor(private _http: Http) {
         this._commonComponent = new CommonComponent();
         this._apiLocation = this._commonComponent.getAPILocation();
-        this._loginUrl = this._apiLocation + '/Auth/Login';
+        this._loginUrl = this._apiLocation + '/api/Login';
+        this._logoutUrl = this._apiLocation + '/api/Logout';
+
+        this._reportUrl = this._apiLocation + '/api/Report/1'; // TODO DELETE
     }
 
     public login(user: User): Observable<User[]> {
-        return this._http.post(this._loginUrl, user /*TODO: Change object to plain values*/)
+        var options = new RequestOptions({
+            headers: new Headers({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        });
+
+        return this._http.post(this._loginUrl, `Username=${user.username}&Password=${user.password}`, options )
+            .map((response: Response) => <User[]>response.json())
+            .catch(this.handleError);
+    }
+
+    public logout(): Observable<User[]> {
+        return this._http.post(this._logoutUrl, null)
+            .map((response: Response) => <User[]>response.json())
+            .catch(this.handleError);
+    }
+
+    public downloadReport(): Observable<User[]> {                       // TODO DELETE
+        var options = new RequestOptions({
+            headers: new Headers({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }),
+            withCredentials: true
+        });
+
+        return this._http.get(this._reportUrl, options)
             .map((response: Response) => <User[]>response.json())
             .catch(this.handleError);
     }
