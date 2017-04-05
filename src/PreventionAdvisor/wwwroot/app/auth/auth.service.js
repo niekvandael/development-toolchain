@@ -24,31 +24,32 @@ var AuthService = (function () {
         this._apiLocation = this._commonComponent.getAPILocation();
         this._loginUrl = this._apiLocation + '/api/Login';
         this._logoutUrl = this._apiLocation + '/api/Logout';
-        this._reportUrl = this._apiLocation + '/api/Report/1'; // TODO DELETE
+        this._reportUrl = this._apiLocation + '/api/Report'; // TODO DELETE
+        this._options = new http_1.RequestOptions({
+            headers: new http_1.Headers({
+                'Content-Type': 'application/json'
+            }),
+            withCredentials: true
+        });
     }
     AuthService.prototype.login = function (user) {
         var options = new http_1.RequestOptions({
             headers: new http_1.Headers({
                 'Content-Type': 'application/x-www-form-urlencoded'
-            })
+            }),
+            withCredentials: true,
         });
         return this._http.post(this._loginUrl, "Username=" + user.username + "&Password=" + user.password, options)
             .map(function (response) { return response.json(); })
             .catch(this.handleError);
     };
     AuthService.prototype.logout = function () {
-        return this._http.post(this._logoutUrl, null)
+        return this._http.post(this._logoutUrl, null, this._options)
             .map(function (response) { return response.json(); })
             .catch(this.handleError);
     };
     AuthService.prototype.downloadReport = function () {
-        var options = new http_1.RequestOptions({
-            headers: new http_1.Headers({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }),
-            withCredentials: true
-        });
-        return this._http.get(this._reportUrl, options)
+        return this._http.post(this._reportUrl, null, this._options)
             .map(function (response) { return response.json(); })
             .catch(this.handleError);
     };

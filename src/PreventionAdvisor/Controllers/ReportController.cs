@@ -29,8 +29,13 @@ namespace GreenLiving.Controllers
         }
 
         // GET: api/values
-        
-        [HttpGet("{id}")]
+        [HttpPost]
+        public int DownloadReport()
+        {
+            return 456;
+        }
+
+        [HttpPost("{id}")]
         public int DownloadReport(string id)
         {
             return 123;

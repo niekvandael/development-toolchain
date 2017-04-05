@@ -15,13 +15,18 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Cors.Internal;
 
 public class Startup
 {
     public IConfigurationRoot Configuration { get; }
 
+    private readonly IHostingEnvironment env;
+
     public Startup(IHostingEnvironment env)
     {
+        this.env = env;
+
         var builder = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
             .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
@@ -55,16 +60,17 @@ public class Startup
             // add database context
             services.AddDbContext<PreventionAdvisorDbContext>(options => options.UseMySQL(getConnectionString(databaseUri)));
         }
-        
+
+        // Add CORS
+        services.AddCors();
+
         // Add framework services.
+        services.AddMvc();
 
         // Always use HTTPS
 
-        services.AddMvc(config => {
-#if !DEBUG
-                config.Filters.Add(new RequireHttpsAttribute());
-#endif
-        });
+        if (!env.IsDevelopment())
+            services.Configure<MvcOptions>(o => o.Filters.Add(new RequireHttpsAttribute()));
 
         // Add Identity
         services.AddIdentity<User, IdentityRole>(config =>
@@ -137,6 +143,9 @@ public class Startup
         else
         {
             app.UseExceptionHandler("/Home/Error");
+            //app.UseHsts(h => h.MaxAge(days: 1)); // if hsts is set: there is no way back...
+            app.UseCsp(options => options.DefaultSources(s => s.Self())); // only allow content from same-origin
+            app.UseXfo(o => o.Deny()); // Anti click-jack
         }
 
         var context = (app.ApplicationServices.GetService(typeof(PreventionAdvisorDbContext)) as PreventionAdvisorDbContext);
@@ -163,6 +172,11 @@ public class Startup
                 );
         });
 
+//#if DEBUG
+        app.UseCors(builder => {
+            builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+        });
+//#endif
 
 
         DbInitializer.Initialize(context, userManager);

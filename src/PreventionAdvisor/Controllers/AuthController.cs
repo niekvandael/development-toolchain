@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace PreventionAdvisor.Controllers
 {
+ //   [ValidateAntiForgeryToken]
     [Route("api/[controller]")]
     public class AuthController : Controller
     {
