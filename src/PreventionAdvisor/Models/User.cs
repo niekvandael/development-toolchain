@@ -11,7 +11,6 @@ namespace PreventionAdvisor.Models
     public class User : IdentityUser
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key]
         public ICollection<Organization> Organizations { get; set; }
     }
 }

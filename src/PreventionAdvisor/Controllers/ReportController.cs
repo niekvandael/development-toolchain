@@ -10,6 +10,7 @@ using System.IO;
 using System.Net.Http.Headers;
 using PreventionAdvisor.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -30,23 +31,30 @@ namespace GreenLiving.Controllers
 
         // GET: api/values
         [HttpPost]
-        public int DownloadReport()
+        public ObjectResult DownloadReport()
         {
-            return 456;
+            try
+            {
+                return Ok(_dbContext.Users.Find(this.User.FindFirstValue(ClaimTypes.NameIdentifier)));
+            }
+            catch (System.Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpPost("{id}")]
-        public int DownloadReport(string id)
+        public string DownloadReport(string id)
         {
-            return 123;
-/*
-            var userName = this.User.Identity.Name; // this is the username
+            return this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            /*
+                        var userName = this.User.Identity.Name; // this is the username
 
-                        var url = @"http://localhost:3000/api/generatePDF/" + id; 
+                                    var url = @"http://localhost:3000/api/generatePDF/" + id; 
 
-            var url = @"http://greenlivingpdf.mybluemix.net/api/generatePDF/" + id;
-            return Redirect(url);
- */
+                        var url = @"http://greenlivingpdf.mybluemix.net/api/generatePDF/" + id;
+                        return Redirect(url);
+             */
         }
 
     }
