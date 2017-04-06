@@ -26,18 +26,16 @@ export class AuthService {
     constructor(private _http: Http) {
         this._commonComponent = new CommonComponent();
         this._apiLocation = this._commonComponent.getAPILocation();
-        this._loginUrl = this._apiLocation + '/api/Login';
-        this._logoutUrl = this._apiLocation + '/api/Logout';
+        this._loginUrl = this._apiLocation + 'api/Login';
+        this._logoutUrl = this._apiLocation + 'api/Logout';
 
-        this._reportUrl = this._apiLocation + '/api/Report'; // TODO DELETE
+        this._reportUrl = this._apiLocation + 'api/Report'; // TODO DELETE
 
         this._options = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json'
             }),
             withCredentials: true
-            
-
         });
     }
 
@@ -46,7 +44,7 @@ export class AuthService {
             headers: new Headers({
                 'Content-Type': 'application/x-www-form-urlencoded'
             }),
-            withCredentials: true,
+            withCredentials: true
         });
 
         return this._http.post(this._loginUrl, `Username=${user.username}&Password=${user.password}`, options )

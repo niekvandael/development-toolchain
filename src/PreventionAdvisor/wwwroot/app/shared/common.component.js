@@ -1,10 +1,11 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var CommonComponent = (function () {
     function CommonComponent() {
     }
     CommonComponent.prototype.getAPILocation = function () {
         if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
-            return "http://localhost:5000";
+            return "http://localhost:5000/";
         }
         return "";
     };

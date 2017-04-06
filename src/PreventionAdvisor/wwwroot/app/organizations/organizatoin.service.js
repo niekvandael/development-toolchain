@@ -46,4 +46,4 @@ ProductService = __decorate([
     __metadata("design:paramtypes", [http_1.Http])
 ], ProductService);
 exports.ProductService = ProductService;
-//# sourceMappingURL=product.service.js.map
+//# sourceMappingURL=organizatoin.service.js.map

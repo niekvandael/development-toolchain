@@ -7,12 +7,14 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './home/welcome.component';
 import { LoginComponent } from './auth/login.component';
+import { OrganizationListComponent } from './organizations/organization-list.component';
 
 /* Feature Modules */
 import { ProductModule } from './products/product.module';
+import { OrganizationModule } from './organizations/organization.module';
 
 /* Feature Service */
-import { AuthService } from './auth/auth.service'
+import { AuthService } from './auth/auth.service';
 
 @NgModule({
   imports: [
@@ -21,10 +23,11 @@ import { AuthService } from './auth/auth.service'
     RouterModule.forRoot([
         { path: 'welcome', component: WelcomeComponent },
         { path: 'login', component: LoginComponent },
+        { path: 'organizations', component: OrganizationListComponent },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
       { path: '**', redirectTo: 'welcome', pathMatch: 'full' }
     ]),
-      ProductModule,
+      OrganizationModule,
       FormsModule
   ],
   declarations: [

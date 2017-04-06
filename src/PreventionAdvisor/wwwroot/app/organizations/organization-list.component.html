@@ -1,0 +1,35 @@
+
+
+<div>
+    <div>
+        <div>Filter by:</div>
+        <div>
+            <input type='text' [(ngModel)]='listFilter' />
+        </div>
+    </div>
+
+    <div class='has-error' *ngIf='errorMessage'>{{errorMessage}}</div>
+
+    <div class='table-responsive'>
+        <table class='table' *ngIf='organizations && organizations.length'>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Vat</th>
+                    <th>Website</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr [routerLink]="['/organization', organization.Id]" *ngFor='let organization of organizations'>
+                    <td>{{ organization.name }}</td>
+                    <td>{{ organization.vat | lowercase }}</td>
+                    <td>{{ organization.website }}</td>
+                    <td>{{ organization.phone }}</td>
+                    <td>{{ organization.address }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

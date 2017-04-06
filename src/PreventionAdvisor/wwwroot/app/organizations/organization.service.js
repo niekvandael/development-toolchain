@@ -17,14 +17,15 @@ require("rxjs/add/operator/catch");
 require("rxjs/add/operator/map");
 require("rxjs/add/observable/throw");
 var common_component_1 = require("../shared/common.component");
-var AuthService = (function () {
-    function AuthService(_http) {
+var OrganizationService = (function () {
+    function OrganizationService(_http) {
         this._http = _http;
+        this._organizationsUrl = '';
+        this._organizationUrl = '';
         this._commonComponent = new common_component_1.CommonComponent();
         this._apiLocation = this._commonComponent.getAPILocation();
-        this._loginUrl = this._apiLocation + 'api/Login';
-        this._logoutUrl = this._apiLocation + 'api/Logout';
-        this._reportUrl = this._apiLocation + 'api/Report'; // TODO DELETE
+        this._organizationsUrl = this._apiLocation + 'api/Organization';
+        this._organizationUrl = this._apiLocation + 'api/Organizations/';
         this._options = new http_1.RequestOptions({
             headers: new http_1.Headers({
                 'Content-Type': 'application/json'
@@ -32,36 +33,27 @@ var AuthService = (function () {
             withCredentials: true
         });
     }
-    AuthService.prototype.login = function (user) {
-        var options = new http_1.RequestOptions({
-            headers: new http_1.Headers({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }),
-            withCredentials: true
-        });
-        return this._http.post(this._loginUrl, "Username=" + user.username + "&Password=" + user.password, options)
+    OrganizationService.prototype.getOrganizations = function () {
+        return this._http.get(this._organizationsUrl, this._options)
             .map(function (response) { return response.json(); })
             .catch(this.handleError);
     };
-    AuthService.prototype.logout = function () {
-        return this._http.post(this._logoutUrl, null, this._options)
+    OrganizationService.prototype.getOrganization = function (id) {
+        return this._http.get(this._organizationUrl + id, this._options)
             .map(function (response) { return response.json(); })
             .catch(this.handleError);
     };
-    AuthService.prototype.downloadReport = function () {
-        return this._http.post(this._reportUrl, null, this._options)
-            .map(function (response) { return response.json(); })
-            .catch(this.handleError);
-    };
-    AuthService.prototype.handleError = function (error) {
+    OrganizationService.prototype.handleError = function (error) {
+        // in a real world app, we may send the server to some remote logging infrastructure
+        // instead of just logging it to the console
         console.error(error);
         return Observable_1.Observable.throw(error.json().error || 'Server error');
     };
-    return AuthService;
+    return OrganizationService;
 }());
-AuthService = __decorate([
+OrganizationService = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [http_1.Http])
-], AuthService);
-exports.AuthService = AuthService;
-//# sourceMappingURL=auth.service.js.map
+], OrganizationService);
+exports.OrganizationService = OrganizationService;
+//# sourceMappingURL=organization.service.js.map
