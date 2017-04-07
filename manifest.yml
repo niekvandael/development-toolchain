@@ -2,4 +2,4 @@
 applications:
 - name: workspaces
   random-route: false
-  memory: 256M
+  memory: 384M
