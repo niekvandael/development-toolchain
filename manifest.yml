@@ -1,5 +1,5 @@
 ---
 applications:
-- name: workspaces
+- name: workplaces
   random-route: false
   memory: 384M
