@@ -8,9 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
+var router_1 = require("@angular/router");
 var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
@@ -18,8 +18,9 @@ require("rxjs/add/operator/map");
 require("rxjs/add/observable/throw");
 var common_component_1 = require("../shared/common.component");
 var OrganizationService = (function () {
-    function OrganizationService(_http) {
+    function OrganizationService(_http, _router) {
         this._http = _http;
+        this._router = _router;
         this._organizationsUrl = '';
         this._organizationUrl = '';
         this._commonComponent = new common_component_1.CommonComponent();
@@ -34,26 +35,42 @@ var OrganizationService = (function () {
         });
     }
     OrganizationService.prototype.getOrganizations = function () {
+        var _this = this;
         return this._http.get(this._organizationsUrl, this._options)
             .map(function (response) { return response.json(); })
-            .catch(this.handleError);
+            .catch(function (error) {
+            return _this.handleError(error);
+        });
     };
     OrganizationService.prototype.getOrganization = function (id) {
         return this._http.get(this._organizationUrl + id, this._options)
             .map(function (response) { return response.json(); })
             .catch(this.handleError);
     };
-    OrganizationService.prototype.handleError = function (error) {
-        // in a real world app, we may send the server to some remote logging infrastructure
-        // instead of just logging it to the console
-        console.error(error);
-        return Observable_1.Observable.throw(error.json().error || 'Server error');
+    OrganizationService.prototype.handleError = function (err) {
+        if (err.status === 401) {
+            return this.unauthorised();
+        }
+        else if (err.status === 403) {
+            return this.forbidden();
+        }
+        else {
+            return Observable_1.Observable.throw(err);
+        }
+    };
+    OrganizationService.prototype.unauthorised = function () {
+        this._router.navigate(['login']);
+        return null;
+    };
+    OrganizationService.prototype.forbidden = function () {
+        this._router.navigate(['/']);
+        return null;
     };
     return OrganizationService;
 }());
 OrganizationService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
+    __metadata("design:paramtypes", [http_1.Http, router_1.Router])
 ], OrganizationService);
 exports.OrganizationService = OrganizationService;
 //# sourceMappingURL=organization.service.js.map

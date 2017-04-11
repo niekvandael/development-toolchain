@@ -16,6 +16,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Cors.Internal;
+using AutoMapper;
+using PreventionAdvisor.ViewModels;
 
 public class Startup
 {
@@ -97,6 +99,9 @@ public class Startup
 
         })
         .AddEntityFrameworkStores<PreventionAdvisorDbContext>();
+
+        // Add automapper
+        MapperConfig.CreateMappings();
     }
 
     private string getConnectionString(string databaseUri)

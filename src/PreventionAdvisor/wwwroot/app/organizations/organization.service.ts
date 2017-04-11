@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
+import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
@@ -20,7 +21,7 @@ export class OrganizationService {
 
     private _options: RequestOptions;
 
-    constructor(private _http: Http) { 
+    constructor(private _http: Http, private _router: Router) { 
         this._commonComponent = new CommonComponent();
         this._apiLocation = this._commonComponent.getAPILocation();
         this._organizationsUrl = this._apiLocation + 'api/Organization';
@@ -37,7 +38,9 @@ export class OrganizationService {
     getOrganizations(): Observable<IOrganization[]> {
         return this._http.get(this._organizationsUrl,  this._options)
             .map((response: Response) => <IOrganization[]> response.json())
-            .catch(this.handleError);
+            .catch((error) => {
+                return this.handleError(error);
+             });
     }
 
     getOrganization(id: number): Observable<IOrganization> {
@@ -46,10 +49,23 @@ export class OrganizationService {
             .catch(this.handleError);
     }
 
-    private handleError(error: Response) {
-        // in a real world app, we may send the server to some remote logging infrastructure
-        // instead of just logging it to the console
-        console.error(error);
-        return Observable.throw(error.json().error || 'Server error');
+    private handleError(err: Response) {
+        if (err.status === 401) {
+            return this.unauthorised();
+        } else if (err.status === 403) {
+            return this.forbidden();
+        } else {
+            return Observable.throw(err);
+        }
+    }
+
+    private unauthorised(): Observable<any> {
+        this._router.navigate(['login']);
+        return null;
+    }
+
+    private forbidden(): Observable<any> {
+        this._router.navigate(['/']);
+        return null;
     }
 }

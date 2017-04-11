@@ -40,7 +40,7 @@ export class AuthService {
     }
 
     public login(user: User): Observable<User[]> {
-        var options = new RequestOptions({
+        let options = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/x-www-form-urlencoded'
             }),
@@ -58,15 +58,8 @@ export class AuthService {
             .catch(this.handleError);
     }
 
-    public downloadReport(): Observable<User[]> {                       // TODO DELETE
-
-        return this._http.post(this._reportUrl,null, this._options)
-            .map((response: Response) => <User[]>response.json())
-            .catch(this.handleError);
+    private handleError(err: Response) {
+        return Observable.throw(err);
     }
 
-    private handleError(error: Response) {
-        console.error(error);
-        return Observable.throw(error.json().error || 'Server error');
-    }
 }
