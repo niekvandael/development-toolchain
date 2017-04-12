@@ -5,12 +5,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace PreventionAdvisor.Models
 {
-    public class User : IdentityUser
+    public class User 
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
+
+        [JsonIgnore]
+        public IdentityUser identityUser { get; set; }
         public ICollection<Organization> Organizations { get; set; }
         public String Firstname { get; set; }
         public String Lastname { get; set; }
