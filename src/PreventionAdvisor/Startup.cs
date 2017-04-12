@@ -146,7 +146,7 @@ public class Startup
         {
             app.UseExceptionHandler("/Home/Error");
             //app.UseHsts(h => h.MaxAge(days: 1)); // if hsts is set: there is no way back...
-            app.UseCsp(options => options.DefaultSources(s => s.Self())); // only allow content from same-origin
+            //app.UseCsp(options => options.DefaultSources(s => s.Self())); // only allow content from same-origin
             app.UseXfo(o => o.Deny()); // Anti click-jack
         }
 
