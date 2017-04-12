@@ -181,6 +181,6 @@ public class Startup
 //#endif
 
 
-        DbInitializer.Initialize(context, userManager);
+        //DbInitializer.Initialize(context, userManager);
     }
 }
