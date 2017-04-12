@@ -34,9 +34,9 @@ namespace PreventionAdvisor.Controllers
             if (result.Succeeded)
             {
 
-                IdentityUser usr = this._dbContext.Users.Where(u => u.UserName == vm.Username).First() ;
-
-                return Ok(Mapper.Map<UserViewModel>(usr));
+                IdentityUser identityUser = this._dbContext.Users.Where(u => u.UserName == vm.Username).First() ;
+                AppUser user = this._dbContext.AppUsers.Where(u => u.identityUser.Id == identityUser.Id).First();
+                return Ok(user);
             }
 
 

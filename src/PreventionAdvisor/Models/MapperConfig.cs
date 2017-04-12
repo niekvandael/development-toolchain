@@ -11,7 +11,7 @@ namespace PreventionAdvisor.Models
     {
         public static void CreateMappings() {
             Mapper.Initialize(cfg => {
-                cfg.CreateMap<User, UserViewModel>();
+                cfg.CreateMap<AppUser, UserViewModel>();
             });
         }
     }

@@ -18,6 +18,7 @@ namespace PreventionAdvisor.Models
         public DbSet<Checklist> Checklists { get; set; }
         public DbSet<Organization> Organizations { get; set; }
         public DbSet<Workplace> Workplaces { get; set; }
+        public DbSet<AppUser> AppUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -32,15 +32,25 @@ namespace PreventionAdvisor
             // Seeding for users
             //
 
+            var identityUser = new IdentityUser();
             if (await userManager.FindByEmailAsync("niek.vandael@gmail.com") == null) {
-                var user = new IdentityUser()
+                identityUser = new IdentityUser()
                 {
                     UserName = "niekvandael",
                     Email = "niek.vandael@gmail.com"
                 };
 
-                await userManager.CreateAsync(user, "P@ssw0rd!");
+                await userManager.CreateAsync(identityUser, "P@ssw0rd!");
             }
+
+            AppUser appUser = new AppUser
+            {
+                Firstname = "Niek",
+                Lastname = "Vandael",
+                identityUser = identityUser,
+                Organizations = organizations
+            };
+            context.AppUsers.Add(appUser);
 
             context.SaveChanges();
         }

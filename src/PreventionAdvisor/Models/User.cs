@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace PreventionAdvisor.Models
 {
-    public class User 
+    public class AppUser 
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }

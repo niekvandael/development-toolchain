@@ -10,6 +10,6 @@ namespace PreventionAdvisor.Models
         [Key]
         public Guid Id { get; set; }
         public String Title { get; set; }
-        public User User { get; set; }
+        public AppUser User { get; set; }
     }
 }

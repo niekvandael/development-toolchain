@@ -8,7 +8,7 @@ namespace PreventionAdvisor.ViewModels
 {
     public class UserViewModel
     {
-        public String Id { get; set; }
+        public Guid Id { get; set; }
         public String Firstname { get; set; }
         public String LastName { get; set; }
         public String Email { get; set; }
