@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using PreventionAdvisor.Models;
 using System;
 using System.Linq;
@@ -7,7 +8,7 @@ namespace PreventionAdvisor
 {
     public static class DbInitializer
     {
-        public async static void Initialize(PreventionAdvisorDbContext context, UserManager<User> userManager)
+        public async static void Initialize(PreventionAdvisorDbContext context, UserManager<IdentityUser> userManager)
         {
             context.Database.EnsureCreated();
 
@@ -32,7 +33,7 @@ namespace PreventionAdvisor
             //
 
             if (await userManager.FindByEmailAsync("niek.vandael@gmail.com") == null) {
-                var user = new User()
+                var user = new IdentityUser()
                 {
                     UserName = "niekvandael",
                     Email = "niek.vandael@gmail.com"

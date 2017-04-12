@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PreventionAdvisor.Models
 {
-    public class PreventionAdvisorDbContext : IdentityDbContext<User>
+    public class PreventionAdvisorDbContext : IdentityDbContext<IdentityUser>
     {
          public PreventionAdvisorDbContext (DbContextOptions<PreventionAdvisorDbContext> options)
             : base(options)
@@ -24,7 +24,7 @@ namespace PreventionAdvisor.Models
             base.OnModelCreating(modelBuilder);
 
             // Fixes for InnoDB limitations
-            modelBuilder.Entity<User>(b =>
+            modelBuilder.Entity<IdentityUser>(b =>
             {
                 b.Property(u => u.UserName).HasMaxLength(255);
                 b.Property(u => u.NormalizedUserName).HasMaxLength(255);

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using PreventionAdvisor.Models;
 using PreventionAdvisor.ViewModels;
@@ -17,10 +18,10 @@ namespace PreventionAdvisor.Controllers
     [Route("api/[controller]")]
     public class AuthController : Controller
     {
-        private SignInManager<User> _signInManager;
+        private SignInManager<IdentityUser> _signInManager;
         private readonly PreventionAdvisorDbContext _dbContext;
 
-        public AuthController(SignInManager<User> signInManager, PreventionAdvisorDbContext dbContext = null)
+        public AuthController(SignInManager<IdentityUser> signInManager, PreventionAdvisorDbContext dbContext = null)
         {
             _dbContext = dbContext;
             this._signInManager = signInManager;
@@ -33,7 +34,7 @@ namespace PreventionAdvisor.Controllers
             if (result.Succeeded)
             {
 
-                User usr = this._dbContext.Users.Where(u => u.UserName == vm.Username).First() ;
+                IdentityUser usr = this._dbContext.Users.Where(u => u.UserName == vm.Username).First() ;
 
                 return Ok(Mapper.Map<UserViewModel>(usr));
             }

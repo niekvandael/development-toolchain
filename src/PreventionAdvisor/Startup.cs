@@ -69,13 +69,8 @@ public class Startup
         // Add framework services.
         services.AddMvc();
 
-        // Always use HTTPS
-
-        if (!env.IsDevelopment())
-            services.Configure<MvcOptions>(o => o.Filters.Add(new RequireHttpsAttribute()));
-
         // Add Identity
-        services.AddIdentity<User, IdentityRole>(config =>
+        services.AddIdentity<IdentityUser, IdentityRole>(config =>
         {
             config.User.RequireUniqueEmail = true;
             config.Password.RequiredLength = 8;
@@ -98,7 +93,9 @@ public class Startup
             };
 
         })
-        .AddEntityFrameworkStores<PreventionAdvisorDbContext>();
+        .AddEntityFrameworkStores<PreventionAdvisorDbContext>()
+        .AddDefaultTokenProviders();
+
 
         // Add automapper
         MapperConfig.CreateMappings();
@@ -135,7 +132,7 @@ public class Startup
         return connectionString;
     }
 
-    public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, UserManager<User> userManager)
+    public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, UserManager<IdentityUser> userManager)
     {
         loggerFactory.AddConsole(Configuration.GetSection("Logging"));
         loggerFactory.AddDebug();
