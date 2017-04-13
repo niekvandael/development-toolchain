@@ -1,2 +1,2 @@
 [config]
-project = src\PreventionAdvisor\PreventionAdvisor.csproj
+project = PreventionAdvisor\PreventionAdvisor.csproj
