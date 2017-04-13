@@ -16,7 +16,8 @@ namespace PreventionAdvisor
             var host = new WebHostBuilder()
                 .UseKestrel()
                 .UseConfiguration(config)
-                .UseContentRoot(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location))
+        //                .UseContentRoot(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location))
+                .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseStartup<Startup>()
                 .Build();
             host.Run();
