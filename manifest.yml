@@ -2,4 +2,4 @@
 applications:
 - name: workplaces
   random-route: false
-  memory: 384M
+  memory: 64M
