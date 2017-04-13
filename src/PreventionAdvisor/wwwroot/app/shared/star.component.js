@@ -29,7 +29,7 @@ __decorate([
 ], StarComponent.prototype, "rating", void 0);
 __decorate([
     core_1.Output(),
-    __metadata("design:type", core_1.EventEmitter)
+    __metadata("design:type", typeof (_a = typeof core_1.EventEmitter !== "undefined" && core_1.EventEmitter) === "function" && _a || Object)
 ], StarComponent.prototype, "ratingClicked", void 0);
 StarComponent = __decorate([
     core_1.Component({
@@ -39,4 +39,5 @@ StarComponent = __decorate([
     })
 ], StarComponent);
 exports.StarComponent = StarComponent;
+var _a;
 //# sourceMappingURL=star.component.js.map

@@ -32,7 +32,8 @@ LoginComponent = __decorate([
     core_1.Component({
         templateUrl: 'app/auth/login.component.html'
     }),
-    __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router])
+    __metadata("design:paramtypes", [auth_service_1.AuthService, typeof (_a = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _a || Object])
 ], LoginComponent);
 exports.LoginComponent = LoginComponent;
+var _a;
 //# sourceMappingURL=login.component.js.map
