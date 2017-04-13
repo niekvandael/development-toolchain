@@ -3,3 +3,6 @@ obj/
 bin/
 vcap-local.json
 *.csproj.user
+src/PreventionAdvisor/wwwroot/app/**/*.js
+src/PreventionAdvisor/wwwroot/app/**/*.map
+src/PreventionAdvisor/wwwroot/node_modules
