@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var StarComponent = (function () {
     function StarComponent() {
@@ -29,7 +30,7 @@ __decorate([
 ], StarComponent.prototype, "rating", void 0);
 __decorate([
     core_1.Output(),
-    __metadata("design:type", typeof (_a = typeof core_1.EventEmitter !== "undefined" && core_1.EventEmitter) === "function" && _a || Object)
+    __metadata("design:type", core_1.EventEmitter)
 ], StarComponent.prototype, "ratingClicked", void 0);
 StarComponent = __decorate([
     core_1.Component({
@@ -39,5 +40,4 @@ StarComponent = __decorate([
     })
 ], StarComponent);
 exports.StarComponent = StarComponent;
-var _a;
 //# sourceMappingURL=star.component.js.map
