@@ -16,11 +16,6 @@
     <EmbeddedResource Remove="wwwroot\app\NewFolder\**" />
     <None Remove="wwwroot\app\NewFolder\**" />
   </ItemGroup>
-
-  <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
-    <Exec Command="npm install" WorkingDirectory="wwwroot" />
-    <Exec Command="npm run tsc" WorkingDirectory="wwwroot" />
-  </Target>
   
   <ItemGroup>
     <Content Include="wwwroot\app\app.component.html" />
