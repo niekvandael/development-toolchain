@@ -8,8 +8,6 @@
     <PreserveCompilationContext>true</PreserveCompilationContext>
     <AssemblyName>PreventionAdvisor</AssemblyName>
     <OutputType>Exe</OutputType>
-    <GeneratedItemPatterns>wwwroot/**</GeneratedItemPatterns>
-    <DefaultItemExcludes>$(DefaultItemExcludes);$(GeneratedItemPatterns)</DefaultItemExcludes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,6 +17,11 @@
     <None Remove="wwwroot\app\NewFolder\**" />
   </ItemGroup>
 
+  <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
+    <Exec Command="npm install" WorkingDirectory="wwwroot" />
+    <Exec Command="npm run tsc" WorkingDirectory="wwwroot" />
+  </Target>
+  
   <ItemGroup>
     <Content Include="wwwroot\app\app.component.html" />
     <Content Include="wwwroot\app\auth\auth.service.ts" />
@@ -87,16 +90,5 @@
     <Folder Include="Migrations\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
-
-  <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
-    <Exec Command="npm install" WorkingDirectory="wwwroot" />
-    <Exec Command="npm run tsc" WorkingDirectory="wwwroot" />
-
-    <!-- Include the newly-built files in the publish output -->
-    <ItemGroup>
-      <_GeneratedFiles Include="$(GeneratedItemPatterns)" />
-      <ContentWithTargetPath Include="@(_GeneratedFiles->'%(FullPath)')" RelativePath="%(_GeneratedFiles.Identity)" TargetPath="%(_GeneratedFiles.Identity)" CopyToPublishDirectory="PreserveNewest" />
-    </ItemGroup>
-  </Target>
   
 </Project>
