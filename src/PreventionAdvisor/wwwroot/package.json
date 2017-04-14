@@ -8,9 +8,8 @@
     "tsc:w": "tsc -w",
     "lint": "tslint ./app/**/*.ts -t verbose",
     "lite": "lite-server",
-    "typings": "typings",
-    "postinstall": "typings install"
-  },
+    "typings": "typings"
+	},
   "license": "ISC",
   "dependencies": {
     "@angular/common": "2.0.0",
