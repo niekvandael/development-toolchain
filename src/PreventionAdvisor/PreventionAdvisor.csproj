@@ -8,6 +8,8 @@
     <PreserveCompilationContext>true</PreserveCompilationContext>
     <AssemblyName>PreventionAdvisor</AssemblyName>
     <OutputType>Exe</OutputType>
+    <GeneratedItemPatterns>wwwroot/**</GeneratedItemPatterns>
+    <DefaultItemExcludes>$(DefaultItemExcludes);$(GeneratedItemPatterns)</DefaultItemExcludes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -92,11 +94,8 @@
 
     <!-- Include the newly-built files in the publish output -->
     <ItemGroup>
-      <DistFiles Include="wwwroot\dist\**" />
-      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
-        <RelativePath>%(DistFiles.Identity)</RelativePath>
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      </ResolvedFileToPublish>
+      <_GeneratedFiles Include="$(GeneratedItemPatterns)" />
+      <ContentWithTargetPath Include="@(_GeneratedFiles->'%(FullPath)')" RelativePath="%(_GeneratedFiles.Identity)" TargetPath="%(_GeneratedFiles.Identity)" CopyToPublishDirectory="PreserveNewest" />
     </ItemGroup>
   </Target>
   
