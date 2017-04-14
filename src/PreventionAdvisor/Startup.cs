@@ -69,6 +69,13 @@ public class Startup
         // Add framework services.
         services.AddMvc();
 
+        // Always use HTTPS
+#if !DEBUG
+        services.AddMvc(config => {
+        config.Filters.Add(new RequireHttpsAttribute());
+    });
+#endif
+
         // Add Identity
         services.AddIdentity<IdentityUser, IdentityRole>(config =>
         {
