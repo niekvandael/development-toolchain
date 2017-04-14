@@ -86,9 +86,9 @@
     <Folder Include="Migrations\" />
   </ItemGroup>
 
-  <Target Name="PrepublishScript" BeforeTargets="Publish" >
+  <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
     <Exec Command="npm install" WorkingDirectory="wwwroot" />
-    <Exec Command="npm run tsc" WorkingDirectory="wwwroot"/>
+    <Exec Command="npm run tsc" WorkingDirectory="wwwroot" />
   </Target>
   
 </Project>
