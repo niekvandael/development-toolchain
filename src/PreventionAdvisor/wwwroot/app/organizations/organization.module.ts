@@ -3,6 +3,8 @@ import { RouterModule} from '@angular/router';
 
 import { OrganizationFilterPipe } from './list/organization-filter.pipe';
 import { OrganizationListComponent } from './list/organization-list.component';
+import { OrganizationInputComponent } from './input/organization-input.component';
+
 import { OrganizationService } from './organization.service';
 
 import { SharedModule } from '../shared/shared.module';
@@ -11,7 +13,8 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     SharedModule,
     RouterModule.forChild([
-      { path: 'Organizations', component: OrganizationListComponent },
+      { path: 'organizations', component: OrganizationListComponent },
+      { path: 'organization/:id', component: OrganizationInputComponent },
 /*      { path: 'Organization/:id',
         canActivate: [ ],
         component: OrganizationDetailComponent
@@ -19,8 +22,10 @@ import { SharedModule } from '../shared/shared.module';
  */   ])
   ],
   declarations: [
+    OrganizationFilterPipe,
     OrganizationListComponent,
-        OrganizationFilterPipe
+    OrganizationInputComponent,
+
 
 //    OrganizationDetailComponent,
   ],

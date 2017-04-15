@@ -25,7 +25,7 @@ export class OrganizationService {
         this._commonComponent = new CommonComponent();
         this._apiLocation = this._commonComponent.getAPILocation();
         this._organizationsUrl = this._apiLocation + 'api/Organization';
-        this._organizationUrl = this._apiLocation + 'api/Organizations/';
+        this._organizationUrl = this._apiLocation + 'api/Organization';
 
         this._options = new RequestOptions({
             headers: new Headers({
@@ -43,10 +43,17 @@ export class OrganizationService {
              });
     }
 
-    getOrganization(id: number): Observable<IOrganization> {
-         return this._http.get(this._organizationUrl + id,  this._options)
+    getOrganization(id: string): Observable<IOrganization> {
+         return this._http.get(this._organizationUrl + "/" +id,  this._options)
             .map((response: Response) => <IOrganization> response.json())
             .catch(this.handleError);
+    }
+
+    addOrganization(org: IOrganization, callback: any) {
+         this._http.post(this._organizationUrl, org, this._options)
+         .subscribe(function(){
+            callback();
+         })
     }
 
     private handleError(err: Response) {

@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { WelcomeComponent } from './home/welcome.component';
 import { LoginComponent } from './auth/login.component';
 import { OrganizationListComponent } from './organizations/list/organization-list.component';
+import { OrganizationInputComponent } from './organizations/input/organization-input.component';
 
 /* Feature Modules */
 import { ProductModule } from './products/product.module';
@@ -24,6 +25,8 @@ import { AuthService } from './auth/auth.service';
         { path: 'welcome', component: WelcomeComponent },
         { path: 'login', component: LoginComponent },
         { path: 'organizations', component: OrganizationListComponent },
+        { path: 'organization', component: OrganizationInputComponent , },
+        { path: 'organization/:id', component: OrganizationInputComponent },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
       { path: '**', redirectTo: 'welcome', pathMatch: 'full' }
     ]),

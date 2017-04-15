@@ -12,6 +12,7 @@ using PreventionAdvisor.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using System;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -48,7 +49,7 @@ namespace GreenLiving.Controllers
         {
             try
             {
-                return Ok(this._dbContext.Organizations.Find(id));
+                return Ok(this._dbContext.Organizations.Include(o => o.Address).Where(o => o.Id == id).First());
             }
             catch (System.Exception e)
             {
@@ -56,26 +57,15 @@ namespace GreenLiving.Controllers
             }
         }
 
-        [HttpPost("{id}")]
-        public ObjectResult AddOrganization(Organization org)
-        {
-           this._dbContext.Organizations.Add(org);
-            try
-            {
-                return Ok(this._dbContext.Organizations.ToList());
-            }
-            catch (System.Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
-
-        [HttpPut("{id}")]
-        public ObjectResult UpdateOrganization(Organization org)
+        [HttpPost]
+        public ObjectResult AddOrganization([FromBody] Organization org)
         {
             try
             {
-                return Ok(this._dbContext.Organizations.Update(org));
+                this._dbContext.Organizations.Add(org);
+                this._dbContext.SaveChanges();
+
+                return Ok(org);
             }
             catch (System.Exception e)
             {
@@ -83,8 +73,24 @@ namespace GreenLiving.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
-        public ObjectResult DeleteOrganization(Guid id)
+        [HttpPut]
+        public ObjectResult UpdateOrganization([FromBody] Organization org)
+        {
+            try
+            {
+                this._dbContext.Organizations.Update(org);
+                this._dbContext.SaveChanges();
+
+                return Ok(org);
+            }
+            catch (System.Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpDelete]
+        public ObjectResult DeleteOrganization([FromBody] Guid id)
         {
             try
             {

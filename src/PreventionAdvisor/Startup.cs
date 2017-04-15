@@ -158,6 +158,7 @@ public class Startup
         }
 
         var context = (app.ApplicationServices.GetService(typeof(PreventionAdvisorDbContext)) as PreventionAdvisorDbContext);
+
 //        context?.Database.Migrate();
 
         app.UseStaticFiles();

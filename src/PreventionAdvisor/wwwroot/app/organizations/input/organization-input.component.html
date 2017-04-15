@@ -1,0 +1,32 @@
+<form>
+
+
+<div>
+Naam organisatie
+<br/>
+<input type="text"  [(ngModel)]='organization.name' placeholder="Naam" required name='name'/>
+<br />
+<br/>
+Adres organisatie
+<br/>
+<input type="text" [(ngModel)]='organization.address.street' placeholder="Straat" required name='street'/>
+<input type="text" [(ngModel)]='organization.address.number' placeholder="Nr" required name='number'/>
+<input type="text" placeholder="Bus"/>
+<br />
+<input type="text" [(ngModel)]='organization.address.zipcode' placeholder="Postcode" required name='zipcode'/>
+<input type="text" [(ngModel)]='organization.address.city' placeholder="Gemeente" required name='city'/>
+<br />
+<select [(ngModel)]='organization.address.country' placeholder="Land" required name='country'>
+    <option>Belgie</option>
+</select>
+<br/><br/>
+BTW Nummer
+<br/>
+<input type="text" [(ngModel)]='organization.vat' placeholder="BTW" required name='vat'/>
+<br /> <br />
+
+<button *ngIf="mode=='add'"  (click)="onSubmit()">Toevoegen</button>
+
+</div>
+
+</form>

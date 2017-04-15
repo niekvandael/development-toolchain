@@ -4,7 +4,7 @@
     <div>
         <div>
             <input type='text' [(ngModel)]='listFilter' placeholder="Zoeken..."/>
-            <button>Nieuw bedrijf</button>
+            <button [routerLink]="['/organization', '00000000-0000-0000-0000-000000000000']">Nieuw bedrijf</button>
         </div>
     </div>
 
@@ -23,7 +23,7 @@
             </thead>
             <tbody>
                 <tr *ngFor='let organization of organizations | organizationFilter:listFilter'>
-                    <td ><a [routerLink]="['/organization', organization.Id]">{{ organization.name }}</a></td>
+                    <td ><a [routerLink]="['/organization', organization.id]">{{ organization.name }}</a></td>
                     <td>{{ organization.vat | lowercase }}</td>
                     <td>{{ organization.website }}</td>
                     <td>{{ organization.phone }}</td>
