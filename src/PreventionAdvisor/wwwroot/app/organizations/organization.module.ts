@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule} from '@angular/router';
 
+import { OrganizationFilterPipe } from './organization-filter.pipe';
 import { OrganizationListComponent } from './organization-list.component';
 import { OrganizationService } from './organization.service';
 
@@ -19,6 +20,8 @@ import { SharedModule } from '../shared/shared.module';
   ],
   declarations: [
     OrganizationListComponent,
+        OrganizationFilterPipe
+
 //    OrganizationDetailComponent,
   ],
   providers: [

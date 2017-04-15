@@ -1,9 +1,9 @@
 /* Defines the product entity */
 export interface IOrganization {
-    Id: string;
-    Name: string;
-    Vat: string;
-    Website: string;
-    Phone: number;
-    Address: string;
+    id: string;
+    name: string;
+    vat: string;
+    website: string;
+    phone: number;
+    address: string;
 }

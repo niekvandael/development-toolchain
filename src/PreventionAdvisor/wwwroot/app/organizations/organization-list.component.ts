@@ -23,5 +23,4 @@ export class OrganizationListComponent implements OnInit {
                 .subscribe(organizations => this.organizations = organizations,
                            error => this.errorMessage = <any>error);
     }
-
 }

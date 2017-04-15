@@ -22,7 +22,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor='let organization of organizations'>
+                <tr *ngFor='let organization of organizations | organizationFilter:listFilter'>
                     <td ><a [routerLink]="['/organization', organization.Id]">{{ organization.name }}</a></td>
                     <td>{{ organization.vat | lowercase }}</td>
                     <td>{{ organization.website }}</td>
