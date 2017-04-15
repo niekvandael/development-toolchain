@@ -1,5 +1,5 @@
 import {  PipeTransform, Pipe } from '@angular/core';
-import { IOrganization } from './organization';
+import { IOrganization } from '../organization';
 
 @Pipe({
     name: 'organizationFilter'

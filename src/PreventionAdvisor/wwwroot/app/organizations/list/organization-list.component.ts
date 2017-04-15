@@ -1,11 +1,11 @@
 import { Component, OnInit }  from '@angular/core';
 
-import { IOrganization } from './organization';
-import { OrganizationService } from './organization.service';
+import { IOrganization } from '../organization';
+import { OrganizationService } from '../organization.service';
 
 @Component({
-    templateUrl: 'app/organizations/organization-list.component.html',
-    styleUrls: ['app/organizations/organization-list.component.css']
+    templateUrl: 'app/organizations/list/organization-list.component.html',
+    styleUrls: ['app/organizations/list/organization-list.component.css']
 })
 export class OrganizationListComponent implements OnInit {
     listFilter: string;

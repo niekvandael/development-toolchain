@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './home/welcome.component';
 import { LoginComponent } from './auth/login.component';
-import { OrganizationListComponent } from './organizations/organization-list.component';
+import { OrganizationListComponent } from './organizations/list/organization-list.component';
 
 /* Feature Modules */
 import { ProductModule } from './products/product.module';
