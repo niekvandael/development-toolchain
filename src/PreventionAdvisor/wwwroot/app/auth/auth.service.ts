@@ -13,23 +13,25 @@ import { User } from './user';
 @Injectable()
 export class AuthService {
 
+
     private _commonComponent: CommonComponent;
     private _apiLocation: string;
 
     private _loginUrl: string;
     private _logoutUrl: string;
-    private _reportUrl: string; // TODO DELETE
+    private _authenticatedUserUrl: string;
 
     private _options: RequestOptions;
 
+    isAuthenticated: boolean;
+    user: User;
 
     constructor(private _http: Http) {
         this._commonComponent = new CommonComponent();
         this._apiLocation = this._commonComponent.getAPILocation();
         this._loginUrl = this._apiLocation + 'api/Login';
         this._logoutUrl = this._apiLocation + 'api/Logout';
-
-        this._reportUrl = this._apiLocation + 'api/Report'; // TODO DELETE
+        this._authenticatedUserUrl = this._apiLocation + 'api/whoami';
 
         this._options = new RequestOptions({
             headers: new Headers({
@@ -39,7 +41,7 @@ export class AuthService {
         });
     }
 
-    public login(user: User): Observable<User[]> {
+    public login(user: User): Observable<User> {
         let options = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -52,9 +54,9 @@ export class AuthService {
             .catch(this.handleError);
     }
 
-    public logout(): Observable<User[]> {
-        return this._http.post(this._logoutUrl, null, this._options)
-            .map((response: Response) => <User[]>response.json())
+    public logout(callback: any)  {
+        this._http.post(this._logoutUrl, null, this._options)
+            .map(callback())
             .catch(this.handleError);
     }
 
@@ -62,4 +64,9 @@ export class AuthService {
         return Observable.throw(err);
     }
 
+    public getAuthenticatedUser(): Observable<User> {
+       return this._http.get(this._authenticatedUserUrl, this._options)
+            .map((response: Response) => <User>response.json())
+            .catch(this.handleError);
+    }
 }

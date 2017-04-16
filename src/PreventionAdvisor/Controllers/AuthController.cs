@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
@@ -20,11 +21,13 @@ namespace PreventionAdvisor.Controllers
     {
         private SignInManager<IdentityUser> _signInManager;
         private readonly PreventionAdvisorDbContext _dbContext;
+        private UserManager<IdentityUser> _userManager;
 
-        public AuthController(SignInManager<IdentityUser> signInManager, PreventionAdvisorDbContext dbContext = null)
+        public AuthController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, PreventionAdvisorDbContext dbContext = null)
         {
             _dbContext = dbContext;
             this._signInManager = signInManager;
+            this._userManager = userManager;
         }
 
         [HttpPost("/api/login")]
@@ -51,5 +54,13 @@ namespace PreventionAdvisor.Controllers
             return Ok();
         }
 
+        [Authorize]
+        [HttpGet("/api/whoami")]
+        public async Task<ActionResult> getAuthenticatedUser()
+        {
+            IdentityUser identityUser = await _userManager.GetUserAsync(User);
+            AppUser user = this._dbContext.AppUsers.Where(u => u.identityUser.Id == identityUser.Id).First();
+            return Ok(user);
+        }
     }
 }

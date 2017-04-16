@@ -1,6 +1,9 @@
 ﻿/* Defines the user entity */
 export class User {
-    is: string;
+    id: string;
     username: string;
     password: string;
+    firstname: string;
+    lastname: string;
+    email: string;
 }

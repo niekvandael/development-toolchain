@@ -3,7 +3,8 @@
         <div class='container-fluid'>
             <ul class='nav navbar-nav'>
                 <li><a [routerLink]="['/organizations']">Mijn Organisaties</a></li>
-                <li><a [routerLink]="['/login']">Aanmelden</a></li>
+                <li *ngIf='!isAuthenticated'><a [routerLink]="['/login']">Aanmelden</a></li>
+                <li *ngIf='isAuthenticated'><a style="cursor:pointer" (click)="logout()">{{ displayName }} afmelden</a></li>
                 <li><a [routerLink]="['/register']">Registreren</a></li>
             </ul>
         </div>
