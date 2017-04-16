@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 import { IOrganization } from '../organization';
 import { OrganizationService } from '../organization.service';
@@ -17,17 +18,24 @@ export class OrganizationInputComponent implements OnInit {
 
     private sub: Subscription;
 
-    constructor(private _organizationService: OrganizationService, private _route: ActivatedRoute) {
+    constructor(private _organizationService: OrganizationService, private _route: ActivatedRoute, private _router: Router, private _location: Location) {
 
     };
 
     onSubmit(){
-            this._organizationService.addOrganization(this.organization, this.navigateToList);
+        if(this.mode === 'add')
+        {
+            this._organizationService.addOrganization(this.organization, this.navigateToList.bind(this));
+        }
+        else
+        {
+            this._organizationService.updateOrganization(this.organization, this.navigateToList.bind(this));
+        }
     }
 
     navigateToList(){
-        debugger;
-
+         this._location.back();
+//         this._router.navigate(['/organizations']);
     }
    getOrganization(id: string) {
        if (id !== '00000000-0000-0000-0000-000000000000')

@@ -1,5 +1,4 @@
-<form>
-
+<form #form="ngForm" (ngSubmit)="onSubmit(form.value)">
 
 <div>
 Naam organisatie
@@ -17,7 +16,8 @@ Adres organisatie
 <input type="text" [(ngModel)]='organization.address.city' placeholder="Gemeente" required name='city'/>
 <br />
 <select [(ngModel)]='organization.address.country' placeholder="Land" required name='country'>
-    <option>Belgie</option>
+    <option value="Belgium">Belgie</option>
+    <option value="Netherlands">Nederland</option>
 </select>
 <br/><br/>
 BTW Nummer
@@ -25,7 +25,7 @@ BTW Nummer
 <input type="text" [(ngModel)]='organization.vat' placeholder="BTW" required name='vat'/>
 <br /> <br />
 
-<button *ngIf="mode=='add'"  (click)="onSubmit()">Toevoegen</button>
+<button type="submit">Opslaan</button>
 
 </div>
 

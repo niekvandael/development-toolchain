@@ -51,9 +51,12 @@ export class OrganizationService {
 
     addOrganization(org: IOrganization, callback: any) {
          this._http.post(this._organizationUrl, org, this._options)
-         .subscribe(function(){
-            callback();
-         })
+         .subscribe(() => callback());
+    }
+
+    updateOrganization(org: IOrganization, callback: any) {
+         this._http.put(this._organizationUrl, org, this._options)
+         .subscribe(() => callback());
     }
 
     private handleError(err: Response) {
