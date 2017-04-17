@@ -17,10 +17,12 @@ export class OrganizationListComponent implements OnInit {
 
     }
 
-
     ngOnInit(): void {
-        this._organizationService.getOrganizations()
-                .subscribe(organizations => this.organizations = organizations,
-                           error => this.errorMessage = <any>error);
+        this._organizationService.getOrganizations(this.setOrganizations.bind(this));
     }
+
+    private setOrganizations(organizations: IOrganization[] ){
+        this.organizations = organizations;
+    }
+
 }

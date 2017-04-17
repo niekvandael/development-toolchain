@@ -13,16 +13,15 @@ export class AppComponent {
     errorMessage: string;
 
     constructor(public _authService: AuthService, private _router: Router) {
-        this._authService.getAuthenticatedUser()
-                .subscribe(user => {}, error => this.errorMessage = <any>error);
-     };
+        this._authService.getAuthenticatedUser(this.getAuthenticatedUserCallback.bind(this));
+    };
+
+    private getAuthenticatedUserCallback(user: User) {
+        this._authService.setUser(user);
+    }
 
     public logout() {
-        this._authService.logout()
-        .subscribe(r => {
-            this._authService.setAuthenticated(undefined);
-            this._router.navigate(['login']);
-        });
+        this._authService.logout(this.loggedOut.bind(this));
     }
 
     loggedOut() {

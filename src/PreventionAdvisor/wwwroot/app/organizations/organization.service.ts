@@ -1,81 +1,33 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, RequestOptions, Headers } from '@angular/http';
-import { Router } from '@angular/router';
+import { RequestOptions, Headers } from '@angular/http';
 
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
-import { CommonComponent } from '../shared/common.component';
+import { CommonService } from '../shared/commonService';
 
 import { IOrganization } from './organization';
 
 @Injectable()
-export class OrganizationService {
-    private _commonComponent: CommonComponent;
-    private _apiLocation: string;
+export class OrganizationService  extends CommonService {
 
-    private _organizationsUrl = '';
-    private _organizationUrl = '';
+    private _url = 'api/organization';
 
-    private _options: RequestOptions;
-
-    constructor(private _http: Http, private _router: Router) { 
-        this._commonComponent = new CommonComponent();
-        this._apiLocation = this._commonComponent.getAPILocation();
-        this._organizationsUrl = this._apiLocation + 'api/Organization';
-        this._organizationUrl = this._apiLocation + 'api/Organization';
-
-        this._options = new RequestOptions({
-            headers: new Headers({
-                'Content-Type': 'application/json'
-            }),
-            withCredentials: true
-        });
+    getOrganizations(callback: any){
+        this.doGet(this._url, callback);
     }
 
-    getOrganizations(): Observable<IOrganization[]> {
-        return this._http.get(this._organizationsUrl,  this._options)
-            .map((response: Response) => <IOrganization[]> response.json())
-            .catch((error) => {
-                return this.handleError(error);
-             });
-    }
-
-    getOrganization(id: string): Observable<IOrganization> {
-         return this._http.get(this._organizationUrl + "/" +id,  this._options)
-            .map((response: Response) => <IOrganization> response.json())
-            .catch(this.handleError);
+    getOrganization(id: string, callback:any) {
+        this.doGet(this._url + '/' + id, callback);
     }
 
     addOrganization(org: IOrganization, callback: any) {
-         this._http.post(this._organizationUrl, org, this._options)
-         .subscribe(() => callback());
+        this.doPost(this._url, org, callback);
     }
 
     updateOrganization(org: IOrganization, callback: any) {
-         this._http.put(this._organizationUrl, org, this._options)
-         .subscribe(() => callback());
+        this.doPut(this._url, org, callback);
     }
 
-    private handleError(err: Response) {
-        if (err.status === 401) {
-            return this.unauthorised();
-        } else if (err.status === 403) {
-            return this.forbidden();
-        } else {
-            return Observable.throw(err);
-        }
-    }
-
-    private unauthorised(): Observable<any> {
-        this._router.navigate(['login']);
-        return null;
-    }
-
-    private forbidden(): Observable<any> {
-        this._router.navigate(['/']);
-        return null;
-    }
 }

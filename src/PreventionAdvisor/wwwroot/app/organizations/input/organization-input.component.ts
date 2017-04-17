@@ -35,14 +35,13 @@ export class OrganizationInputComponent implements OnInit {
 
     navigateToList(){
          this._location.back();
-//         this._router.navigate(['/organizations']);
     }
+    
    getOrganization(id: string) {
        if (id !== '00000000-0000-0000-0000-000000000000')
        {
            this.mode = 'update';
-            this._organizationService.getOrganization(id)
-                .subscribe(organization => this.organization = organization, error => this.errorMessage = <any>error);
+        this._organizationService.getOrganization(id, this.setOrganization.bind(this));
        } 
        else
        {
@@ -58,4 +57,9 @@ export class OrganizationInputComponent implements OnInit {
                 this.getOrganization(id);
         });
     }
+
+    setOrganization(organization: IOrganization){
+        this.organization = organization;
+    }
+
 }

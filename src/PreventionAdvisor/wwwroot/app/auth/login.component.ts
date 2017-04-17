@@ -19,11 +19,11 @@ export class LoginComponent {
     }
 
     public login() {
-        this._authService.login(this.user).subscribe (
-            (data) => {
-                this._authService.setUser(data);
-                this._router.navigate(['organizations']);
-            }
-        );
+        this._authService.login(this.user, this.loginCallback.bind(this));
+    }
+
+    private loginCallback(data: User) {
+        this._authService.setUser(data);
+        this._router.navigate(['organizations']);
     }
 }
