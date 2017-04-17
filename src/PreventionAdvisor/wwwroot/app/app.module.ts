@@ -11,7 +11,6 @@ import { OrganizationListComponent } from './organizations/list/organization-lis
 import { OrganizationInputComponent } from './organizations/input/organization-input.component';
 
 /* Feature Modules */
-import { ProductModule } from './products/product.module';
 import { OrganizationModule } from './organizations/organization.module';
 
 /* Feature Service */

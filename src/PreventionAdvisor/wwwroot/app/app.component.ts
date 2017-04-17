@@ -11,16 +11,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class AppComponent {
     pageTitle: string = '';
     errorMessage: string;
-    isAuthenticated: boolean;
-    user: User;
-    displayName: string;
 
-    constructor(private _authService: AuthService, private _router: Router) {
+    constructor(public _authService: AuthService, private _router: Router) {
         this._authService.getAuthenticatedUser()
                 .subscribe(user => {
-                    this.user = user;
-                    this.isAuthenticated = true;
-                    this.displayName = user.firstname;
+                    
                 }, error => this.errorMessage = <any>error);
      };
 
@@ -29,11 +24,7 @@ export class AppComponent {
     }
 
     loggedOut() {
-        this.isAuthenticated = false;
-        this.displayName = '';
-
-        this._authService.isAuthenticated = false;
-        this._authService.user = undefined;
+        this._authService.setUser(undefined);
         this._router.navigate(['login']);
     }
 

@@ -23,8 +23,8 @@ export class AuthService {
 
     private _options: RequestOptions;
 
-    isAuthenticated: boolean;
-    user: User;
+    private _authenticated: boolean;
+    private _user: User;
 
     constructor(private _http: Http) {
         this._commonComponent = new CommonComponent();
@@ -66,7 +66,34 @@ export class AuthService {
 
     public getAuthenticatedUser(): Observable<User> {
        return this._http.get(this._authenticatedUserUrl, this._options)
-            .map((response: Response) => <User>response.json())
+            .map((response: Response) => {
+                this.setUser(<User>response.json());
+                return <User>response.json();
+            })
             .catch(this.handleError);
+    }
+
+    public isAuthenticated(): boolean{
+        return this._authenticated;
+    }
+
+    public setAuthenticated(authenticated: boolean){
+        this._authenticated = authenticated;
+    }
+
+    public setUser(user: User){
+        this._user = user;
+        if(this._user != undefined)
+        {
+            this._authenticated = true;
+        }
+        else
+        {
+            this._authenticated = false;
+        }
+    }
+
+    public getUser(): User {
+        return this._user;
     }
 }
