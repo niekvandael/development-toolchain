@@ -54,9 +54,9 @@ export class AuthService {
             .catch(this.handleError);
     }
 
-    public logout(callback: any)  {
-        this._http.post(this._logoutUrl, null, this._options)
-            .map(callback())
+    public logout() {
+       return this._http.post(this._logoutUrl, null, this._options)
+            .map((response: Response) => {})
             .catch(this.handleError);
     }
 
