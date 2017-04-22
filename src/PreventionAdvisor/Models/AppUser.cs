@@ -14,10 +14,15 @@ namespace PreventionAdvisor.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
+
+        public String IdentityUserId { get; set; }
         [JsonIgnore]
-        public IdentityUser identityUser { get; set; }
-        public ICollection<Organization> Organizations { get; set; }
+        public virtual IdentityUser IdentityUser { get; set; }
+
         public String Firstname { get; set; }
         public String Lastname { get; set; }
+
+        public virtual ICollection<Organization> Organizations { get; set; }
+
     }
 }

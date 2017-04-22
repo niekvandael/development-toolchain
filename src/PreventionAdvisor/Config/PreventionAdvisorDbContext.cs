@@ -3,7 +3,7 @@ using PreventionAdvisor.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace PreventionAdvisor.Models
+namespace PreventionAdvisor.Config
 {
     public class PreventionAdvisorDbContext : IdentityDbContext<IdentityUser>
     {

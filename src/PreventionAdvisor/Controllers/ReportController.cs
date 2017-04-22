@@ -11,6 +11,7 @@ using System.Net.Http.Headers;
 using PreventionAdvisor.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using PreventionAdvisor.Config;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 

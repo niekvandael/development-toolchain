@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
+import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
@@ -15,8 +16,7 @@ export class CommonService {
     private _apiLocation: string;
     private _options: RequestOptions;
 
-
-    constructor(private _http: Http) {
+    constructor(private _http: Http, private _router: Router) {
         this._commonComponent = new CommonComponent();
         this._apiLocation = this._commonComponent.getAPILocation();
 
@@ -33,7 +33,7 @@ export class CommonService {
             .map((response: Response) => {
                 callback(response.text() === '' ? '' : response.json());
             })
-            .catch(this.handleError).subscribe();
+            .catch(this.handleError.bind(this)).subscribe();
     }
 
     public doPost(url: String, body: any, callback: any, options?: RequestOptions) {
@@ -41,7 +41,7 @@ export class CommonService {
             .map((response: Response) => {
                 callback(response.text() === '' ? '' : response.json());
             })
-            .catch(this.handleError).subscribe();
+            .catch(this.handleError.bind(this)).subscribe();
     }
 
     public doPut(url: String, body: any, callback: any, options?: RequestOptions) {
@@ -49,7 +49,7 @@ export class CommonService {
             .map((response: Response) => {
                 callback(response.text() === '' ? '' : response.json());
             })
-            .catch(this.handleError).subscribe();
+            .catch(this.handleError.bind(this)).subscribe();
     }
 
     public doDelete(url: String, callback: any, options?: RequestOptions) {
@@ -57,12 +57,26 @@ export class CommonService {
             .map((response: Response) => {
                 callback(response.text() === '' ? '' : response.json());
             })
-            .catch(this.handleError).subscribe();
+            .catch(this.handleError.bind(this)).subscribe();
     }
 
     private handleError(err: Response) {
-        console.log('Error while calling: ' + err);
-        return Observable.throw(err);
+        if (err.status === 401) {
+            this.unauthorised();
+        } else if (err.status === 403) {
+            this.forbidden();
+        } else {
+            return Observable.throw(err);
+        }
     }
 
+    private unauthorised(): Observable<any> {
+        this._router.navigate(['login']);
+        return null;
+    }
+
+    private forbidden(): Observable<any> {
+        this._router.navigate(['/']);
+        return null;
+    }
 }

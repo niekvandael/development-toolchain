@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
+using PreventionAdvisor.Models;
 using PreventionAdvisor.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PreventionAdvisor.Models
+namespace PreventionAdvisor.Config
 {
     public static class MapperConfig
     {

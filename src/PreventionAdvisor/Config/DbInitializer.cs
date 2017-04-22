@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using PreventionAdvisor.Config;
 using PreventionAdvisor.Models;
 using System;
 using System.Linq;
@@ -12,6 +13,10 @@ namespace PreventionAdvisor
         {
             context.Database.EnsureCreated();
 
+            #if !DEBUG
+                return;
+            #endif
+
             //
             // Seeding for organizations
             //
@@ -21,13 +26,8 @@ namespace PreventionAdvisor
             var organizations = new Organization[] {
                 benvitec,
                 PCT_NV
-           };
-
-            foreach (Organization organization in organizations)
-            {
-                context.Organizations.Add(organization);
-            }
-
+            };
+            
             //
             // Seeding for users
             //
@@ -47,7 +47,7 @@ namespace PreventionAdvisor
             {
                 Firstname = "Niek",
                 Lastname = "Vandael",
-                identityUser = identityUser,
+                IdentityUser = identityUser,
                 Organizations = organizations
             };
             context.AppUsers.Add(appUser);

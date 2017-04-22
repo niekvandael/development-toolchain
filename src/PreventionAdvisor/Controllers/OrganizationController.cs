@@ -13,8 +13,8 @@ using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using System;
 using Microsoft.EntityFrameworkCore;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using PreventionAdvisor.Config;
+using PreventionAdvisorDataAccess.Repositories;
 
 namespace GreenLiving.Controllers
 {
@@ -22,13 +22,11 @@ namespace GreenLiving.Controllers
     [Route("api/[controller]")]
     public class OrganizationController : Controller
     {
-        private readonly HtmlEncoder _htmlEncoder;
-        private readonly PreventionAdvisorDbContext _dbContext;
+        private OrganizationRepository _organizationRepository;
 
-        public OrganizationController(HtmlEncoder htmlEncoder, PreventionAdvisorDbContext dbContext = null)
+        public OrganizationController(PreventionAdvisorDbContext dbContext)
         {
-            _dbContext = dbContext;
-            _htmlEncoder = htmlEncoder;
+            this._organizationRepository = new OrganizationRepository(dbContext);
         }
 
         [HttpGet]
@@ -36,7 +34,7 @@ namespace GreenLiving.Controllers
         {
             try
             {
-                return Ok(this._dbContext.Organizations.ToList());
+                return Ok(this._organizationRepository.Get(HttpContext));
             }
             catch (System.Exception e)
             {
@@ -49,7 +47,7 @@ namespace GreenLiving.Controllers
         {
             try
             {
-                return Ok(this._dbContext.Organizations.Include(o => o.Address).Where(o => o.Id == id).First());
+                return Ok(this._organizationRepository.Get(HttpContext, id));
             }
             catch (System.Exception e)
             {
@@ -58,14 +56,11 @@ namespace GreenLiving.Controllers
         }
 
         [HttpPost]
-        public ObjectResult AddOrganization([FromBody] Organization org)
+        public ObjectResult AddOrganization([FromBody] Organization organization)
         {
             try
             {
-                this._dbContext.Organizations.Add(org);
-                this._dbContext.SaveChanges();
-
-                return Ok(org);
+                return Ok(this._organizationRepository.Create(HttpContext, organization));
             }
             catch (System.Exception e)
             {
@@ -74,14 +69,12 @@ namespace GreenLiving.Controllers
         }
 
         [HttpPut]
-        public ObjectResult UpdateOrganization([FromBody] Organization org)
+        public ObjectResult UpdateOrganization([FromBody] Organization organization)
         {
             try
             {
-                this._dbContext.Organizations.Update(org);
-                this._dbContext.SaveChanges();
+                return Ok(this._organizationRepository.Update(HttpContext, organization));
 
-                return Ok(org);
             }
             catch (System.Exception e)
             {
@@ -94,7 +87,8 @@ namespace GreenLiving.Controllers
         {
             try
             {
-                return Ok(this._dbContext.Organizations.Remove(this._dbContext.Organizations.Find(id)));
+                this._organizationRepository.Delete(HttpContext, id);
+                return Ok(null);
             }
             catch (System.Exception e)
             {

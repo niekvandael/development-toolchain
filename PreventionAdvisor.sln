@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PreventionAdvisor", "src\PreventionAdvisor\PreventionAdvisor.csproj", "{FBE90CB3-17A0-4C81-A1F5-1CAE061D2B97}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PreventionAdvisor.Tests", "PreventionAdvisor.Tests\PreventionAdvisor.Tests.csproj", "{B627D64C-9820-4C09-AF1B-9ABB0B9F2827}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,11 +39,24 @@ Global
 		{FBE90CB3-17A0-4C81-A1F5-1CAE061D2B97}.Release|x64.Build.0 = Debug|Any CPU
 		{FBE90CB3-17A0-4C81-A1F5-1CAE061D2B97}.Release|x86.ActiveCfg = Debug|Any CPU
 		{FBE90CB3-17A0-4C81-A1F5-1CAE061D2B97}.Release|x86.Build.0 = Debug|Any CPU
+		{B627D64C-9820-4C09-AF1B-9ABB0B9F2827}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B627D64C-9820-4C09-AF1B-9ABB0B9F2827}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B627D64C-9820-4C09-AF1B-9ABB0B9F2827}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B627D64C-9820-4C09-AF1B-9ABB0B9F2827}.Debug|x64.Build.0 = Debug|Any CPU
+		{B627D64C-9820-4C09-AF1B-9ABB0B9F2827}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B627D64C-9820-4C09-AF1B-9ABB0B9F2827}.Debug|x86.Build.0 = Debug|Any CPU
+		{B627D64C-9820-4C09-AF1B-9ABB0B9F2827}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B627D64C-9820-4C09-AF1B-9ABB0B9F2827}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B627D64C-9820-4C09-AF1B-9ABB0B9F2827}.Release|x64.ActiveCfg = Release|Any CPU
+		{B627D64C-9820-4C09-AF1B-9ABB0B9F2827}.Release|x64.Build.0 = Release|Any CPU
+		{B627D64C-9820-4C09-AF1B-9ABB0B9F2827}.Release|x86.ActiveCfg = Release|Any CPU
+		{B627D64C-9820-4C09-AF1B-9ABB0B9F2827}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{FBE90CB3-17A0-4C81-A1F5-1CAE061D2B97} = {69AF6E83-D51A-40CB-BC1E-6BED5A8A5E1B}
+		{B627D64C-9820-4C09-AF1B-9ABB0B9F2827} = {69AF6E83-D51A-40CB-BC1E-6BED5A8A5E1B}
 	EndGlobalSection
 EndGlobal

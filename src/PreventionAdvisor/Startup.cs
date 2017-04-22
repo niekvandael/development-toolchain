@@ -18,6 +18,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using AutoMapper;
 using PreventionAdvisor.ViewModels;
+using PreventionAdvisor.Config;
+using PreventionAdvisorDataAccess.Repositories;
+using PreventionAdvisorDataAccess.Interfaces;
 
 public class Startup
 {
@@ -66,6 +69,15 @@ public class Startup
         // Add CORS
         services.AddCors();
 
+        // Adds a default in-memory implementation of IDistributedCache.
+        services.AddDistributedMemoryCache();
+
+        services.AddSession(options =>
+        {
+            options.CookieHttpOnly = true;
+            options.CookieName = ".PreventionAdvisor.Session";
+        });
+
         // Add framework services.
         services.AddMvc();
 
@@ -106,6 +118,7 @@ public class Startup
 
         // Add automapper
         MapperConfig.CreateMappings();
+
     }
 
     private string getConnectionString(string databaseUri)
@@ -143,6 +156,9 @@ public class Startup
     {
         loggerFactory.AddConsole(Configuration.GetSection("Logging"));
         loggerFactory.AddDebug();
+
+        // Use sessions
+        app.UseSession();
 
         if (env.IsDevelopment())
         {
@@ -186,8 +202,7 @@ public class Startup
         app.UseCors(builder => {
             builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
         });
-//#endif
-
+        //#endif
 
         DbInitializer.Initialize(context, userManager);
     }
