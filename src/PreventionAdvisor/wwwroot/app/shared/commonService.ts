@@ -65,8 +65,12 @@ export class CommonService {
             this.unauthorised();
         } else if (err.status === 403) {
             this.forbidden();
+        } else if (err.status === 400) {
+            // Bad request (Session timeout)
+            this.unauthorised();
         } else {
-            return Observable.throw(err);
+            console.log(err)
+            this.unauthorised();
         }
     }
 

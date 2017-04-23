@@ -10,45 +10,46 @@ using System.Text;
 
 namespace PreventionAdvisorDataAccess.Repositories
 {
-    public class OrganizationRepository
+    public class WorkplaceRepository
     {
         private PreventionAdvisorDbContext _context;
         private SessionTasks _sessionTasks;
 
-        public OrganizationRepository(PreventionAdvisorDbContext context)
+        public WorkplaceRepository(PreventionAdvisorDbContext context)
         {
             this._context = context;
             this._sessionTasks = new SessionTasks();
         }
 
-        public ICollection<Organization> Get(HttpContext httpContext)
+        public ICollection<Workplace> Get(HttpContext httpContext)
         {
             var userId = this._sessionTasks.GetAppUserId(httpContext);
 
-            return this._context.Organizations
-                .Where(o => o.UserId == userId)
-                .Include(o => o.Address)
+            return this._context.Workplaces
+                .Where(w => w.Organization.UserId == userId)
                 .ToList();
         }
 
-        public Organization Get(HttpContext httpContext, Guid id)
+        public Workplace Get(HttpContext httpContext, Guid id)
         {
             var userId = this._sessionTasks.GetAppUserId(httpContext);
 
-            return this._context.Organizations
-                            .Where(o => o.UserId == userId)
-                            .Where(o => o.Id == id)
-                            .Include(o => o.Address)
+            return this._context.Workplaces
+                            .Where(w => w.Organization.UserId == userId)
+                            .Where(w => w.Id == id)
+                            .Include(w => w.Address)
+                            .Include(w => w.Organization)
+                            .Include(w => w.Organization.Address)
                             .FirstOrDefault();
         }
 
-        public Organization Create(HttpContext httpContext, Organization organization)
+        public Workplace Create(HttpContext httpContext, Workplace workplace)
         {
             try
             {
-                organization.UserId = this._sessionTasks.GetAppUserId(httpContext);
+                workplace.Organization.UserId = this._sessionTasks.GetAppUserId(httpContext);
 
-                _context.Add(organization);
+                _context.Add(workplace);
                 _context.SaveChanges();
             }
             catch (Exception)
@@ -56,16 +57,16 @@ namespace PreventionAdvisorDataAccess.Repositories
                 throw;
             }
 
-            return organization;
+            return workplace;
         }
 
-        public Organization Update(HttpContext httpContext, Organization organization)
+        public Workplace Update(HttpContext httpContext, Workplace workplace)
         {
             try
             {
-                organization.UserId = this._sessionTasks.GetAppUserId(httpContext);
+                workplace.Organization.UserId = this._sessionTasks.GetAppUserId(httpContext);
 
-                _context.Update(organization);
+                _context.Update(workplace);
                 _context.SaveChanges();
             }
             catch (Exception)
@@ -73,17 +74,17 @@ namespace PreventionAdvisorDataAccess.Repositories
                 throw;
             }
 
-            return organization;
+            return workplace;
         }
 
         public void Delete(HttpContext httpContext, Guid id)
         {
             try
             {
-                Organization organization = this.Get(httpContext, id);
-                organization.UserId = this._sessionTasks.GetAppUserId(httpContext);
+                Workplace workplace = this.Get(httpContext, id);
+                workplace.Organization.UserId = this._sessionTasks.GetAppUserId(httpContext);
 
-                _context.Remove(organization);
+                _context.Remove(workplace);
                 _context.SaveChanges();
             }
             catch (Exception)

@@ -13,21 +13,21 @@ namespace PreventionAdvisor
         {
             context.Database.EnsureCreated();
 
-            #if !DEBUG
+#if !DEBUG
                 return;
-            #endif
+#endif
 
             //
             // Seeding for organizations
             //
-            Organization benvitec = new Organization { Name = "Benvitec NV", Address = new Address { City = "Beringen", Country = "Belgium", Number = "201", Street = "Koolmijnlaan", Zipcode = "3580" }, Vat = "BE 123.2093.30902", Phone = "011/81.12.34", Website = "http://www.benvitec.be" };
-            Organization PCT_NV = new Organization { Name = "PCT NV", Address = new Address { City = "Beringen", Country = "Belgium", Number = "201", Street = "Koolmijnlaan", Zipcode = "3580" }, Vat = "BE 123.9999.99999", Phone = "011/81.12.34", Website = "http://www.PVT-NV.be" };
+            Organization org1 = new Organization { Name = "Benvitec NV", Address = new Address { City = "Beringen", Country = "Belgium", Number = "201", Street = "Koolmijnlaan", Zipcode = "3580" }, Vat = "BE 123.2093.30902", Phone = "011/81.12.34", Website = "http://www.benvitec.be" };
+            Organization org2 = new Organization { Name = "PCT NV", Address = new Address { City = "Beringen", Country = "Belgium", Number = "201", Street = "Koolmijnlaan", Zipcode = "3580" }, Vat = "BE 123.9999.99999", Phone = "011/81.12.34", Website = "http://www.PVT-NV.be" };
 
             var organizations = new Organization[] {
-                benvitec,
-                PCT_NV
+                org1,
+                org2
             };
-            
+
             //
             // Seeding for users
             //
@@ -51,6 +51,29 @@ namespace PreventionAdvisor
                 Organizations = organizations
             };
             context.AppUsers.Add(appUser);
+
+            context.SaveChanges();
+
+            //
+            // Seeding for workplaces
+            //
+            Workplace wp1 = new Workplace() { Organization = org1, ProjectNumber = "193022",
+                Address = new Address { City = "Hasselt", Country = "Belgium", Number = "17.01", Street = "Kempische Steenweg", Zipcode = "3520" },
+                Title = "Corda Campus", ProjectLead = "Ludo Pellens", ProjectController = "Guy Loenders", Description = "Corda campus verbouwingen"};
+
+            Workplace wp2 = new Workplace()
+            {
+                Organization = org1,
+                ProjectNumber = "193022",
+                Address = new Address { City = "Beringen", Country = "Belgium", Number = "201", Street = "Koolmijnlaan", Zipcode = "3580" },
+                Title = "Werf Soval",
+                ProjectLead = "Ludo Pellens",
+                ProjectController = "Guy Loenders",
+                Description = "Soval inspectie project"
+            };
+
+            context.Workplaces.Add(wp1);
+            context.Workplaces.Add(wp2);
 
             context.SaveChanges();
         }
