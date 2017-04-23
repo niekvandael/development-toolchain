@@ -16,13 +16,12 @@
                 <tr>
                     <th>Name</th>
                     <th>Address</th>
-                    <th>Organization name</th>>
+                    <th>Organization name</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor='let workplace of workplaces | workplaceFilter:listFilter'>
-                    <td ><a [routerLink]="['/workplace', workplace.id]">{{ workplace.name }}</a></td>
-                    <td>{{ workplace.title | lowercase }}</td>
+                    <td><a [routerLink]="['/workplace', workplace.id]">{{ workplace.title }}</a></td>
                     <td>{{ workplace.address.street }} {{ workplace.address.number }}, {{ workplace.address.zip }} {{ workplace.address.city }}</td>
                     <td>{{ workplace.organization.name }}</td>
                 </tr>
