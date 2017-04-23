@@ -27,6 +27,9 @@ namespace PreventionAdvisorDataAccess.Repositories
 
             return this._context.Workplaces
                 .Where(w => w.Organization.UserId == userId)
+                .Include(w => w.Address)
+                .Include(w => w.Organization)
+                .Include(w => w.Organization.Address)
                 .ToList();
         }
 

@@ -15,19 +15,12 @@ import { SharedModule } from '../shared/shared.module';
     RouterModule.forChild([
       { path: 'organizations', component: OrganizationListComponent },
       { path: 'organization/:id', component: OrganizationInputComponent },
-/*      { path: 'Organization/:id',
-        canActivate: [ ],
-        component: OrganizationDetailComponent
-      }
- */   ])
+   ])
   ],
   declarations: [
     OrganizationFilterPipe,
     OrganizationListComponent,
     OrganizationInputComponent,
-
-
-//    OrganizationDetailComponent,
   ],
   providers: [
     OrganizationService,

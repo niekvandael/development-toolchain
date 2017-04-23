@@ -10,8 +10,12 @@ import { LoginComponent } from './auth/login.component';
 import { OrganizationListComponent } from './organizations/list/organization-list.component';
 import { OrganizationInputComponent } from './organizations/input/organization-input.component';
 
+import { WorkplaceListComponent } from './workplaces/list/workplace-list.component';
+
 /* Feature Modules */
 import { OrganizationModule } from './organizations/organization.module';
+import { WorkplaceModule } from './workplaces/workplace.module';
+
 
 /* Feature Service */
 import { AuthService } from './auth/auth.service';
@@ -26,10 +30,12 @@ import { AuthService } from './auth/auth.service';
         { path: 'organizations', component: OrganizationListComponent },
         { path: 'organization', component: OrganizationInputComponent , },
         { path: 'organization/:id', component: OrganizationInputComponent },
+        { path: 'workplace', component: WorkplaceListComponent , },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
       { path: '**', redirectTo: 'welcome', pathMatch: 'full' }
     ]),
       OrganizationModule,
+      WorkplaceModule,
       FormsModule
   ],
   declarations: [

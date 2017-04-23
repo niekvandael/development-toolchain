@@ -1,0 +1,32 @@
+
+
+<div>
+    <div>
+        <div>
+            <input type='text' [(ngModel)]='listFilter' placeholder="Zoeken..."/>
+            <button [routerLink]="['/workplace', '00000000-0000-0000-0000-000000000000']">Nieuw bedrijf</button>
+        </div>
+    </div>
+
+    <div class='has-error' *ngIf='errorMessage'>{{errorMessage}}</div>
+
+    <div class='table-responsive'>
+        <table class='table' *ngIf='workplaces && workplaces.length'>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Organization name</th>>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor='let workplace of workplaces | workplaceFilter:listFilter'>
+                    <td ><a [routerLink]="['/workplace', workplace.id]">{{ workplace.name }}</a></td>
+                    <td>{{ workplace.title | lowercase }}</td>
+                    <td>{{ workplace.address.street }} {{ workplace.address.number }}, {{ workplace.address.zip }} {{ workplace.address.city }}</td>
+                    <td>{{ workplace.organization.name }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
