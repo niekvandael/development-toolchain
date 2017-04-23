@@ -1,0 +1,52 @@
+<form #form="ngForm" (ngSubmit)="onSubmit(form.value)">
+<b>Bedrijf/organisatie</b>
+<br />
+Voor welk bedrijf maak je een rapport op?
+<br />
+<select placeholder="Acme BVBA" required [(ngModel)]='workplace.organizationId' name='organization'>
+   <option *ngFor='let organization of organizations' value="{{ organization.id }}">{{ organization.name }}</option>
+</select>
+<br />
+<a [routerLink]="['/organization', '00000000-0000-0000-0000-000000000000']">Nieuw bedrijf toevoegen</a>
+<br/><br />
+<b>Projectnummer</b>
+<br/>
+<input type="number" [(ngModel)]='workplace.projectNumber' placeholder="109381" required name='workplace.projectnumber'/>
+<br/>
+<br />
+<b>Naam werfrapport</b>
+<br/>
+<input type="text" [(ngModel)]='workplace.title' placeholder="Werf Acme" required name='workplace.title'/>
+<br/>
+<br />
+<b>Adres organisatie</b>
+<br/>
+<input type="text" [(ngModel)]='workplace.address.street' placeholder="Straat" required name='street'/>
+<input type="text" [(ngModel)]='workplace.address.number' placeholder="Nr" required name='number'/>
+<input type="text" placeholder="Bus"/>
+<br />
+<input type="text" [(ngModel)]='workplace.address.zipcode' placeholder="Postcode" required name='zipcode'/>
+<input type="text" [(ngModel)]='workplace.address.city' placeholder="Gemeente" required name='city'/>
+<br />
+<select [(ngModel)]='workplace.address.country' placeholder="Land" required name='country'>
+<option value="Belgium">Belgie</option>
+<option value="Netherlands">Nederland</option>
+</select>
+<br/><br/>
+<br />
+<b>Projectleider</b>
+<br/>
+<input type="text" [(ngModel)]='workplace.projectLead' placeholder="Naam + voornaam" required name='workplace.projectlead'/>
+<br />
+<br/>
+<b>Controleur</b>
+<br/>
+<input type="text" [(ngModel)]='workplace.projectController' placeholder="Naam + voornaam" required name='workplace.projectcontroller'/>
+<br />
+<br/>
+<b>Extra informatie</b>
+<br/>
+<textarea rows="10" cols="50" [(ngModel)]='workplace.description' placeholder="Info..." name='workplace.description'></textarea>
+<br />
+<button type="submit">Opslaan</button>
+</form>
