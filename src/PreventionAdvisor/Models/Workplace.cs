@@ -12,7 +12,13 @@ namespace PreventionAdvisor.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public Guid Id { get; set; }
+
+        [ForeignKey("OrganizationId")]
         public Organization Organization { get; set; }
+
+        [ForeignKey("Organization")]
+        public Guid OrganizationId { get; set; }
+
         public String ProjectNumber { get; set; }
         public Address Address { get; set; }
         public String Title { get; set; }
