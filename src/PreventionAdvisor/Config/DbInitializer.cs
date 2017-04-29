@@ -76,6 +76,10 @@ namespace PreventionAdvisor
             context.Workplaces.Add(wp2);
 
             context.SaveChanges();
+
+            // Seeding for Categories
+
+
         }
     }
 }

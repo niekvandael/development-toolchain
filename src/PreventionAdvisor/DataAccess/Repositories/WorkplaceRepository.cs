@@ -67,6 +67,7 @@ namespace PreventionAdvisorDataAccess.Repositories
         {
             try
             {
+                this.setForeignKeysById(workplace);
                 workplace.Organization.UserId = this._sessionTasks.GetAppUserId(httpContext);
 
                 _context.Update(workplace);
@@ -95,5 +96,17 @@ namespace PreventionAdvisorDataAccess.Repositories
                 throw;
             }
         }
+
+        private void setForeignKeysById(Workplace workplace)
+        {
+            if (workplace.Organization.Id != workplace.OrganizationId) {
+                Organization org = _context.Organizations.Find(workplace.OrganizationId);
+                if (org != null) {
+                    workplace.Organization = org;
+                }
+            }
+        }
+
+
     }
 }
