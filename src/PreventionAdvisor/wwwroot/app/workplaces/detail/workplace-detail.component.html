@@ -1,0 +1,74 @@
+<div id="wrapper">
+    <div id="left">
+<b>#{{ workplace.projectNumber }}</b>
+<br />
+<b>{{ workplace.title }}</b>
+<br /><br />
+{{ workplace.address.street }} {{ workplace.address.number }} <br />
+{{ workplace.address.zipcode }} {{ workplace.address.city }}
+<br />
+<br />
+<br />
+<b>Werfleider</b><br />
+{{ workplace.projectLead }}
+<br />
+<br />
+<br />
+<b>Controleur</b><br />
+{{ workplace.projectController }}
+<br />
+<br />
+<a [routerLink]="['/workplace/', workplace.id]">Bewerken</a>
+<br />
+<hr />
+<br />
+{{ completedItems }}/{{ workplace.checklistItems.length }} ({{ (completedItems/workplace.checklistItems.length)*100  | number : '1.2-2' }}%)
+<br />
+<br />
+<hr />
+<br />
+Afprinten <br />
+Downloaden <br />
+Emailen <br />
+<br />
+<hr />
+<br />
+Rapport door organisatie: <br />
+<b>{{ workplace.organization.name }}</b>
+
+</div>
+
+<div id="right">
+<div>
+    <div>
+        <div>
+            <input type='text' [(ngModel)]='listFilter' placeholder="Zoeken..."/>
+            <button>+</button>
+        </div>
+    </div>
+    <br />
+    <div class='has-error' *ngIf='errorMessage'>{{errorMessage}}</div>
+
+    <div *ngFor='let category of categories'>
+        <h3>{{ category.title }}</h3>
+
+        <div class='table-responsive'>
+            <table class='table' *ngIf='workplace.checklistItems && workplace.checklistItems.length'>
+                <tbody>
+                    <tr *ngFor='let checklistItem of workplace.checklistItems | checkListItemFilter:listFilter | checkListItemCategoryFilter:category '>
+                        <td class="checkListItemListName" >{{ checklistItem.title }}</td>
+                        <td class="checkListItemListStatus">
+                            <img  *ngIf='checklistItem.status === 1' class="ok" src='images/success.png'>
+                            <img  *ngIf='checklistItem.status != 1' class="ok" src='images/warning.png'>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    
+</div>
+
+    </div>
+</div>

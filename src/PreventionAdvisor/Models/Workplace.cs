@@ -25,6 +25,8 @@ namespace PreventionAdvisor.Models
         public String ProjectLead { get; set; }
         public String ProjectController { get; set; }
         public String Description { get; set; }
+
+        public ICollection<ChecklistItem> ChecklistItems { get; set; }
     }
 
 }

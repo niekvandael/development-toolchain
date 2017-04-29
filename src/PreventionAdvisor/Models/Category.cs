@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -10,6 +11,9 @@ namespace PreventionAdvisor.Models
         [Key]
         public Guid Id { get; set; }
         public String Title { get; set; }
-        public AppUser User { get; set; }
+
+        public Guid UserId { get; set; }
+        [JsonIgnore]
+        public virtual AppUser User { get; set; }
     }
 }

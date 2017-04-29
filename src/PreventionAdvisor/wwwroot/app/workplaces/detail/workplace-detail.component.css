@@ -1,0 +1,19 @@
+#wrapper {
+    width: 100%;
+    overflow: hidden; 
+}
+#left {
+    width: 300px;
+    float:left; 
+}
+#right {
+    overflow: hidden; 
+}
+
+.checkListItemListName{
+    width: 90%;
+}
+
+.checkListItemListStatus{
+    width: 10%;
+}

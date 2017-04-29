@@ -43,6 +43,7 @@ namespace PreventionAdvisorDataAccess.Repositories
                             .Include(w => w.Address)
                             .Include(w => w.Organization)
                             .Include(w => w.Organization.Address)
+                            .Include(w => w.ChecklistItems).ThenInclude(cli => cli.Category)
                             .FirstOrDefault();
         }
 
@@ -73,7 +74,7 @@ namespace PreventionAdvisorDataAccess.Repositories
                 _context.Update(workplace);
                 _context.SaveChanges();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw;
             }

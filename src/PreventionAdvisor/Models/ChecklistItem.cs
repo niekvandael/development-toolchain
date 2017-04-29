@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace PreventionAdvisor.Models
 {
-    public class Checklist
+    public class ChecklistItem
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public Guid Id { get; set; }
         public String Title { get; set; }
         public String Description { get; set; }
-        public String Status { get; set; }
-        public Workplace Workplace { get; set; }
-        public Category Category { get; set; }
+        public int Status { get; set; }
+        public Guid CategoryId { get; set; }
+        public virtual Category Category { get; set; }
     }
 }
