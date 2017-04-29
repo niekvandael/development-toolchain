@@ -4,7 +4,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { Workplace } from '../workplace';
-import { Category } from '../category';
 
 import { WorkplaceService } from '../workplace.service';
 
