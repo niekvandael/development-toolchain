@@ -1,5 +1,6 @@
-import { Component, Input, Output, EventEmitter  } from '@angular/core';
-import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { Location } from '@angular/common';
 
 import { Router } from '@angular/router';
 
@@ -24,6 +25,11 @@ export class LoginComponent {
 
     private loginCallback(data: User) {
         this._authService.setUser(data);
-        this._router.navigate(['organizations']);
+
+        if (window.history.length > 1) {
+            this._location.back();
+        } else {
+            this._router.navigate(['organizations']);
+        }
     }
 }
