@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule} from '@angular/router';
 
 import { WorkplaceFilterPipe } from './list/workplace-filter.pipe';
-import { ChecklistItemFilterPipe } from './detail/checklistItem-filter.pipe';
+import { ChecklistItemFilterPipe } from './detail/checklistitem-filter.pipe';
 import { ChecklistItemCategoryFilterPipe } from './detail/checklistItemCategory-filter.pipe';
 
 import { WorkplaceListComponent } from './list/workplace-list.component';
