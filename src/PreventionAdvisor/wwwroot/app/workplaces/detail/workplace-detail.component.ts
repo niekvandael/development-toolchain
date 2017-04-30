@@ -50,6 +50,7 @@ export class WorkplaceDetailComponent implements OnInit {
     }
 
     calculateCompletion() {
+        this.completedItems = 0;
         for (let checklistItem of this.workplace.checklistItems) {
             if (checklistItem.status === 1) {
                 this.completedItems++;
@@ -81,6 +82,6 @@ export class WorkplaceDetailComponent implements OnInit {
     }
 
     saveItemCallback(){
-        // nothing to do here...
+        this.calculateCompletion();
     }
 }
