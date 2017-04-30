@@ -17,3 +17,30 @@
 .checkListItemListStatus{
     width: 10%;
 }
+
+tr{
+    cursor:pointer;
+}
+
+img{
+    width: 15px;
+    height: 15px;
+}
+
+#editStateModal td{
+    text-align: center;
+    width: 170px;
+    height: 60px;
+    border: 1px solid#286090
+}
+
+.grayscale{
+    -webkit-filter: grayscale(100%); 
+    filter: grayscale(100%);
+}
+
+.selectedItem{
+    background: #286090;
+    font-weight: bold;
+    color: white;
+}

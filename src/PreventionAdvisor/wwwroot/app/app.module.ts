@@ -25,27 +25,26 @@ import { AuthService } from './auth/auth.service';
     BrowserModule,
     HttpModule,
     RouterModule.forRoot([
-        { path: 'welcome', component: WelcomeComponent },
-        { path: 'login', component: LoginComponent },
-        { path: 'organizations', component: OrganizationListComponent },
-        { path: 'organization', component: OrganizationInputComponent , },
-        { path: 'organization/:id', component: OrganizationInputComponent },
-        { path: 'workplace', component: WorkplaceListComponent , },
+      { path: 'welcome', component: WelcomeComponent },
+      { path: 'login', component: LoginComponent },
+      { path: 'organizations', component: OrganizationListComponent },
+      { path: 'organization', component: OrganizationInputComponent, },
+      { path: 'organization/:id', component: OrganizationInputComponent },
+      { path: 'workplace', component: WorkplaceListComponent, },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
       { path: '**', redirectTo: 'welcome', pathMatch: 'full' }
     ]),
-      OrganizationModule,
-      WorkplaceModule,
-      FormsModule
+    OrganizationModule,
+    WorkplaceModule,
+    FormsModule
   ],
   declarations: [
-      AppComponent,
-      WelcomeComponent,
-      LoginComponent
-  ],
+    AppComponent,
+    WelcomeComponent,
+    LoginComponent  ],
   bootstrap: [AppComponent],
   providers: [
-      AuthService
+    AuthService
   ]
 })
 export class AppModule { }

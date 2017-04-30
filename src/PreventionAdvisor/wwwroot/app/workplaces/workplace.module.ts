@@ -8,6 +8,7 @@ import { ChecklistItemCategoryFilterPipe } from './detail/checklistItemCategory-
 import { WorkplaceListComponent } from './list/workplace-list.component';
 import { WorkplaceInputComponent } from './input/workplace-input.component';
 import { WorkplaceDetailComponent } from './detail/workplace-detail.component';
+import { ModalComponent } from '../shared/modal/modal.component';
 
 import { WorkplaceService } from './workplace.service';
 
@@ -29,6 +30,7 @@ import { SharedModule } from '../shared/shared.module';
     WorkplaceListComponent,
     WorkplaceInputComponent,
     WorkplaceDetailComponent,
+    ModalComponent
   ],
   providers: [
     WorkplaceService,
