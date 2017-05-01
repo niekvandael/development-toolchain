@@ -18,7 +18,8 @@
         <a [routerLink]="['/workplace/', workplace.id]">Bewerken</a>
         <br />
         <hr />
-        <br /> {{ completedItems }}/{{ workplace.checklistItems.length }} ({{ (completedItems/workplace.checklistItems.length)*100 | number : '1.0-0' }}%)
+        <br /> {{ completedItems }}/{{ workplace.checklistItems.length }} ({{ (completedItems/workplace.checklistItems.length)*100
+        | number : '1.0-0' }}%)
         <br />
         <br />
         <hr />
@@ -35,13 +36,13 @@
             <div>
                 <div>
                     <input type='text' [(ngModel)]='listFilter' placeholder="Zoeken..." />
-                    <button>+</button>
+                    <button type="button" class="btn btn-primary" (click)="resetAddItemsModal() ; addItemsModal.show();">+</button>
                 </div>
             </div>
             <br />
             <div class='has-error' *ngIf='errorMessage'>{{errorMessage}}</div>
 
-            <div *ngFor='let category of categories'>
+            <div *ngFor='let category of filteredCategories'>
                 <h3>{{ category.title }}</h3>
 
                 <div class='table-responsive'>
@@ -86,6 +87,41 @@
     </div>
     <div class="app-modal-footer">
         <button type="button" class="btn btn-default" (click)="resetChecklistItem() ; editStateModal.hide()">Sluiten</button>
-        <button type="button" class="btn btn-primary" (click)="saveItem(); editStateModal.hide()" >Opslaan</button>
+        <button type="button" class="btn btn-primary" (click)="saveItem(); editStateModal.hide()">Opslaan</button>
     </div>
 </app-modal>
+
+<form #form="ngForm" (ngSubmit)="onSubmitAddItemsModal(form.value)">
+    <app-modal #addItemsModal id="addItemsModal">
+        <div class="app-modal-header">
+            <table id="addItemsModalNav">
+                <tr>
+                    <td [class.grayscale]="selecteditemsModalItem != 1" [class.selectedItem]="selecteditemsModalItem == 1" (click)="selecteditemsModalItem = 1">Nieuw werkpunt</td>
+                    <td [class.grayscale]="selecteditemsModalItem != 2" [class.selectedItem]="selecteditemsModalItem == 2" (click)="selecteditemsModalItem = 2">Nieuwe categorie</td>
+                </tr>
+            </table>
+        </div>
+        <div class="app-modal-body">
+            <div *ngIf='selecteditemsModalItem == 1'>
+                <b>Nieuw werkpunt </b> <br />
+                <input type="text" [(ngModel)]='newChecklistItem.title' placeholder="brandblussers" required name='newChecklistItem.title' />                <br /> <br />
+                <br />
+                <b>Binnen categorie</b> <br />
+                <select placeholder="Acme BVBA" required [(ngModel)]='newChecklistItem.categoryId' name='newChecklistItem.categoryId'>
+                    <option *ngFor='let category of categories' value="{{ category.id }}">{{ category.title }}</option>
+                </select>
+            </div>
+
+            <div *ngIf='selecteditemsModalItem == 2'>
+                <b>Categorie titel </b> <br />
+                <input type="text" [(ngModel)]='newCategory.title' placeholder="Orde en netheid" required name='newCategory.name' />                <br /> <br />
+            </div>
+
+
+        </div>
+        <div class="app-modal-footer">
+            <button type="button" class="btn btn-default" (click)="resetChecklistItem() ; addItemsModal.hide()">Sluiten</button>
+            <button type="submit"  class="btn btn-primary">Opslaan</button>
+        </div>
+    </app-modal>
+</form>

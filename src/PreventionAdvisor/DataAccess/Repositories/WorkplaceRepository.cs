@@ -51,6 +51,7 @@ namespace PreventionAdvisorDataAccess.Repositories
         {
             try
             {
+                setForeignKeysById(workplace);
                 workplace.Organization.UserId = this._sessionTasks.GetAppUserId(httpContext);
 
                 _context.Add(workplace);

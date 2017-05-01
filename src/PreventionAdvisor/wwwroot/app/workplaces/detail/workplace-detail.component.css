@@ -37,10 +37,27 @@ img{
 .grayscale{
     -webkit-filter: grayscale(100%); 
     filter: grayscale(100%);
+    border-color: lightgray !important;
 }
 
 .selectedItem{
     background: #286090;
     font-weight: bold;
-    color: white;
+    color: white !important;
+}
+
+#addItemsModalNav{
+    width: 100%;
+    border-spacing: 10px;
+}
+
+#addItemsModalNav td{
+    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    width: 50%;
+    height: 60px;
+    border-bottom: 1px solid #286090;
+    font-weight: bold;
+    color: lightgray;
 }

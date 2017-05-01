@@ -34,7 +34,8 @@ namespace PreventionAdvisor
             //
 
             var identityUser = new IdentityUser();
-            if (await userManager.FindByEmailAsync("niek.vandael@gmail.com") == null) {
+            if (await userManager.FindByEmailAsync("niek.vandael@gmail.com") == null)
+            {
                 identityUser = new IdentityUser()
                 {
                     UserName = "niekvandael",
@@ -58,9 +59,17 @@ namespace PreventionAdvisor
             //
             // Seeding for workplaces
             //
-            Workplace wp1 = new Workplace() { Organization = org1, ProjectNumber = "193022",
+            Workplace wp1 = new Workplace()
+            {
+                Organization = org1,
+                ProjectNumber = "193022",
                 Address = new Address { City = "Hasselt", Country = "Belgium", Number = "17.01", Street = "Kempische Steenweg", Zipcode = "3520" },
-                Title = "Corda Campus", ProjectLead = "Ludo Pellens", ProjectController = "Guy Loenders", Description = "Corda campus verbouwingen", ChecklistItems = new List<ChecklistItem>()};
+                Title = "Corda Campus",
+                ProjectLead = "Ludo Pellens",
+                ProjectController = "Guy Loenders",
+                Description = "Corda campus verbouwingen",
+                ChecklistItems = new List<ChecklistItem>()
+            };
 
             Workplace wp2 = new Workplace()
             {
@@ -89,12 +98,14 @@ namespace PreventionAdvisor
             context.SaveChanges();
 
             // Seeding for Checklist items
-            ChecklistItem item1 = new ChecklistItem {
-                    Category = category1,
-                    CategoryId = category1.Id,
-                    Title = "Toegang en wegen",
-                    Status = 1,
-                    Description = "Wegen zijn in orde"
+            ChecklistItem item1 = new ChecklistItem
+            {
+                Category = category1,
+                CategoryId = category1.Id,
+                Title = "Toegang en wegen",
+                Status = 1,
+                Description = "Wegen zijn in orde",
+                User = appUser
             };
 
             ChecklistItem item2 = new ChecklistItem
@@ -103,7 +114,8 @@ namespace PreventionAdvisor
                 CategoryId = category1.Id,
                 Title = "Verlichting",
                 Status = 2,
-                Description = ""
+                Description = "",
+                User = appUser
             };
 
             ChecklistItem item3 = new ChecklistItem
@@ -112,7 +124,9 @@ namespace PreventionAdvisor
                 CategoryId = category1.Id,
                 Title = "Opslag en materiaal",
                 Status = 1,
-                Description = ""
+                Description = "",
+                User = appUser
+
             };
 
             ChecklistItem item4 = new ChecklistItem
@@ -121,7 +135,8 @@ namespace PreventionAdvisor
                 CategoryId = category1.Id,
                 Title = "Eet- en kleedruimte",
                 Status = 1,
-                Description = ""
+                Description = "",
+                User = appUser
             };
 
             ChecklistItem item5 = new ChecklistItem
@@ -130,7 +145,9 @@ namespace PreventionAdvisor
                 CategoryId = category2.Id,
                 Title = "Bouwterreind / Bouwwegen",
                 Status = 1,
-                Description = ""
+                Description = "",
+                User = appUser,
+                UserId = appUser.Id
             };
 
             ChecklistItem item6 = new ChecklistItem
@@ -139,7 +156,8 @@ namespace PreventionAdvisor
                 CategoryId = category2.Id,
                 Title = "Werkplek",
                 Status = 1,
-                Description = ""
+                Description = "",
+                User = appUser
             };
 
             ChecklistItem item7 = new ChecklistItem
@@ -148,7 +166,8 @@ namespace PreventionAdvisor
                 CategoryId = category2.Id,
                 Title = "Opslag (inclusief stabiliteit)",
                 Status = 2,
-                Description = ""
+                Description = "",
+                User = appUser
             };
 
             wp1.ChecklistItems.Add(item1);
@@ -157,7 +176,7 @@ namespace PreventionAdvisor
             wp1.ChecklistItems.Add(item4);
             wp1.ChecklistItems.Add(item5);
             wp1.ChecklistItems.Add(item6);
-          
+
             context.SaveChanges();
         }
     }

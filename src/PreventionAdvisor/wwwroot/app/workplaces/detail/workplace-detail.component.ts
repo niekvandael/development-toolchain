@@ -7,6 +7,8 @@ import { Location } from '@angular/common';
 import { Workplace } from '../workplace';
 
 import { WorkplaceService } from '../workplace.service';
+import { ChecklistItemService } from '../checklistItem.service';
+import { CategoryService } from '../category.service';
 
 import { Subscription } from 'rxjs/Subscription';
 
@@ -20,13 +22,19 @@ export class WorkplaceDetailComponent implements OnInit {
     errorMessage: string;
     mode: string;
     completedItems: number = 0;
+    filteredCategories: Category[] = [];
     categories: Category[] = [];
+
     selectedItem: ChecklistItem = new ChecklistItem();
+    selecteditemsModalItem: number = addItemsModalNavOptions.ChecklistItem;
+    newCategory: Category = new Category();
+    newChecklistItem: ChecklistItem = new ChecklistItem(this.workplace.id);
+
     private selectedItemCopy: ChecklistItem;
 
     private workplaceSub: Subscription;
 
-    constructor(private _workplaceService: WorkplaceService, private _route: ActivatedRoute, private _router: Router, private _location: Location) {
+    constructor(private _workplaceService: WorkplaceService, private _categoryService: CategoryService, private _checklistItemService: ChecklistItemService, private _route: ActivatedRoute, private _router: Router, private _location: Location) {
 
     };
 
@@ -40,33 +48,33 @@ export class WorkplaceDetailComponent implements OnInit {
                 let id = params['id'];
                 this.getWorkplace(id);
             });
-
+        this.getCategories();
     }
 
-    setWorkplace(workplace: Workplace) {
+    setWorkplace(workplace: Workplace): void {
         this.workplace = workplace;
         this.calculateCompletion();
-        this.findCategories();
+        this.findFilteredCategories();
     }
 
-    calculateCompletion() {
+    calculateCompletion(): void {
         this.completedItems = 0;
         for (let checklistItem of this.workplace.checklistItems) {
-            if (checklistItem.status === 1) {
+            if (checklistItem.status === 1 || checklistItem.status === 2) {
                 this.completedItems++;
             }
         }
     }
 
-    findCategories() {
+    findFilteredCategories(): void {
         for (let checklistItem of this.workplace.checklistItems) {
-            if (!this.categories.filter(x => x.id === checklistItem.categoryId).length) {
-                this.categories.push(checklistItem.category);
+            if (!this.filteredCategories.filter(x => x.id === checklistItem.categoryId).length) {
+                this.filteredCategories.push(checklistItem.category);
             }
         }
     }
 
-    editChecklistItem(checkListItem: ChecklistItem) {
+    editChecklistItem(checkListItem: ChecklistItem): void {
         this.selectedItem = checkListItem;
         this.selectedItemCopy = Object.assign({}, this.selectedItem);
     }
@@ -77,11 +85,49 @@ export class WorkplaceDetailComponent implements OnInit {
         }
     }
 
-    saveItem() {
-        this._workplaceService.updateWorkplace(this.workplace, this.saveItemCallback.bind(this));
+    saveItem(): void {
+        this._checklistItemService.updateChecklistItem(this.selectedItem, this.saveItemCallback.bind(this));
     }
 
-    saveItemCallback(){
+    saveItemCallback(): void {
         this.calculateCompletion();
     }
+
+    onSubmitAddItemsModal(): void {
+        if (this.selecteditemsModalItem === addItemsModalNavOptions.ChecklistItem) {
+            this._checklistItemService.addChecklistItem(this.newChecklistItem, this.addChecklistItemCallback.bind(this));
+        } else if (this.selecteditemsModalItem === addItemsModalNavOptions.Category) {
+            this._categoryService.addCategory(this.newCategory, this.addCategoryCallback.bind(this));
+        }
+    }
+
+    addChecklistItemCallback(): void {
+        this.resetAddItemsModal(addItemsModalNavOptions.ChecklistItem);
+        this.getWorkplace(this.workplace.id);
+    }
+
+    addCategoryCallback(): void {
+        this.newCategory = new Category();
+        this.getCategories();
+        this.resetAddItemsModal(addItemsModalNavOptions.Category);
+    }
+
+    getCategories(): void {
+        this._categoryService.getCategories(this.getCategoriesCallback.bind(this));
+    }
+
+    getCategoriesCallback(categories: Category[]): void {
+        this.categories = categories;
+    }
+
+    resetAddItemsModal(defaultModalNavSelection: addItemsModalNavOptions = addItemsModalNavOptions.ChecklistItem): void {
+        this.newCategory = new Category();
+        this.newChecklistItem = new ChecklistItem(this.workplace.id);
+        this.selecteditemsModalItem = defaultModalNavSelection;
+    }
+}
+
+enum addItemsModalNavOptions {
+    ChecklistItem = 1,
+    Category = 2
 }

@@ -11,6 +11,8 @@ import { WorkplaceDetailComponent } from './detail/workplace-detail.component';
 import { ModalComponent } from '../shared/modal/modal.component';
 
 import { WorkplaceService } from './workplace.service';
+import { ChecklistItemService } from './checklistItem.service';
+import { CategoryService } from './category.service';
 
 import { SharedModule } from '../shared/shared.module';
 
@@ -34,6 +36,8 @@ import { SharedModule } from '../shared/shared.module';
   ],
   providers: [
     WorkplaceService,
+    ChecklistItemService,
+    CategoryService
   ]
 })
 export class WorkplaceModule {}
