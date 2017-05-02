@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { NotifierModule, NotifierOptions } from 'angular-notifier';
 
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './home/welcome.component';
@@ -20,10 +21,55 @@ import { WorkplaceModule } from './workplaces/workplace.module';
 /* Feature Service */
 import { AuthService } from './auth/auth.service';
 
+/**
+ * Custom angular notifier options
+ */
+const customNotifierOptions: NotifierOptions = {
+    position: {
+        horizontal: {
+            position: 'left',
+            distance: 12
+        },
+        vertical: {
+            position: 'bottom',
+            distance: 12,
+            gap: 10
+        }
+    },
+    theme: 'material',
+    behaviour: {
+        autoHide: 5000,
+        onClick: false,
+        onMouseover: 'pauseAutoHide',
+        showDismissButton: true,
+        stacking: 4
+    },
+    animations: {
+        enabled: true,
+        show: {
+            preset: 'slide',
+            speed: 300,
+            easing: 'ease'
+        },
+        hide: {
+            preset: 'fade',
+            speed: 300,
+            easing: 'ease',
+            offset: 50
+        },
+        shift: {
+            speed: 300,
+            easing: 'ease'
+        },
+        overlap: 150
+    }
+};
+
 @NgModule({
   imports: [
     BrowserModule,
-    HttpModule,
+      HttpModule,
+      NotifierModule.forRoot(customNotifierOptions),
     RouterModule.forRoot([
       { path: 'welcome', component: WelcomeComponent },
       { path: 'login', component: LoginComponent },
