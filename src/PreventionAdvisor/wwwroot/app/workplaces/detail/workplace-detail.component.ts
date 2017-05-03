@@ -3,6 +3,7 @@ import { Category } from './../category';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { NotifierService } from 'angular-notifier';
 
 import { Workplace } from '../workplace';
 
@@ -34,7 +35,7 @@ export class WorkplaceDetailComponent implements OnInit {
 
     private workplaceSub: Subscription;
 
-    constructor(private _workplaceService: WorkplaceService, private _categoryService: CategoryService, private _checklistItemService: ChecklistItemService, private _route: ActivatedRoute, private _router: Router, private _location: Location) {
+    constructor(private _notifier: NotifierService, private _workplaceService: WorkplaceService, private _categoryService: CategoryService, private _checklistItemService: ChecklistItemService, private _route: ActivatedRoute, private _router: Router, private _location: Location) {
 
     };
 
@@ -104,12 +105,15 @@ export class WorkplaceDetailComponent implements OnInit {
     addChecklistItemCallback(): void {
         this.resetAddItemsModal(addItemsModalNavOptions.ChecklistItem);
         this.getWorkplace(this.workplace.id);
+        this._notifier.notify('success', 'Werkpunt toegevoegd');
     }
 
     addCategoryCallback(): void {
         this.newCategory = new Category();
         this.getCategories();
         this.resetAddItemsModal(addItemsModalNavOptions.Category);
+        this._notifier.notify('success', 'Categorie toegevoegd');
+
     }
 
     getCategories(): void {

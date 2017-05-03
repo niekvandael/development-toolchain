@@ -7,9 +7,9 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
+import { NotifierService } from 'angular-notifier';
 
 import { CommonComponent } from '../shared/common.component';
-import { NotifierService } from 'angular-notifier';
 
 @Injectable()
 export class CommonService {
@@ -17,7 +17,7 @@ export class CommonService {
     private _apiLocation: string;
     private _options: RequestOptions;
 
-    constructor(private _http: Http, private _router: Router, private _notifier: NotifierService) {
+    constructor(private _notifier: NotifierService, private _http: Http, private _router: Router) {
         this._commonComponent = new CommonComponent();
         this._apiLocation = this._commonComponent.getAPILocation();
 
@@ -32,8 +32,6 @@ export class CommonService {
     public doGet(url: String, callback: any, options?: RequestOptions) {
         this._http.get(this._apiLocation + url, options == null ? this._options : options )
             .map((response: Response) => {
-                this._notifier.notify('success', 'You are awesome! I mean it!');
-
                 callback(response.text() === '' ? '' : response.json());
             })
             .catch(this.handleError.bind(this)).subscribe();
@@ -69,20 +67,29 @@ export class CommonService {
         } else if (err.status === 403) {
             this.forbidden();
         } else if (err.status === 400) {
+
             // Bad request (Session timeout)
             this.unauthorised();
         } else {
+            this._notifier.notify('error', 'Er ging iets mis, probeer het aub opnieuw');
+
             console.log(err)
             this.unauthorised();
         }
+
+        return Observable.throw(err);
     }
 
     private unauthorised(): Observable<any> {
+        this._notifier.notify('error', 'Opnieuw inloggen verplicht');
+
         this._router.navigate(['login']);
         return null;
     }
 
     private forbidden(): Observable<any> {
+        this._notifier.notify('error', 'Opnieuw inloggen verplicht');
+
         this._router.navigate(['/']);
         return null;
     }

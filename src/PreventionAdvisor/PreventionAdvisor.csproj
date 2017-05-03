@@ -17,6 +17,11 @@
     <EmbeddedResource Remove="wwwroot\app\NewFolder\**" />
     <None Remove="wwwroot\app\NewFolder\**" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot/npm-debug.log" />
+    <Content Remove="wwwroot/npm-debug.log.3854859953" />
+  </ItemGroup>
   
   <ItemGroup>
     <Content Include="wwwroot\app\app.component.html" />

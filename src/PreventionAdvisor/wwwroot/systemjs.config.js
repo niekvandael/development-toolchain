@@ -24,6 +24,7 @@
       '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
       'angular-notifier': 'npm:angular-notifier/bundles/angular-notifier.umd.js',
 
+
       // other libraries
       'rxjs': 'npm:rxjs',
 

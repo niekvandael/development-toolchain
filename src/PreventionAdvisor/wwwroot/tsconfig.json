@@ -11,11 +11,11 @@
     "suppressImplicitAnyIndexErrors": true
   },
   "compileOnSave": true,
-
   "exclude": [
-    "node_modules",
-    "wwwroot",
-    "typings/main.d.ts",
-    "typings/main"
+    "node_modules"
+  ],
+  "typeRoots": [
+    "typings/global",
+    "typings/modules"
   ]
 }
