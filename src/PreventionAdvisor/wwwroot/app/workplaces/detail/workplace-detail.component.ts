@@ -1,6 +1,6 @@
 import { ChecklistItem } from './../checklistItem';
 import { Category } from './../category';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { NotifierService } from 'angular-notifier';
@@ -17,7 +17,7 @@ import { Subscription } from 'rxjs/Subscription';
     templateUrl: 'app/workplaces/detail/workplace-detail.component.html',
     styleUrls: ['app/workplaces/detail/workplace-detail.component.css']
 })
-export class WorkplaceDetailComponent implements OnInit {
+export class WorkplaceDetailComponent implements AfterViewInit {
     workplace: Workplace = new Workplace();
     listFilter: string;
     errorMessage: string;
@@ -43,7 +43,7 @@ export class WorkplaceDetailComponent implements OnInit {
         this._workplaceService.getWorkplace(id, this.setWorkplace.bind(this));
     }
 
-    ngOnInit(): void {
+    ngAfterViewInit(): void {
         this.workplaceSub = this._route.params.subscribe(
             params => {
                 let id = params['id'];
