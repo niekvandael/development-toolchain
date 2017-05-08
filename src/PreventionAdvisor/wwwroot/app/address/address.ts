@@ -5,4 +5,5 @@ export class IAddress {
     zipcode: string = '';
     city: string = '';
     country: string = '';
+    var: string = 'tst';
 }

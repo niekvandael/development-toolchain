@@ -6,3 +6,5 @@ vcap-local.json
 src/PreventionAdvisor/wwwroot/app/**/*.js
 src/PreventionAdvisor/wwwroot/app/**/*.map
 src/PreventionAdvisor/wwwroot/node_modules
+src/PreventionAdvisor/wwwroot/dist
+src/PreventionAdvisor/wwwroot/vendor
