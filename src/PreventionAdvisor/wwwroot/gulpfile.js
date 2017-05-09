@@ -28,7 +28,7 @@ gulp.task('compile:ts', function () {
 //                .pipe(embedTemplates())
 //                .pipe(gulp.dest('embedded'));
 //            });
-//        });
+        });
 
 
 // Generate systemjs-based bundle (app/app.js)
