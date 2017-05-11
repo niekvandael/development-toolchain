@@ -29,12 +29,23 @@ export class CommonService {
         });
     }
 
-    public doGet(url: String, callback: any, options?: RequestOptions) {
+    public doGet(url: string, callback: any, options?: RequestOptions) {
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = function () {
+            if ((request.readyState == 4) && (request.status < 400)) {
+                callback(request.responseXML);
+            }
+        };
+
+        request.open("GET", url, true);
+        request.send();
+/*
         this._http.get(this._apiLocation + url, options == null ? this._options : options )
             .map((response: Response) => {
                 callback(response.text() === '' ? '' : response.json());
             })
             .catch(this.handleError.bind(this)).subscribe();
+*/
     }
 
     public doPost(url: String, body: any, callback: any, options?: RequestOptions) {
