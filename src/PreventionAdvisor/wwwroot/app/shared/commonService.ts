@@ -88,7 +88,7 @@ export class CommonService {
             // Bad request (Session timeout)
             this.unauthorised();
         } else {
-            this._notifier.notify('error', 'Er ging iets mis, probeer het aub opnieuw');
+            this.notifyError('Opnieuw inloggen verplicht');
 
             console.log(err)
             this.unauthorised();
@@ -98,16 +98,30 @@ export class CommonService {
     }
 
     private unauthorised(): Observable<any> {
-        this._notifier.notify('error', 'Opnieuw inloggen verplicht');
+        this.notifyError('Opnieuw inloggen verplicht');
 
         this._router.navigate(['login']);
         return null;
     }
 
     private forbidden(): Observable<any> {
-        this._notifier.notify('error', 'Opnieuw inloggen verplicht');
-
+        this.notifyError('Opnieuw inloggen verplicht');
         this._router.navigate(['/']);
         return null;
+    }
+
+    private notifyError(message: string) {
+        var now = new Date().getTime();
+        var previousDate = eval('window._previousErrorTimestamp');
+
+        console.log('now:' + now);
+        console.log('previous:' + previousDate);
+        console.log('verschil:' + (now - previousDate));
+
+        // Only show notification if time in between is less than 200ms
+        if (previousDate == undefined || now - previousDate < 200) {
+            this._notifier.notify('error', message);
+        }
+        eval("window._previousErrorTimestamp = '" + now + "';");
     }
 }
