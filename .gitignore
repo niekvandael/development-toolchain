@@ -8,3 +8,6 @@ src/PreventionAdvisor/wwwroot/app/**/*.map
 src/PreventionAdvisor/wwwroot/node_modules
 src/PreventionAdvisor/wwwroot/dist
 src/PreventionAdvisor/wwwroot/vendor
+!src/PreventionAdvisor/wwwroot/app/app.bundle.js
+!src/PreventionAdvisor/wwwroot/node_modules/core-js/client/shim.min.js
+!src/PreventionAdvisor/wwwroot/node_modules/bootstrap/dist/css/bootstrap.css
