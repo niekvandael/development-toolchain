@@ -71,7 +71,7 @@ gulp.task('bundle', ['vendor', 'app'], function () {
         'vendor/vendors.js'
         ])
     .pipe(concat('app.bundle.js'))
-//    .pipe(uglify())
+    .pipe(uglify())
     .pipe(gulp.dest('./app'));
 });
 
