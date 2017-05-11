@@ -31,9 +31,15 @@ export class CommonService {
 
     public doGet(url: string, callback: any, options?: RequestOptions) {
         var request = new XMLHttpRequest();
+        var vm = this;
         request.onreadystatechange = function () {
-            if ((request.readyState == 4) && (request.status < 400)) {
-                callback(JSON.parse(request.response));
+            if ((request.readyState == 4)) {
+                if (request.status < 400) {
+                    callback(JSON.parse(request.response));
+                } else {
+                    vm.handleError(request);
+                }
+                
             }
         };
 
@@ -72,7 +78,7 @@ export class CommonService {
             .catch(this.handleError.bind(this)).subscribe();
     }
 
-    private handleError(err: Response) {
+    private handleError(err: any) {
         if (err.status === 401) {
             this.unauthorised();
         } else if (err.status === 403) {
