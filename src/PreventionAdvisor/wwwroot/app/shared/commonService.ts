@@ -33,11 +33,11 @@ export class CommonService {
         var request = new XMLHttpRequest();
         request.onreadystatechange = function () {
             if ((request.readyState == 4) && (request.status < 400)) {
-                callback(request.responseXML);
+                callback(JSON.parse(request.response));
             }
         };
 
-        request.open("GET", url, true);
+        request.open("GET", this._apiLocation + url, true);
         request.send();
 /*
         this._http.get(this._apiLocation + url, options == null ? this._options : options )
