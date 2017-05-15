@@ -45,6 +45,43 @@ namespace PreventionAdvisor
                 await userManager.CreateAsync(identityUser, "P@ssw0rd!");
             }
 
+            var identityUser1 = new IdentityUser();
+            if (await userManager.FindByEmailAsync("user1@test.be") == null)
+            {
+                identityUser1 = new IdentityUser()
+                {
+                    UserName = "user1",
+                    Email = "user1@test.be"
+                };
+
+                await userManager.CreateAsync(identityUser1, "user1");
+            }
+
+
+            var identityUser2 = new IdentityUser();
+            if (await userManager.FindByEmailAsync("user2@test.be") == null)
+            {
+                identityUser2 = new IdentityUser()
+                {
+                    UserName = "user2",
+                    Email = "user2@test.be"
+                };
+
+                await userManager.CreateAsync(identityUser2, "user2");
+            }
+
+            var identityUser3 = new IdentityUser();
+            if (await userManager.FindByEmailAsync("user3@test.be") == null)
+            {
+                identityUser3 = new IdentityUser()
+                {
+                    UserName = "user3",
+                    Email = "user3@test.be"
+                };
+
+                await userManager.CreateAsync(identityUser3, "user3");
+            }
+
             AppUser appUser = new AppUser
             {
                 Firstname = "Niek",
