@@ -23,7 +23,7 @@ export class AuthService extends CommonService {
             withCredentials: true
         });
 
-        this.doPost('api/Login', `Username=${user.username}&Password=${user.password}`, callback, options);
+        this.doPost('api/Login', `Username=${user.username}&Password=${user.password}`, callback, options, this.errorHandler.bind(this));
     }
 
     public logout(callback: any) {
@@ -33,9 +33,6 @@ export class AuthService extends CommonService {
     public getAuthenticatedUser(callback: any) {
        this.doGet('api/whoami', callback);
     }
-
-
-
 
     public isAuthenticated(): boolean{
         return this._authenticated;
@@ -59,5 +56,9 @@ export class AuthService extends CommonService {
 
     public getUser(): User {
         return this._user;
+    }
+
+    public errorHandler(): void {
+        this._notifier.notify('warning', 'Gebruikersnaam of wachtwoord niet correct!');
     }
 }

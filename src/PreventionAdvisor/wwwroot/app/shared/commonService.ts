@@ -17,7 +17,7 @@ export class CommonService {
     private _apiLocation: string;
     private _options: RequestOptions;
 
-    constructor(private _notifier: NotifierService, private _http: Http, private _router: Router) {
+    constructor(protected _notifier: NotifierService, private _http: Http, private _router: Router) {
         this._commonComponent = new CommonComponent();
         this._apiLocation = this._commonComponent.getAPILocation();
 
@@ -54,12 +54,12 @@ export class CommonService {
 */
     }
 
-    public doPost(url: String, body: any, callback: any, options?: RequestOptions) {
+    public doPost(url: String, body: any, callback: any, options?: RequestOptions, errorHandler?: any) {
         this._http.post(this._apiLocation + url, body, options == null ? this._options : options )
             .map((response: Response) => {
                 callback(response.text() === '' ? '' : response.json());
             })
-            .catch(this.handleError.bind(this)).subscribe();
+            .catch(errorHandler != null ? errorHandler() : this.handleError.bind(this)).subscribe();
     }
 
     public doPut(url: String, body: any, callback: any, options?: RequestOptions) {
@@ -113,10 +113,6 @@ export class CommonService {
     private notifyError(message: string) {
         var now = new Date().getTime();
         var previousDate = eval('window._previousErrorTimestamp');
-
-        console.log('now:' + now);
-        console.log('previous:' + previousDate);
-        console.log('verschil:' + (now - previousDate));
 
         // Only show notification if time in between is less than 200ms
         if (previousDate == undefined || now - previousDate < 200) {
