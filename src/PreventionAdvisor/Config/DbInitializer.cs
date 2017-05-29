@@ -14,9 +14,7 @@ namespace PreventionAdvisor
         {
             context.Database.EnsureCreated();
 
-#if !DEBUG
-                return;
-#endif
+
 
             //
             // Seeding for organizations
