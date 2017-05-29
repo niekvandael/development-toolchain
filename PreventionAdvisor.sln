@@ -15,8 +15,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PreventionAdvisor", "src\PreventionAdvisor\PreventionAdvisor.csproj", "{FBE90CB3-17A0-4C81-A1F5-1CAE061D2B97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PreventionAdvisor.Tests", "PreventionAdvisor.Tests\PreventionAdvisor.Tests.csproj", "{B627D64C-9820-4C09-AF1B-9ABB0B9F2827}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
