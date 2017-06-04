@@ -39,19 +39,12 @@ export class CommonService {
                 } else {
                     vm.handleError(request);
                 }
-                
             }
         };
 
         request.open("GET", this._apiLocation + url, true);
         request.send();
-/*
-        this._http.get(this._apiLocation + url, options == null ? this._options : options )
-            .map((response: Response) => {
-                callback(response.text() === '' ? '' : response.json());
-            })
-            .catch(this.handleError.bind(this)).subscribe();
-*/
+
     }
 
     public doPost(url: String, body: any, callback: any, options?: RequestOptions, errorHandler?: any) {
@@ -59,7 +52,9 @@ export class CommonService {
             .map((response: Response) => {
                 callback(response.text() === '' ? '' : response.json());
             })
-            .catch(errorHandler != null ? errorHandler() : this.handleError.bind(this)).subscribe();
+             .subscribe(
+               data => (null),
+               err => errorHandler != null ? errorHandler(err) : this.handleError.bind(this, err));
     }
 
     public doPut(url: String, body: any, callback: any, options?: RequestOptions) {

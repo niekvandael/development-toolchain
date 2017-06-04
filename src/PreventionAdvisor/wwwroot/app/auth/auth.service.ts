@@ -58,7 +58,7 @@ export class AuthService extends CommonService {
         return this._user;
     }
 
-    public errorHandler(): void {
+    public errorHandler(err: any): void {
         this._notifier.notify('warning', 'Gebruikersnaam of wachtwoord niet correct!');
     }
 }
