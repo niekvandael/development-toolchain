@@ -1,4 +1,8 @@
-﻿<Project>
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>f77de57d-19cd-4126-b0b2-3499b97fa1bf</ProjectGuid>
+  </PropertyGroup>
 
   <PropertyGroup>
     <VersionPrefix>1.1.0</VersionPrefix>
