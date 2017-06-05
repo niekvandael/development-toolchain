@@ -8,6 +8,7 @@ import { ChecklistItemCategoryFilterPipe } from './detail/checklistItemCategory-
 import { WorkplaceListComponent } from './list/workplace-list.component';
 import { WorkplaceInputComponent } from './input/workplace-input.component';
 import { WorkplaceDetailComponent } from './detail/workplace-detail.component';
+import { WorkplacePrintComponent } from './print/workplace-print.component';
 import { ModalComponent } from '../shared/modal/modal.component';
 
 import { WorkplaceService } from './workplace.service';
@@ -23,6 +24,7 @@ import { SharedModule } from '../shared/shared.module';
       { path: 'workplaces', component: WorkplaceListComponent },
       { path: 'workplace/:id', component: WorkplaceInputComponent },
       { path: 'workplace/detail/:id', component: WorkplaceDetailComponent },
+      { path: 'workplace/print/:id', component: WorkplacePrintComponent }
    ])
   ],
   declarations: [
@@ -32,6 +34,7 @@ import { SharedModule } from '../shared/shared.module';
     WorkplaceListComponent,
     WorkplaceInputComponent,
     WorkplaceDetailComponent,
+    WorkplacePrintComponent,
     ModalComponent
   ],
   providers: [

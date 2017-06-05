@@ -1,0 +1,15 @@
+.header{
+    border-bottom: 1px solid blue;
+}
+
+.printableTable {
+    width: 100%;
+}
+
+.printableTable td, th{
+    border: 1px solid black;
+    padding: 2px;
+    min-width: 50px;
+    max-width: 200px;
+}
+

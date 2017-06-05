@@ -1,0 +1,62 @@
+<div class="header">
+    TODO: LOGO + Certificaten
+<br />
+<br />
+{{ workplace.organization.name }}
+<br />
+{{ workplace.organization.address.street }} {{ workplace.organization.address.number }} - {{ workplace.organization.address.zipcode }} {{ workplace.organization.address.city }}
+<br />
+Tel: {{ workplace.organization.phone }}
+<br />
+{{ workplace.organization.website }}
+</div>
+<br />
+Project  {{ workplace.title }}
+<br />
+Project nr.  {{ workplace.projectNumber }}
+<br />
+Datum inpectieronde
+<br />
+Controle uitgevoerd door  {{ workplace.projectController }}
+<br />
+Functie: directeur / werfleider / projectleider/ preventieadviseur
+
+<div *ngFor='let category of filteredCategories ; let i = index'>
+                <h3>{{ i+1 }}. {{ category.title }}</h3>
+
+                <div class='table-responsive'>
+                    <table class='printableTable' *ngIf='workplace.checklistItems && workplace.checklistItems.length'>
+                        <thead>
+                            <tr>
+                                <th>Onderwerpen</th>
+                                <th>Goed</th>
+                                <th>Slecht</th>
+                                <th>n.v.t</th>
+                                <th>Toelichting</th>
+                                <th colspan="2">Actie </th>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th>Ja</th>
+                                <th>Nee</th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                            <tr *ngFor='let checklistItem of workplace.checklistItems | checkListItemFilter:listFilter | checkListItemCategoryFilter:category '>
+                                <td>{{ checklistItem.title }}</td>
+                                <td><div *ngIf="checklistItem.status === 1">&#10003;</div></td>
+                                <td><div *ngIf="checklistItem.status === 3">&#10003;</div></td>
+                                <td><div *ngIf="checklistItem.status === 2">&#10003;</div></td>
+                                <td>{{ checklistItem.description }}</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
