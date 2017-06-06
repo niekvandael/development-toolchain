@@ -5,6 +5,7 @@ using PreventionAdvisor.Models;
 using PreventionAdvisorDataAccess.Common;
 using System;
 using System.Collections.Generic;
+using PreventionAdvisor.Enums;
 using System.Linq;
 using System.Text;
 
@@ -28,6 +29,14 @@ namespace PreventionAdvisorDataAccess.Repositories
             return this._context.ChecklistItems
                 .Where(c => c.UserId == userId)
                 .ToList();
+        }
+        
+        public int GetCountWithStatus(HttpContext httpContext, CheckListItemStatus checkListItemStatus)
+        {
+            var userId = this._sessionTasks.GetAppUserId(httpContext);
+
+            return this._context.ChecklistItems
+                .Count(c => c.UserId == userId && c.Status == (int) checkListItemStatus);
         }
 
         public ChecklistItem Get(HttpContext httpContext, Guid id)

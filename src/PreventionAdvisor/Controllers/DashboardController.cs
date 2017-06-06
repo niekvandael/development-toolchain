@@ -1,3 +1,4 @@
+using PreventionAdvisor.Enums;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -23,6 +24,7 @@ namespace GreenLiving.Controllers
     public class DashboardController : Controller
     {
         private WorkplaceRepository _WorkplaceRepository;
+        private ChecklistItemRepository _ChecklistItemRepository;
 
         public DashboardController(PreventionAdvisorDbContext dbContext)
         {
@@ -45,9 +47,15 @@ namespace GreenLiving.Controllers
                 // All
                 var workplaces = this._WorkplaceRepository.Get(HttpContext);
 
+                // Complete
+                var completeCheckListItems = this._ChecklistItemRepository.Get(HttpContext);
+
                 dashboardModel.ReportsCount = workplaces.Count;
-                dashboardModel.TotalItemsFail = dashboardModel.IncompleteWorkplaces.Count;
-                dashboardModel.TotalItemsOk = completeWorkplaces.Count;
+                dashboardModel.TotalItemsFail = this._ChecklistItemRepository.GetCountWithStatus(HttpContext, CheckListItemStatus.NOT_OK);
+                dashboardModel.TotalItemsOk = this._ChecklistItemRepository.GetCountWithStatus(HttpContext, CheckListItemStatus.OK);
+                dashboardModel.TotalItemsNvt = this._ChecklistItemRepository.GetCountWithStatus(HttpContext, CheckListItemStatus.NVT);
+                dashboardModel.TotalItemsNull = this._ChecklistItemRepository.GetCountWithStatus(HttpContext, CheckListItemStatus.NOT_FILLED_IN);
+
                 dashboardModel.TotalItems = workplaces.Count;
 
                 return Ok(dashboardModel);
