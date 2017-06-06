@@ -29,6 +29,7 @@ namespace GreenLiving.Controllers
         public DashboardController(PreventionAdvisorDbContext dbContext)
         {
             this._WorkplaceRepository = new WorkplaceRepository(dbContext);
+            this._ChecklistItemRepository = new ChecklistItemRepository(dbContext);
         }
 
         [HttpGet]
