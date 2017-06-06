@@ -8,6 +8,7 @@ import { NotifierModule, NotifierOptions } from 'angular-notifier';
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './home/welcome.component';
 import { LoginComponent } from './auth/login.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { OrganizationListComponent } from './organizations/list/organization-list.component';
 import { OrganizationInputComponent } from './organizations/input/organization-input.component';
 
@@ -77,6 +78,7 @@ const customNotifierOptions: NotifierOptions = {
       { path: 'organization', component: OrganizationInputComponent, },
       { path: 'organization/:id', component: OrganizationInputComponent },
       { path: 'workplace', component: WorkplaceListComponent, },
+      { path: 'dashboard', component: DashboardComponent, },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
       { path: '**', redirectTo: 'welcome', pathMatch: 'full' }
     ]),
@@ -87,7 +89,8 @@ const customNotifierOptions: NotifierOptions = {
   declarations: [
     AppComponent,
     WelcomeComponent,
-    LoginComponent  ],
+    LoginComponent,
+    DashboardComponent  ],
   bootstrap: [AppComponent],
   providers: [
     AuthService

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using PreventionAdvisor.Enums;
 
 namespace PreventionAdvisorDataAccess.Repositories
 {
@@ -30,6 +31,32 @@ namespace PreventionAdvisorDataAccess.Repositories
                 .Include(w => w.Address)
                 .Include(w => w.Organization)
                 .Include(w => w.Organization.Address)
+                .ToList();
+        }
+
+        public ICollection<Workplace> GetIncompleteWorkplaces(HttpContext httpContext)
+        {
+            var userId = this._sessionTasks.GetAppUserId(httpContext);
+
+            return this._context.Workplaces
+                .Where(w => w.Organization.UserId == userId)
+                .Include(w => w.Address)
+                .Include(w => w.Organization)
+                .Include(w => w.Organization.Address)
+                .Where(w => w.ChecklistItems.Any(c => c.Status != (int) CheckListItemStatus.OK))
+                .ToList();
+        }
+      
+        public ICollection<Workplace> GetCompleteWorkplaces(HttpContext httpContext)
+        {
+            var userId = this._sessionTasks.GetAppUserId(httpContext);
+
+            return this._context.Workplaces
+                .Where(w => w.Organization.UserId == userId)
+                .Include(w => w.Address)
+                .Include(w => w.Organization)
+                .Include(w => w.Organization.Address)
+                .Where(w => w.ChecklistItems.All(c => c.Status == (int) CheckListItemStatus.OK))
                 .ToList();
         }
 

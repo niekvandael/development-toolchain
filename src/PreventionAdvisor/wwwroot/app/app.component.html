@@ -2,6 +2,7 @@
     <nav class='navbar navbar-default'>
         <div class='container-fluid'>
             <ul class='nav navbar-nav'>
+                <li *ngIf='_authService.isAuthenticated()'><a [routerLink]="['/dashboard']">Dashboard</a></li>
                 <li *ngIf='_authService.isAuthenticated()'><a [routerLink]="['/workplaces']">Rapporten</a></li>
                 <li *ngIf='_authService.isAuthenticated()'><a [routerLink]="['/organizations']">Mijn organisaties</a></li>
                 <li *ngIf='!_authService.isAuthenticated()'><a [routerLink]="['/login']">Aanmelden</a></li>

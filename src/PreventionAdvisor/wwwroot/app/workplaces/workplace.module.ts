@@ -9,6 +9,7 @@ import { WorkplaceListComponent } from './list/workplace-list.component';
 import { WorkplaceInputComponent } from './input/workplace-input.component';
 import { WorkplaceDetailComponent } from './detail/workplace-detail.component';
 import { WorkplacePrintComponent } from './print/workplace-print.component';
+
 import { ModalComponent } from '../shared/modal/modal.component';
 
 import { WorkplaceService } from './workplace.service';

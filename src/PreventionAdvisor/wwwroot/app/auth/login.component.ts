@@ -28,7 +28,7 @@ export class LoginComponent {
         if (window.history.length > 1) {
             this._location.back();
         } else {
-            this._router.navigate(['organizations']);
+            this._router.navigate(['dashboard']);
         }
     }
 }
