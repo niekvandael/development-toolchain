@@ -60,7 +60,7 @@ namespace PreventionAdvisorDataAccess.Repositories
                 _context.Add(checklistItem);
                 _context.SaveChanges();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -78,7 +78,7 @@ namespace PreventionAdvisorDataAccess.Repositories
                 _context.Update(checklistItem);
                 _context.SaveChanges();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

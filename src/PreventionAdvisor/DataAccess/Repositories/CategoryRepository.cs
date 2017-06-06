@@ -66,7 +66,7 @@ namespace PreventionAdvisorDataAccess.Repositories
                 _context.Update(category);
                 _context.SaveChanges();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

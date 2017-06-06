@@ -102,7 +102,7 @@ namespace PreventionAdvisorDataAccess.Repositories
                 _context.Update(workplace);
                 _context.SaveChanges();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
