@@ -1,5 +1,4 @@
-
-<div style="float:left">
+<div style="float:left; width:49%;">
     <h2>Werkplekken niet in orde</h2>
     <table id="dashboardWorkplaceGrid">
         <tr *ngFor='let workplace of dashboard.incompleteWorkplaces' >
@@ -17,20 +16,22 @@
     </table>
 </div>
 
-<div style="float:right">
+<div style="float:right; width:49%;">
     <h2>Statistieken</h2>
     <table id="dashboardStatisticsGrid">
         <tr>
-            <td><img src='images/success.png'></td>
+            <td class="small"><img src='images/success.png'></td>
             <td><b>{{ dashboard.totalItemsOk }}/{{ dashboard.totalItems }}</b>({{ dashboard.totalItemsOk / dashboard.totalItems * 100  }}%)</td>
-            <td><img src='images/warning.png'></td>
+            <td class="small"><img src='images/warning.png'></td>
             <td><b>{{ dashboard.totalItemsFail }}/{{ dashboard.totalItems }}</b>({{ dashboard.totalItemsFail / dashboard.totalItems * 100  }}%)</td>
-            <td><img src='images/nvt.png'></td>
+            <td class="small"><img src='images/nvt.png'></td>
             <td><b>{{ dashboard.totalItemsNvt }}/{{ dashboard.totalItems }}</b>({{ dashboard.totalItemsNvt / dashboard.totalItems * 100  }}%)</td>
+            <td class="small"><img src='images/questionmark.png'></td>
+            <td><b>{{ dashboard.totalItemsNull }}/{{ dashboard.totalItems }}</b>({{ dashboard.totalItemsNull / dashboard.totalItems * 100  }}%)</td>
         </tr>
         <tr>
-            <td></td>
-            <td>{{ dashboard.reportsCount }} werkplek rapporten</td>
+            <td [routerLink]="['/workplace/list']"><img src='images/check.png'></td>
+            <td colspan="7"><b>{{ dashboard.reportsCount }} werkplek rapporten</b></td>
         </tr>
     </table>
 </div>

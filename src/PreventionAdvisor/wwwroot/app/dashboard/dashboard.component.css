@@ -6,6 +6,7 @@
     border: 1px solid lightgray;
     cursor: pointer;
     padding: 20px;
+    height: 100px;
 }
 
 address{
@@ -19,4 +20,11 @@ address{
 
 #dashboardStatisticsGrid img{
     width: 20px;
+}
+
+#dashboardStatisticsGrid td{
+    cursor: pointer;
+    padding: 20px;
+    height: 100px;
+    height: 100px;
 }
