@@ -21,6 +21,7 @@ import { WorkplaceModule } from './workplaces/workplace.module';
 
 /* Feature Service */
 import { AuthService } from './auth/auth.service';
+import { DashboardService } from './dashboard/dashboard.service';
 
 /**
  * Custom angular notifier options
@@ -93,7 +94,8 @@ const customNotifierOptions: NotifierOptions = {
     DashboardComponent  ],
   bootstrap: [AppComponent],
   providers: [
-    AuthService
+    AuthService,
+    DashboardService
   ]
 })
 export class AppModule { }

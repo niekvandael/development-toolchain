@@ -39,17 +39,17 @@ namespace GreenLiving.Controllers
             {
                 DashboardModel dashboardModel = new DashboardModel();
                 
-                // Incomplete
+                // Incomplete workplaces
                 dashboardModel.IncompleteWorkplaces = this._WorkplaceRepository.GetIncompleteWorkplaces(HttpContext);
 
-                // Complete
+                // Complete workplaces
                 var completeWorkplaces = this._WorkplaceRepository.GetCompleteWorkplaces(HttpContext);
 
-                // All
+                // All workplaces
                 var workplaces = this._WorkplaceRepository.Get(HttpContext);
 
-                // Complete
-                var completeCheckListItems = this._ChecklistItemRepository.Get(HttpContext);
+                // All checklistItems
+                var checkListItems = this._ChecklistItemRepository.Get(HttpContext);
 
                 dashboardModel.ReportsCount = workplaces.Count;
                 dashboardModel.TotalItemsFail = this._ChecklistItemRepository.GetCountWithStatus(HttpContext, CheckListItemStatus.NOT_OK);
@@ -57,7 +57,7 @@ namespace GreenLiving.Controllers
                 dashboardModel.TotalItemsNvt = this._ChecklistItemRepository.GetCountWithStatus(HttpContext, CheckListItemStatus.NVT);
                 dashboardModel.TotalItemsNull = this._ChecklistItemRepository.GetCountWithStatus(HttpContext, CheckListItemStatus.NOT_FILLED_IN);
 
-                dashboardModel.TotalItems = workplaces.Count;
+                dashboardModel.TotalItems = checkListItems.Count;
 
                 return Ok(dashboardModel);
             }

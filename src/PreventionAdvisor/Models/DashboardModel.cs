@@ -11,7 +11,7 @@ namespace PreventionAdvisor.Models
     {
        public ICollection<Workplace> IncompleteWorkplaces { get; set; }
        public int ReportsCount { get; set; }
-        public int TotalItems { get; set; }
+       public int TotalItems { get; set; }
        public int TotalItemsOk { get; set; }
        public int TotalItemsFail { get; set; }
        public int TotalItemsNvt { get; set; }

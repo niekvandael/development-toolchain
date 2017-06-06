@@ -1,1 +1,36 @@
-Dashboard
+
+<div style="float:left">
+    <h2>Werkplekken niet in orde</h2>
+    <table id="dashboardWorkplaceGrid">
+        <tr *ngFor='let workplace of dashboard.incompleteWorkplaces' >
+            <td [routerLink]="['/workplace/detail', workplace.id]">
+                <div style="float:left;">
+                    <b>{{ workplace.title }}</b>
+                    <br />
+                    <span class="address">{{ workplace.address.street }} {{ workplace.address.number }}, {{ workplace.address.zipcode}} {{ workplace.address.city}}</span>
+                </div>
+                <div style="float:right; vertical-align:middle">
+                    <img src='images/warning.png'>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div style="float:right">
+    <h2>Statistieken</h2>
+    <table id="dashboardStatisticsGrid">
+        <tr>
+            <td><img src='images/success.png'></td>
+            <td><b>{{ dashboard.totalItemsOk }}/{{ dashboard.totalItems }}</b>({{ dashboard.totalItemsOk / dashboard.totalItems * 100  }}%)</td>
+            <td><img src='images/warning.png'></td>
+            <td><b>{{ dashboard.totalItemsFail }}/{{ dashboard.totalItems }}</b>({{ dashboard.totalItemsFail / dashboard.totalItems * 100  }}%)</td>
+            <td><img src='images/nvt.png'></td>
+            <td><b>{{ dashboard.totalItemsNvt }}/{{ dashboard.totalItems }}</b>({{ dashboard.totalItemsNvt / dashboard.totalItems * 100  }}%)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>{{ dashboard.reportsCount }} werkplek rapporten</td>
+        </tr>
+    </table>
+</div>

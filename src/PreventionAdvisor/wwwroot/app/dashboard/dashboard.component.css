@@ -1,0 +1,22 @@
+#dashboardWorkplaceGrid{
+    width: 100%;
+}
+
+#dashboardWorkplaceGrid td{
+    border: 1px solid lightgray;
+    cursor: pointer;
+    padding: 20px;
+}
+
+address{
+    color: lightgray;
+    font-size: smaller;
+}
+
+#dashboardStatisticsGrid{
+    background-color: lightgray;
+}
+
+#dashboardStatisticsGrid img{
+    width: 20px;
+}
