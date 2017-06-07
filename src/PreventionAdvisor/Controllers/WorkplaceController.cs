@@ -55,6 +55,19 @@ namespace GreenLiving.Controllers
             }
         }
 
+        [HttpGet("{id}")]
+        public ObjectResult GetWorkplaceByName(String name)
+        {
+            try
+            {
+                return Ok(this._workplaceRepository.GetWorkplaceByName(HttpContext, name));
+            }
+            catch (System.Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [HttpPost]
         public ObjectResult AddWorkplace([FromBody] Workplace workplace)
         {

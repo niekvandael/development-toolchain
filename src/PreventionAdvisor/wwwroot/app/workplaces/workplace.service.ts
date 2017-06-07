@@ -21,6 +21,10 @@ export class WorkplaceService  extends CommonService {
         this.doGet(this._url + '/' + id, callback);
     }
 
+    getDefaultWorkplace(callback:any) {
+        this.doGet(this._url + '/default', callback);
+    }
+
     addWorkplace(workplace: Workplace, callback: any) {
         this.doPost(this._url, workplace, callback);
     }

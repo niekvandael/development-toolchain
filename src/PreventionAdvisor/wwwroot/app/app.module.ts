@@ -11,7 +11,7 @@ import { LoginComponent } from './auth/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { OrganizationListComponent } from './organizations/list/organization-list.component';
 import { OrganizationInputComponent } from './organizations/input/organization-input.component';
-
+import { CheckListItemDefaultsComponent } from './workplaces/checklistItem/defaults/workplace-checklistItem-defaults.component';
 import { WorkplaceListComponent } from './workplaces/list/workplace-list.component';
 
 /* Feature Modules */
@@ -79,7 +79,8 @@ const customNotifierOptions: NotifierOptions = {
       { path: 'organization', component: OrganizationInputComponent, },
       { path: 'organization/:id', component: OrganizationInputComponent },
       { path: 'workplace', component: WorkplaceListComponent, },
-      { path: 'dashboard', component: DashboardComponent, },
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'workplaceDefaults', component: CheckListItemDefaultsComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
     ]),

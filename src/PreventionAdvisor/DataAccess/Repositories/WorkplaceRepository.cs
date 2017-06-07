@@ -74,6 +74,20 @@ namespace PreventionAdvisorDataAccess.Repositories
                             .FirstOrDefault();
         }
 
+        public Workplace GetWorkplaceByName(HttpContext httpContext, string name)
+        {
+            var userId = this._sessionTasks.GetAppUserId(httpContext);
+
+            return this._context.Workplaces
+                            .Where(w => w.Organization.UserId == userId)
+                            .Where(w => w.Title == name)
+                            .Include(w => w.Address)
+                            .Include(w => w.Organization)
+                            .Include(w => w.Organization.Address)
+                            .Include(w => w.ChecklistItems).ThenInclude(cli => cli.Category)
+                            .FirstOrDefault();
+        }
+
         public Workplace Create(HttpContext httpContext, Workplace workplace)
         {
             try

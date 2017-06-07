@@ -27,7 +27,8 @@
             <td *ngIf='dashboard.totalItemsNvt > 0' class="small"><img src='images/nvt.png'></td>
             <td *ngIf='dashboard.totalItemsNvt > 0'><b>{{ dashboard.totalItemsNvt }}/{{ dashboard.totalItems }}</b>({{ dashboard.totalItemsNvt / dashboard.totalItems * 100 | number : '1.0-0'}}%)</td>
             <td *ngIf='dashboard.totalItemsNull > 0' class="small"><img src='images/questionmark.png'></td>
-            <td *ngIf='dashboard.totalItemsNull > 0'><b>{{ dashboard.totalItemsNull }}/{{ dashboard.totalItems }}</b>({{ dashboard.totalItemsNull / dashboard.totalItems * 100 | number : '1.0-0'}}%)</td>
+            <td *ngIf='dashboard.
+            totalItemsNull > 0'><b>{{ dashboard.totalItemsNull }}/{{ dashboard.totalItems }}</b>({{ dashboard.totalItemsNull / dashboard.totalItems * 100 | number : '1.0-0'}}%)</td>
         </tr>
         <tr [routerLink]="['/workplaces']">
             <td [routerLink]="['/workplace/list']"><img src='images/check.png'></td>

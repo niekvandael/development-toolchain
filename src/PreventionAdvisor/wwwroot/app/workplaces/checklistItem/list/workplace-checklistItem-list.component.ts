@@ -18,7 +18,7 @@ import { Subscription } from 'rxjs/Subscription';
     templateUrl: 'app/workplaces/checklistItem/list/workplace-checklistItem-list.component.html',
     styleUrls: ['app/workplaces/checklistItem/list/workplace-checklistItem-list.component.css']
 })
-export class checkListItemListComponent implements AfterViewInit {
+export class CheckListItemListComponent implements AfterViewInit {
     private listFilter: string;
     private errorMessage: string;
     private mode: string;
@@ -28,15 +28,19 @@ export class checkListItemListComponent implements AfterViewInit {
     private selectedItem: ChecklistItem = new ChecklistItem();
     private selecteditemsModalItem: number = addItemsModalNavOptions.ChecklistItem;
     private newCategory: Category = new Category();
-    private newChecklistItem: ChecklistItem;
+    private newChecklistItem: ChecklistItem = new ChecklistItem();
     private selectedItemCopy: ChecklistItem;
-    private workplace: Workplace;
+    protected workplace: Workplace;
 
     constructor(private _notifier: NotifierService, private _categoryService: CategoryService, private _checklistItemService: ChecklistItemService, private _route: ActivatedRoute, private _router: Router, private _location: Location) {
     };
 
     @Input('workplace')
-    set setWorkplace(workplace: Workplace) {
+    set _setWorkplace(workplace: Workplace) {
+        this.setWorkplace(workplace);
+    }
+
+    public setWorkplace(workplace:Workplace){
         this.workplace = workplace;
         this.newChecklistItem = new ChecklistItem(this.workplace.id);
         this.findFilteredCategories();
