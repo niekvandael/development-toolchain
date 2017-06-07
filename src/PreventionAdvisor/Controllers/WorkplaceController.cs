@@ -55,7 +55,7 @@ namespace GreenLiving.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{name}")]
         public ObjectResult GetWorkplaceByName(String name)
         {
             try
