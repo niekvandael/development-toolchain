@@ -30,7 +30,8 @@ export class WorkplacePrintComponent implements AfterViewInit {
     selecteditemsModalItem: number = addItemsModalNavOptions.ChecklistItem;
     newCategory: Category = new Category();
     newChecklistItem: ChecklistItem = new ChecklistItem(this.workplace.id);
-
+    today : Date = new Date();
+    
     private selectedItemCopy: ChecklistItem;
 
     private workplaceSub: Subscription;

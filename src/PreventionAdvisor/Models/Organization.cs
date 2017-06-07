@@ -14,9 +14,7 @@ namespace PreventionAdvisor.Models
         public String Website { get; set; }
         public String Phone { get; set; }
         public Address Address { get; set; }
-
         public Guid UserId { get; set; }
         public virtual AppUser User { get; set; }
-
     }
 }

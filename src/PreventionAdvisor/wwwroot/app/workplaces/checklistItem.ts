@@ -9,7 +9,7 @@ export class ChecklistItem {
     id: string = '00000000-0000-0000-0000-000000000000';
     title: string = '';
     description: string = '';
-    status: number = -1;
+    status: number = 2;
     categoryId: string = '';
     category: Category = new Category();
     workplaceId: string = '00000000-0000-0000-0000-000000000000';
