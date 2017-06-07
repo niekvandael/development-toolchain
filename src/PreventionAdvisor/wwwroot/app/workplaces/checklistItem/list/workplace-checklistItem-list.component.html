@@ -1,0 +1,97 @@
+<div id="wrapper">
+    <div id="right">
+        <div>
+            <div>
+                <div>
+                    <input type='text' [(ngModel)]='listFilter' placeholder="Zoeken..." />
+                    <button type="button" class="btn btn-primary" (click)="resetAddItemsModal() ; addItemsModal.show();">+</button>
+                </div>
+            </div>
+            <br />
+            <div class='has-error' *ngIf='errorMessage'>{{errorMessage}}</div>
+
+            <div *ngFor='let category of filteredCategories'>
+                <h3>{{ category.title }}</h3>
+
+                <div class='table-responsive'>
+                    <table class='table' *ngIf='workplace.checklistItems && workplace.checklistItems.length'>
+                        <tbody>
+                            <tr (click)="editChecklistItem(checklistItem) ; editStateModal.show()" *ngFor='let checklistItem of workplace.checklistItems | checkListItemFilter:listFilter | checkListItemCategoryFilter:category '>
+                                <td class="checkListItemListName">{{ checklistItem.title }}</td>
+                                <td class="checkListItemListStatus">
+                                    <img *ngIf='checklistItem.status === 1' src='images/success.png'>
+                                    <img *ngIf='checklistItem.status === 2' src='images/nvt.png'>
+                                    <img *ngIf='checklistItem.status === 3' src='images/warning.png'>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<app-modal #editStateModal id="editStateModal">
+    <div class="app-modal-header">
+        <h3> {{ selectedItem.title }} </h3>
+    </div>
+    <div class="app-modal-body">
+        <table id="modal1-table">
+            <tr>
+                <td [class.grayscale]="selectedItem.status != 1" [class.selectedItem]="selectedItem.status == 1" (click)="selectedItem.status = 1">
+                    <img src="images/success.png" />&nbsp;In Orde
+                </td>
+                <td [class.grayscale]="selectedItem.status != 2" [class.selectedItem]="selectedItem.status == 2" (click)="selectedItem.status = 2">
+                    <img src="images/nvt.png" />&nbsp;N.v.t.
+                </td>
+                <td [class.grayscale]="selectedItem.status != 3" [class.selectedItem]="selectedItem.status == 3" (click)="selectedItem.status = 3">
+                    <img src="images/warning.png" />&nbsp;Niet ok
+                </td>
+            </tr>
+        </table>
+        <br />
+        <textarea cols="70" rows="10" placeholder="Extra informatie..." [(ngModel)]='selectedItem.description'></textarea>
+    </div>
+    <div class="app-modal-footer">
+        <button type="button" class="btn btn-default" (click)="resetChecklistItem() ; editStateModal.hide()">Sluiten</button>
+        <button type="button" class="btn btn-primary" (click)="saveItem(); editStateModal.hide()">Opslaan</button>
+    </div>
+</app-modal>
+
+<form #form="ngForm" (ngSubmit)="onSubmitAddItemsModal(form.value)">
+    <app-modal #addItemsModal id="addItemsModal">
+        <div class="app-modal-header">
+            <table id="addItemsModalNav">
+                <tr>
+                    <td [class.grayscale]="selecteditemsModalItem != 1" [class.selectedItem]="selecteditemsModalItem == 1" (click)="selecteditemsModalItem = 1">Nieuw werkpunt</td>
+                    <td [class.grayscale]="selecteditemsModalItem != 2" [class.selectedItem]="selecteditemsModalItem == 2" (click)="selecteditemsModalItem = 2">Nieuwe categorie</td>
+                </tr>
+            </table>
+        </div>
+        <div class="app-modal-body">
+            <div *ngIf='selecteditemsModalItem == 1'>
+                <b>Nieuw werkpunt </b> <br />
+                <input type="text" [(ngModel)]='newChecklistItem.title' placeholder="brandblussers" required name='newChecklistItem.title' />                <br /> <br />
+                <br />
+                <b>Binnen categorie</b> <br />
+                <select placeholder="Acme BVBA" required [(ngModel)]='newChecklistItem.categoryId' name='newChecklistItem.categoryId'>
+                    <option disabled selected value> -- Selecteer een optie -- </option>
+                    <option *ngFor='let category of categories' value="{{ category.id }}">{{ category.title }}</option>
+                </select>
+            </div>
+
+            <div *ngIf='selecteditemsModalItem == 2'>
+                <b>Categorie titel </b> <br />
+                <input type="text" [(ngModel)]='newCategory.title' placeholder="Orde en netheid" required name='newCategory.name' />                <br /> <br />
+            </div>
+
+
+        </div>
+        <div class="app-modal-footer">
+            <button type="button" class="btn btn-default" (click)="resetChecklistItem() ; addItemsModal.hide()">Sluiten</button>
+            <button type="submit"  class="btn btn-primary">Opslaan</button>
+        </div>
+    </app-modal>
+</form>
+</div>

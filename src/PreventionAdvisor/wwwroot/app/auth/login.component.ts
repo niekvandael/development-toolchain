@@ -25,10 +25,16 @@ export class LoginComponent {
     private loginCallback(data: User) {
         this._authService.setUser(data);
 
+        this._router.navigate(['dashboard']);
+
+        
+        // TODO: Check if previous is a download link
+        /*
         if (window.history.length > 1) {
             this._location.back();
         } else {
             this._router.navigate(['dashboard']);
         }
+        */
     }
 }

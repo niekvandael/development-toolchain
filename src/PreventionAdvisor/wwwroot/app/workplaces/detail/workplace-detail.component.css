@@ -2,62 +2,11 @@
     width: 100%;
     overflow: hidden; 
 }
+
 #left {
     width: 300px;
     float:left; 
 }
 #right {
     overflow: hidden; 
-}
-
-.checkListItemListName{
-    width: 90%;
-}
-
-.checkListItemListStatus{
-    width: 10%;
-}
-
-tr{
-    cursor:pointer;
-}
-
-img{
-    width: 15px;
-    height: 15px;
-}
-
-#editStateModal td{
-    text-align: center;
-    width: 170px;
-    height: 60px;
-    border: 1px solid#286090
-}
-
-.grayscale{
-    -webkit-filter: grayscale(100%); 
-    filter: grayscale(100%);
-    border-color: lightgray !important;
-}
-
-.selectedItem{
-    background: #286090;
-    font-weight: bold;
-    color: white !important;
-}
-
-#addItemsModalNav{
-    width: 100%;
-    border-spacing: 10px;
-}
-
-#addItemsModalNav td{
-    text-align: center;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    width: 50%;
-    height: 60px;
-    border-bottom: 1px solid #286090;
-    font-weight: bold;
-    color: lightgray;
 }

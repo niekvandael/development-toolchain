@@ -80,8 +80,8 @@ const customNotifierOptions: NotifierOptions = {
       { path: 'organization/:id', component: OrganizationInputComponent },
       { path: 'workplace', component: WorkplaceListComponent, },
       { path: 'dashboard', component: DashboardComponent, },
-      { path: '', redirectTo: 'welcome', pathMatch: 'full' },
-      { path: '**', redirectTo: 'welcome', pathMatch: 'full' }
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
     ]),
     OrganizationModule,
     WorkplaceModule,

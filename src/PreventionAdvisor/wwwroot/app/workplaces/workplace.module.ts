@@ -1,14 +1,16 @@
+import { ChecklistItem } from './../../../bin/Debug/netcoreapp1.1/publish/wwwroot/app/workplaces/checklistItem';
 import { NgModule } from '@angular/core';
 import { RouterModule} from '@angular/router';
 
 import { WorkplaceFilterPipe } from './list/workplace-filter.pipe';
-import { ChecklistItemFilterPipe } from './detail/checklistitem-filter.pipe';
-import { ChecklistItemCategoryFilterPipe } from './detail/checklistItemCategory-filter.pipe';
+import { ChecklistItemFilterPipe } from './checklistItem/checklistitem-filter.pipe';
+import { ChecklistItemCategoryFilterPipe } from './checklistItem/checklistItemCategory-filter.pipe';
 
 import { WorkplaceListComponent } from './list/workplace-list.component';
 import { WorkplaceInputComponent } from './input/workplace-input.component';
 import { WorkplaceDetailComponent } from './detail/workplace-detail.component';
 import { WorkplacePrintComponent } from './print/workplace-print.component';
+import { checkListItemListComponent } from './checklistItem/list/workplace-checklistItem-list.component';
 
 import { ModalComponent } from '../shared/modal/modal.component';
 
@@ -36,6 +38,7 @@ import { SharedModule } from '../shared/shared.module';
     WorkplaceInputComponent,
     WorkplaceDetailComponent,
     WorkplacePrintComponent,
+    checkListItemListComponent,
     ModalComponent
   ],
   providers: [
