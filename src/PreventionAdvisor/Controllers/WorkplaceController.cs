@@ -43,30 +43,19 @@ namespace GreenLiving.Controllers
         }
 
         [HttpGet("{id}")]
-        public ObjectResult GetWorkplace(Guid id)
+        public ObjectResult GetWorkplace(String id)
         {
             try
             {
-                return Ok(this._workplaceRepository.Get(HttpContext, id));
-            }
-            catch (System.Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
-
-        [Route("api/[controller]/default")]
-        [HttpGet()]
-        public ObjectResult GetWorkplaceByName(String name)
-        {
-            try
-            {
-                Workplace workplace = this._workplaceRepository.GetWorkplaceByName(HttpContext, name);
-
-                // If no default workplace exists yet, create one.
-                if(name.Equals("default") && workplace == null){
+                Workplace workplace = this._workplaceRepository.Get(HttpContext, Guid.Parse(id));
+                if(id.Equals("default") && workplace == null)
+                {
                     workplace = createDefaultWorkplace();
+                } else 
+                {
+                    return Ok(this._workplaceRepository.Get(HttpContext, Guid.Parse(id)));
                 }
+
                 return Ok(workplace);
             }
             catch (System.Exception e)
