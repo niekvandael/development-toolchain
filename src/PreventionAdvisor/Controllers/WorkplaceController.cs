@@ -55,7 +55,8 @@ namespace GreenLiving.Controllers
             }
         }
 
-        [HttpGet("{name}")]
+        [Route("api/[controller]/default")]
+        [HttpGet()]
         public ObjectResult GetWorkplaceByName(String name)
         {
             try
