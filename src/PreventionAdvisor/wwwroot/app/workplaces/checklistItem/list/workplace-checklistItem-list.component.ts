@@ -30,7 +30,7 @@ export class CheckListItemListComponent implements AfterViewInit {
     private newCategory: Category = new Category();
     private newChecklistItem: ChecklistItem = new ChecklistItem();
     private selectedItemCopy: ChecklistItem;
-    protected workplace: Workplace;
+    public workplace: Workplace;
 
     constructor(private _notifier: NotifierService, private _categoryService: CategoryService, private _checklistItemService: ChecklistItemService, private _route: ActivatedRoute, private _router: Router, private _location: Location) {
     };

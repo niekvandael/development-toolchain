@@ -60,7 +60,13 @@ namespace GreenLiving.Controllers
         {
             try
             {
-                return Ok(this._workplaceRepository.GetWorkplaceByName(HttpContext, name));
+                Workplace workplace = this._workplaceRepository.GetWorkplaceByName(HttpContext, name);
+
+                // If no default workplace exists yet, create one.
+                if(name.Equals("default") && workplace == null){
+                    workplace = createDefaultWorkplace();
+                }
+                return Ok(workplace);
             }
             catch (System.Exception e)
             {
@@ -107,6 +113,28 @@ namespace GreenLiving.Controllers
             {
                 return BadRequest(e.Message);
             }
+        }
+
+        private Workplace createDefaultWorkplace(){
+            Workplace workplace = new Workplace();
+            workplace.Title = "default";
+            workplace.Organization = new Organization();
+            workplace.Organization.Name = "default";
+            workplace.ChecklistItems.Add(
+                new ChecklistItem(){
+                Category = new Category(){ Title = "Category 1"},
+                Description = "Item 1",
+                Status = 2}
+            );
+            workplace.ChecklistItems.Add(
+                new ChecklistItem(){
+                Category = new Category(){ Title = "Category 2"},
+                Description = "Item 1",
+                Status = 2}
+            );
+
+            _workplaceRepository.Create(HttpContext, workplace);
+            return this._workplaceRepository.GetWorkplaceByName(HttpContext, "default");
         }
     }
 }

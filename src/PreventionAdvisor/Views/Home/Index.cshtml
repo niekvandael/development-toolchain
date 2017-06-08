@@ -19,7 +19,7 @@
 
     <!-- Redirect to SSL -->
     <script>
-        if (location.protocol != 'https:') {
+        if (location.protocol != 'https:' && location.hostname.toLowerCase().indexOf('localhost') == -1) {
             location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
         }
     </script>

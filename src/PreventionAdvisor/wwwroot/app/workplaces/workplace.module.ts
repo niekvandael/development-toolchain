@@ -1,4 +1,3 @@
-import { ChecklistItem } from './../../../bin/Debug/netcoreapp1.1/publish/wwwroot/app/workplaces/checklistItem';
 import { NgModule } from '@angular/core';
 import { RouterModule} from '@angular/router';
 
@@ -19,7 +18,6 @@ import { ModalComponent } from '../shared/modal/modal.component';
 import { WorkplaceService } from './workplace.service';
 import { ChecklistItemService } from './checklistItem.service';
 import { CategoryService } from './category.service';
-
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
