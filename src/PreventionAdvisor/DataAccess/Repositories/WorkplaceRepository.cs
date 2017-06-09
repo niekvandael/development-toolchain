@@ -31,6 +31,7 @@ namespace PreventionAdvisorDataAccess.Repositories
                 .Include(w => w.Address)
                 .Include(w => w.Organization)
                 .Include(w => w.Organization.Address)
+                .Where(w => w.Title != "default")
                 .ToList();
         }
 
@@ -44,6 +45,7 @@ namespace PreventionAdvisorDataAccess.Repositories
                 .Include(w => w.Organization)
                 .Include(w => w.Organization.Address)
                 .Where(w => w.ChecklistItems.Any(c => c.Status != (int) CheckListItemStatus.OK))
+                .Where(w => w.Title != "default")
                 .ToList();
         }
       
@@ -57,6 +59,7 @@ namespace PreventionAdvisorDataAccess.Repositories
                 .Include(w => w.Organization)
                 .Include(w => w.Organization.Address)
                 .Where(w => w.ChecklistItems.All(c => c.Status == (int) CheckListItemStatus.OK))
+                .Where(w => w.Title != "default")
                 .ToList();
         }
 
