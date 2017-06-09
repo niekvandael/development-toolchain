@@ -41,8 +41,12 @@ export class CheckListItemListComponent implements AfterViewInit {
     }
 
     public setWorkplace(workplace:Workplace){
+        if(workplace === undefined){
+            return;
+        }
+        
         this.workplace = workplace;
-        this.newChecklistItem = new ChecklistItem(this.workplace.id);
+        this.newChecklistItem = new ChecklistItem(workplace.id);
         this.findFilteredCategories();
     }
 

@@ -16,6 +16,7 @@ using Microsoft.EntityFrameworkCore;
 using PreventionAdvisor.Config;
 using PreventionAdvisorDataAccess.Repositories;
 using PreventionAdvisorDataAccess.Common;
+using  PreventionAdvisor.Enums;
 
 namespace GreenLiving.Controllers
 {
@@ -140,7 +141,7 @@ namespace GreenLiving.Controllers
                 Category = new Category(){ Title = "Category 1", UserId = UserId},
                 Title = "Item 1",
                 Description = "Item 1",
-                Status = 2}
+                Status = (int) CheckListItemStatus.NVT}
             );
             workplace.ChecklistItems.Add(
                 new ChecklistItem(){
@@ -148,7 +149,7 @@ namespace GreenLiving.Controllers
                 Category = new Category(){ Title = "Category 2", UserId = UserId},
                 Title = "Item 1",
                 Description = "Item 1",
-                Status = 2}
+                Status = (int) CheckListItemStatus.NVT}
             );
 
             _workplaceRepository.Create(HttpContext, workplace);
