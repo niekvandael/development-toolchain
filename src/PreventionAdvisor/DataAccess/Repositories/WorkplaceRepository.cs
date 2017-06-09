@@ -105,7 +105,7 @@ namespace PreventionAdvisorDataAccess.Repositories
                         new ChecklistItem(){
                             CategoryId = defaultChecklistItem.CategoryId,
                             Description = defaultChecklistItem.Description,
-                            Status = (int) CheckListItemStatus.NVT,
+                            Status = defaultChecklistItem.Status,
                             Title = defaultChecklistItem.Title,
                             UserId = workplace.Organization.UserId
                         }
