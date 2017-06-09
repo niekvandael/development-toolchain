@@ -97,6 +97,20 @@ namespace PreventionAdvisorDataAccess.Repositories
             {
                 setForeignKeysById(workplace);
                 workplace.Organization.UserId = this._sessionTasks.GetAppUserId(httpContext);
+                
+                Workplace defaultWorkplace = this.GetWorkplaceByName(httpContext, "default");
+                workplace.ChecklistItems = new List<ChecklistItem>();
+                foreach(ChecklistItem defaultChecklistItem in defaultWorkplace.ChecklistItems){
+                    workplace.ChecklistItems.Add(
+                        new ChecklistItem(){
+                            CategoryId = defaultChecklistItem.CategoryId,
+                            Description = defaultChecklistItem.Description,
+                            Status = (int) CheckListItemStatus.NVT,
+                            Title = defaultChecklistItem.Title,
+                            UserId = workplace.Organization.UserId
+                        }
+                    );
+                }
 
                 _context.Add(workplace);
                 _context.SaveChanges();
