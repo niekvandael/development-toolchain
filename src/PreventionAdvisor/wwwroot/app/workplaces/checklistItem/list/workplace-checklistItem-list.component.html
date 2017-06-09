@@ -34,7 +34,7 @@
 
 <app-modal #editStateModal id="editStateModal">
     <div class="app-modal-header">
-        <h3> {{ selectedItem.title }} </h3>
+        <input [(ngModel)]='selectedItem.title' />
     </div>
     <div class="app-modal-body">
         <table id="modal1-table">
