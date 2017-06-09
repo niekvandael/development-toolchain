@@ -15,6 +15,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using PreventionAdvisor.Config;
 using PreventionAdvisorDataAccess.Repositories;
+using PreventionAdvisorDataAccess.Common;
 
 namespace GreenLiving.Controllers
 {
@@ -23,10 +24,12 @@ namespace GreenLiving.Controllers
     public class WorkplaceController : Controller
     {
         private WorkplaceRepository _workplaceRepository;
+        private SessionTasks _sessionTasks;
 
         public WorkplaceController(PreventionAdvisorDbContext dbContext)
         {
             this._workplaceRepository = new WorkplaceRepository(dbContext);
+            this._sessionTasks = new SessionTasks();
         }
 
         [HttpGet]
@@ -47,14 +50,31 @@ namespace GreenLiving.Controllers
         {
             try
             {
-                Workplace workplace = this._workplaceRepository.Get(HttpContext, Guid.Parse(id));
-                if(id.Equals("default") && workplace == null)
-                {
-                    workplace = createDefaultWorkplace();
-                } else 
-                {
-                    return Ok(this._workplaceRepository.Get(HttpContext, Guid.Parse(id)));
+                Workplace workplace;
+
+                try {
+                    Guid.Parse(id);
+                    // GUID Provided
+
+                    workplace = this._workplaceRepository.Get(HttpContext, Guid.Parse(id));
                 }
+                catch(System.Exception e){
+                    // Not a GUID
+                    if(id.Equals("default"))
+                    {
+                        workplace = _workplaceRepository.GetWorkplaceByName(HttpContext, "default");
+                        if(workplace == null){
+                            this.CreateDefaultWorkplace();
+                            workplace = _workplaceRepository.GetWorkplaceByName(HttpContext, "default");
+                        }
+                    } else 
+                    {
+                        return Ok(this._workplaceRepository.Get(HttpContext, Guid.Parse(id)));
+                    }
+                }
+
+                
+                
 
                 return Ok(workplace);
             }
@@ -105,26 +125,33 @@ namespace GreenLiving.Controllers
             }
         }
 
-        private Workplace createDefaultWorkplace(){
+        private void CreateDefaultWorkplace(){
+            Guid UserId = this._sessionTasks.GetAppUserId(HttpContext);
+
             Workplace workplace = new Workplace();
             workplace.Title = "default";
             workplace.Organization = new Organization();
             workplace.Organization.Name = "default";
+            workplace.Organization.UserId = UserId;
+            workplace.ChecklistItems = new List<ChecklistItem>();
             workplace.ChecklistItems.Add(
                 new ChecklistItem(){
-                Category = new Category(){ Title = "Category 1"},
+                UserId = UserId,
+                Category = new Category(){ Title = "Category 1", UserId = UserId},
+                Title = "Item 1",
                 Description = "Item 1",
                 Status = 2}
             );
             workplace.ChecklistItems.Add(
                 new ChecklistItem(){
-                Category = new Category(){ Title = "Category 2"},
+                UserId = UserId,
+                Category = new Category(){ Title = "Category 2", UserId = UserId},
+                Title = "Item 1",
                 Description = "Item 1",
                 Status = 2}
             );
 
             _workplaceRepository.Create(HttpContext, workplace);
-            return this._workplaceRepository.GetWorkplaceByName(HttpContext, "default");
         }
     }
 }
