@@ -130,6 +130,10 @@ export class WorkplacePrintComponent implements AfterViewInit {
         this.newChecklistItem = new ChecklistItem(this.workplace.id);
         this.selecteditemsModalItem = defaultModalNavSelection;
     }
+
+    printPage(){
+        window.print();
+    }
 }
 
 enum addItemsModalNavOptions {
