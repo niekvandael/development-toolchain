@@ -7,7 +7,10 @@
                 <li *ngIf='_authService.isAuthenticated()'><a [routerLink]="['/organizations']">Mijn organisaties</a></li>
                 <li *ngIf='!_authService.isAuthenticated()'><a [routerLink]="['/login']">Aanmelden</a></li>
                 <li *ngIf='!_authService.isAuthenticated()'><a [routerLink]="['/register']">Registreren</a></li>
-                <li *ngIf='_authService.isAuthenticated()'><a style="cursor:pointer" (click)="logout()">Afmelden</a> Aangemeld als {{ _authService.getUser().firstname }}</li>
+                <li *ngIf='_authService.isAuthenticated()'><a style="cursor:pointer" (click)="logout()">Afmelden</a></li>
+                <li *ngIf='_authService.isAuthenticated()'>Aangemeld als {{ _authService.getUser().firstname }}</li>
+
+                
             </ul>
         </div>
     </nav>
