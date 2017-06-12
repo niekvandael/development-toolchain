@@ -57,11 +57,22 @@ img{
     padding-bottom: 15px;
     width: 50%;
     height: 60px;
-    border-bottom: 1px solid #286090;
+    border-bottom: 1px solid #28a8d6;
     font-weight: bold;
     color: lightgray;
 }
 
 .editableTitle {
     font-size: 40px;
+    border: 0px;
+    border-bottom: 1px solid #28a8d6;
+    margin-bottom: 10px;
+    width: 100%;
+    color: #2086ab;
+    cursor: text;
+}
+
+.editableTitle:focus{
+    border-bottom: 1px solid #28a8d6;
+    margin-bottom: 10px;
 }

@@ -122,6 +122,15 @@ export class CheckListItemListComponent implements AfterViewInit {
         this.newChecklistItem = new ChecklistItem(this.workplace.id);
         this.selecteditemsModalItem = defaultModalNavSelection;
     }
+
+    updateCategory(category: Category, newValue: string){
+        category.title = newValue;
+        this._categoryService.updateCategory(category, this.updateCategoryCallback.bind(this));
+    }
+
+    updateCategoryCallback(category: Category){
+        this._notifier.notify('success', 'Categorie aangepast');
+    }
 }
 
 enum addItemsModalNavOptions {

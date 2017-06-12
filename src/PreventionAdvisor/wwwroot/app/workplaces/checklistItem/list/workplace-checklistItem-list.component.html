@@ -11,8 +11,7 @@
             <div class='has-error' *ngIf='errorMessage'>{{errorMessage}}</div>
 
             <div *ngFor='let category of filteredCategories'>
-                <h3>{{ category.title }}</h3>
-
+                <input class='editableTitle' (change)='updateCategory(category, $event.target.value)' value='{{ category.title }}' />
                 <div class='table-responsive'>
                     <table class='table' *ngIf='workplace.checklistItems && workplace.checklistItems.length'>
                         <tbody>
