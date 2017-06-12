@@ -4,7 +4,7 @@
             <div>
                 <div>
                     <input type='text' [(ngModel)]='listFilter' placeholder="Zoeken..." />
-                    <button type="button" class="btn btn-primary" (click)="resetAddItemsModal() ; addItemsModal.show();">+</button>
+                    <button type="button" class="btn btn-primary" (click)="resetAddItemsModal() ; addItemsModal.show();">Werkpunt of categorie toevoegen</button>
                 </div>
             </div>
             <br />
@@ -34,7 +34,7 @@
 
 <app-modal #editStateModal id="editStateModal">
     <div class="app-modal-header">
-        <input [(ngModel)]='selectedItem.title' />
+        <input [(ngModel)]='selectedItem.title' class="editableTitle" />
     </div>
     <div class="app-modal-body">
         <table id="modal1-table">
