@@ -10,7 +10,6 @@ import { Workplace } from '../../workplace';
 
 import { WorkplaceService } from '../../workplace.service';
 import { ChecklistItemService } from '../../checklistItem.service';
-import { CategoryService } from '../../category.service';
 
 import { Subscription } from 'rxjs/Subscription';
 
@@ -21,8 +20,8 @@ import { Subscription } from 'rxjs/Subscription';
 
 export class CheckListItemDefaultsComponent extends CheckListItemListComponent {
     
-    constructor(private _workplaceService: WorkplaceService, _notifier: NotifierService, _categoryService: CategoryService, _checklistItemService: ChecklistItemService, _route: ActivatedRoute, _router: Router, _location: Location) {
-        super(_notifier, _categoryService, _checklistItemService, _route, _router, _location);
+    constructor(private _workplaceService: WorkplaceService, _notifier: NotifierService, _checklistItemService: ChecklistItemService, _route: ActivatedRoute, _router: Router, _location: Location) {
+        super(_notifier, _checklistItemService, _route, _router, _location);
 
         _workplaceService.getDefaultWorkplace(this.getDefaultWorkplaceCallback.bind(this));
     };

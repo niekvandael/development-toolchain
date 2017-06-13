@@ -142,7 +142,7 @@ public class Startup
             var optionsSplit = database.Split('?');
             database = optionsSplit.First();
             port = port ?? "3306"; // if port is null, use 3306
-            connectionString = $"Server={hostname};uid={username};pwd={password};Port={port};Database={database};SSL Mode=Required;";
+            connectionString = $"Server={hostname};uid={username};pwd={password};Port={port};Database={database};"; // SSL Mode=Required;
         }
         catch (IndexOutOfRangeException ex)
         {

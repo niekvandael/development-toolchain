@@ -34,7 +34,7 @@
         <br /> Controle uitgevoerd door {{ workplace.projectController }}
         <br /> Functie: directeur / werfleider / projectleider/ preventieadviseur
 
-        <div *ngFor='let category of filteredCategories ; let i = index'>
+        <div *ngFor='let category of workplace.categories ; let i = index'>
             <h3>{{ i+1 }}. {{ category.title }}</h3>
 
             <div class='table-responsive'>
@@ -60,7 +60,7 @@
                     </thead>
 
                     <tbody>
-                        <tr *ngFor='let checklistItem of workplace.checklistItems | checkListItemFilter:listFilter | checkListItemCategoryFilter:category '>
+                        <tr *ngFor='let checklistItem of category.checklistItems | checkListItemFilter:listFilter '>
                             <td>{{ checklistItem.title }}</td>
                             <td>
                                 <div *ngIf="checklistItem.status === 1">&#10003;</div>

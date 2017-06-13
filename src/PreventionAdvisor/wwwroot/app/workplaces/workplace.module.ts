@@ -3,8 +3,6 @@ import { RouterModule} from '@angular/router';
 
 import { WorkplaceFilterPipe } from './list/workplace-filter.pipe';
 import { ChecklistItemFilterPipe } from './checklistItem/checklistitem-filter.pipe';
-import { ChecklistItemCategoryFilterPipe } from './checklistItem/checklistItemCategory-filter.pipe';
-
 import { WorkplaceListComponent } from './list/workplace-list.component';
 import { WorkplaceInputComponent } from './input/workplace-input.component';
 import { WorkplaceDetailComponent } from './detail/workplace-detail.component';
@@ -34,7 +32,6 @@ import { SharedModule } from '../shared/shared.module';
   declarations: [
     WorkplaceFilterPipe,
     ChecklistItemFilterPipe,
-    ChecklistItemCategoryFilterPipe,
     WorkplaceListComponent,
     WorkplaceInputComponent,
     WorkplaceDetailComponent,

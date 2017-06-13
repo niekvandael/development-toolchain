@@ -29,7 +29,7 @@ export class WorkplacePrintComponent implements AfterViewInit {
     selectedItem: ChecklistItem = new ChecklistItem();
     selecteditemsModalItem: number = addItemsModalNavOptions.ChecklistItem;
     newCategory: Category = new Category();
-    newChecklistItem: ChecklistItem = new ChecklistItem(this.workplace.id);
+    newChecklistItem: ChecklistItem = new ChecklistItem();
     today : Date = new Date();
     
     private selectedItemCopy: ChecklistItem;
@@ -55,25 +55,6 @@ export class WorkplacePrintComponent implements AfterViewInit {
 
     setWorkplace(workplace: Workplace): void {
         this.workplace = workplace;
-        this.calculateCompletion();
-        this.findFilteredCategories();
-    }
-
-    calculateCompletion(): void {
-        this.completedItems = 0;
-        for (let checklistItem of this.workplace.checklistItems) {
-            if (checklistItem.status === 1 || checklistItem.status === 2) {
-                this.completedItems++;
-            }
-        }
-    }
-
-    findFilteredCategories(): void {
-        for (let checklistItem of this.workplace.checklistItems) {
-            if (!this.filteredCategories.filter(x => x.id === checklistItem.categoryId).length) {
-                this.filteredCategories.push(checklistItem.category);
-            }
-        }
     }
 
     editChecklistItem(checkListItem: ChecklistItem): void {
@@ -92,7 +73,6 @@ export class WorkplacePrintComponent implements AfterViewInit {
     }
 
     saveItemCallback(): void {
-        this.calculateCompletion();
     }
 
     onSubmitAddItemsModal(): void {
@@ -127,7 +107,7 @@ export class WorkplacePrintComponent implements AfterViewInit {
 
     resetAddItemsModal(defaultModalNavSelection: addItemsModalNavOptions = addItemsModalNavOptions.ChecklistItem): void {
         this.newCategory = new Category();
-        this.newChecklistItem = new ChecklistItem(this.workplace.id);
+        this.newChecklistItem = new ChecklistItem();
         this.selecteditemsModalItem = defaultModalNavSelection;
     }
 

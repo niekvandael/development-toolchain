@@ -49,10 +49,13 @@ export class WorkplaceDetailComponent implements AfterViewInit {
 
     calculateCompletion(): void {
         this.completedItems = 0;
-        for (let checklistItem of this.workplace.checklistItems) {
-            if (checklistItem.status === 1 || checklistItem.status === 2) {
-                this.completedItems++;
+        for (let category of this.workplace.categories) {
+            for(let checklistItem of category.checklistItems){
+                if (checklistItem.status === 1 || checklistItem.status === 2) {
+                    this.completedItems++;
+                }
             }
+
         }
     }
 }

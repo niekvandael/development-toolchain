@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
 namespace PreventionAdvisor.Models
 {
@@ -15,6 +17,8 @@ namespace PreventionAdvisor.Models
         public String Phone { get; set; }
         public Address Address { get; set; }
         public Guid UserId { get; set; }
+        [JsonIgnore]
+        public ICollection<Workplace> Workplaces { get; set; }
         public virtual AppUser User { get; set; }
     }
 }

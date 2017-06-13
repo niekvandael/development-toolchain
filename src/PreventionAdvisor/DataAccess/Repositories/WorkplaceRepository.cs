@@ -27,11 +27,11 @@ namespace PreventionAdvisorDataAccess.Repositories
             var userId = this._sessionTasks.GetAppUserId(httpContext);
 
             return this._context.Workplaces
-                .Where(w => w.Organization.UserId == userId)
                 .Include(w => w.Address)
                 .Include(w => w.Organization)
                 .Include(w => w.Organization.Address)
                 .Where(w => w.Title != "default")
+                .Where(w => w.Organization.UserId == userId)
                 .ToList();
         }
 
@@ -40,12 +40,13 @@ namespace PreventionAdvisorDataAccess.Repositories
             var userId = this._sessionTasks.GetAppUserId(httpContext);
 
             return this._context.Workplaces
-                .Where(w => w.Organization.UserId == userId)
                 .Include(w => w.Address)
                 .Include(w => w.Organization)
                 .Include(w => w.Organization.Address)
-                .Where(w => w.ChecklistItems.Any(c => c.Status != (int) CheckListItemStatus.OK))
+                .Include(w => w.Categories).ThenInclude(c => c.ChecklistItems)
+                .Where(w => w.Categories.Any(c => c.ChecklistItems.Any(cli => cli.Status != (int) CheckListItemStatus.OK)))
                 .Where(w => w.Title != "default")
+                .Where(w => w.Organization.UserId == userId)
                 .ToList();
         }
       
@@ -54,12 +55,13 @@ namespace PreventionAdvisorDataAccess.Repositories
             var userId = this._sessionTasks.GetAppUserId(httpContext);
 
             return this._context.Workplaces
-                .Where(w => w.Organization.UserId == userId)
                 .Include(w => w.Address)
                 .Include(w => w.Organization)
                 .Include(w => w.Organization.Address)
-                .Where(w => w.ChecklistItems.All(c => c.Status == (int) CheckListItemStatus.OK))
+                .Include(w => w.Categories).ThenInclude(c => c.ChecklistItems)
+                .Where(w => w.Categories.Any(c => c.ChecklistItems.All(cli => cli.Status == (int) CheckListItemStatus.OK)))
                 .Where(w => w.Title != "default")
+                .Where(w => w.Organization.UserId == userId)
                 .ToList();
         }
 
@@ -68,12 +70,12 @@ namespace PreventionAdvisorDataAccess.Repositories
             var userId = this._sessionTasks.GetAppUserId(httpContext);
 
             return this._context.Workplaces
-                            .Where(w => w.Organization.UserId == userId)
-                            .Where(w => w.Id == id)
                             .Include(w => w.Address)
                             .Include(w => w.Organization)
                             .Include(w => w.Organization.Address)
-                            .Include(w => w.ChecklistItems).ThenInclude(cli => cli.Category)
+                            .Include(w => w.Categories).ThenInclude(c => c.ChecklistItems)
+                            .Where(w => w.Organization.UserId == userId)
+                            .Where(w => w.Id == id)
                             .FirstOrDefault();
         }
 
@@ -82,12 +84,12 @@ namespace PreventionAdvisorDataAccess.Repositories
             var userId = this._sessionTasks.GetAppUserId(httpContext);
 
             return this._context.Workplaces
-                            .Where(w => w.Organization.UserId == userId)
-                            .Where(w => w.Title == name)
                             .Include(w => w.Address)
                             .Include(w => w.Organization)
                             .Include(w => w.Organization.Address)
-                            .Include(w => w.ChecklistItems).ThenInclude(cli => cli.Category)
+                            .Include(w => w.Categories).ThenInclude(c => c.ChecklistItems)
+                            .Where(w => w.Organization.UserId == userId)
+                            .Where(w => w.Title == name)
                             .FirstOrDefault();
         }
 
@@ -96,20 +98,12 @@ namespace PreventionAdvisorDataAccess.Repositories
             try
             {
                 setForeignKeysById(workplace);
-                workplace.Organization.UserId = this._sessionTasks.GetAppUserId(httpContext);
+                workplace.UserId = this._sessionTasks.GetAppUserId(httpContext);
                 
                 Workplace defaultWorkplace = this.GetWorkplaceByName(httpContext, "default");
-                workplace.ChecklistItems = new List<ChecklistItem>();
-                foreach(ChecklistItem defaultChecklistItem in defaultWorkplace.ChecklistItems){
-                    workplace.ChecklistItems.Add(
-                        new ChecklistItem(){
-                            CategoryId = defaultChecklistItem.CategoryId,
-                            Description = defaultChecklistItem.Description,
-                            Status = defaultChecklistItem.Status,
-                            Title = defaultChecklistItem.Title,
-                            UserId = workplace.Organization.UserId
-                        }
-                    );
+                workplace.Categories = new List<Category>();
+                foreach(Category category in defaultWorkplace.Categories){
+                    workplace.Categories.Add(category.getClone());
                 }
 
                 _context.Add(workplace);

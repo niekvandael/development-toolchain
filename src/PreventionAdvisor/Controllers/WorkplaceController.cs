@@ -16,7 +16,8 @@ using Microsoft.EntityFrameworkCore;
 using PreventionAdvisor.Config;
 using PreventionAdvisorDataAccess.Repositories;
 using PreventionAdvisorDataAccess.Common;
-using  PreventionAdvisor.Enums;
+using PreventionAdvisor.Enums;
+using PreventionAdvisor;
 
 namespace GreenLiving.Controllers
 {
@@ -56,10 +57,9 @@ namespace GreenLiving.Controllers
                 try {
                     Guid.Parse(id);
                     // GUID Provided
-
                     workplace = this._workplaceRepository.Get(HttpContext, Guid.Parse(id));
                 }
-                catch(System.Exception e){
+                catch(System.Exception){
                     // Not a GUID
                     if(id.Equals("default"))
                     {
@@ -127,32 +127,10 @@ namespace GreenLiving.Controllers
         }
 
         private void CreateDefaultWorkplace(){
-            Guid UserId = this._sessionTasks.GetAppUserId(HttpContext);
-
-            Workplace workplace = new Workplace();
-            workplace.Title = "default";
-            workplace.Organization = new Organization();
-            workplace.Organization.Name = "default";
-            workplace.Organization.UserId = UserId;
-            workplace.ChecklistItems = new List<ChecklistItem>();
-            workplace.ChecklistItems.Add(
-                new ChecklistItem(){
-                UserId = UserId,
-                Category = new Category(){ Title = "Category 1", UserId = UserId},
-                Title = "Item 1",
-                Description = "Item 1",
-                Status = (int) CheckListItemStatus.NVT}
-            );
-            workplace.ChecklistItems.Add(
-                new ChecklistItem(){
-                UserId = UserId,
-                Category = new Category(){ Title = "Category 2", UserId = UserId},
-                Title = "Item 1",
-                Description = "Item 1",
-                Status = (int) CheckListItemStatus.NVT}
-            );
-
-            _workplaceRepository.Create(HttpContext, workplace);
+           Guid UserId = this._sessionTasks.GetAppUserId(HttpContext);
+           Workplace defaultWorkplace = DbInitializer.getDefaultWorkplace();
+           defaultWorkplace.User.Id = UserId;
+           _workplaceRepository.Create(HttpContext, defaultWorkplace);
         }
     }
 }

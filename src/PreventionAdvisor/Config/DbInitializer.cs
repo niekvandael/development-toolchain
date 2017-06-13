@@ -18,16 +18,12 @@ namespace PreventionAdvisor
                 return;
 #endif
 
-            //
+  //
             // Seeding for organizations
             //
-            Organization org1 = new Organization { Name = "Benvitec NV", Address = new Address { City = "Beringen", Country = "Belgium", Number = "201", Street = "Koolmijnlaan", Zipcode = "3580" }, Vat = "BE 123.2093.30902", Phone = "011/81.12.34", Website = "http://www.benvitec.be" };
-            Organization org2 = new Organization { Name = "PCT NV", Address = new Address { City = "Beringen", Country = "Belgium", Number = "201", Street = "Koolmijnlaan", Zipcode = "3580" }, Vat = "BE 123.9999.99999", Phone = "011/81.12.34", Website = "http://www.PVT-NV.be" };
+            Organization org1 = new Organization { Workplaces = new List<Workplace>(), Name = "Benvitec NV", Address = new Address { City = "Beringen", Country = "Belgium", Number = "201", Street = "Koolmijnlaan", Zipcode = "3580" }, Vat = "BE 123.2093.30902", Phone = "011/81.12.34", Website = "http://www.benvitec.be" };
+            Organization org2 = new Organization { Workplaces = new List<Workplace>(), Name = "PCT NV", Address = new Address { City = "Beringen", Country = "Belgium", Number = "201", Street = "Koolmijnlaan", Zipcode = "3580" }, Vat = "BE 123.9999.99999", Phone = "011/81.12.34", Website = "http://www.PVT-NV.be" };
 
-            var organizations = new Organization[] {
-                org1,
-                org2
-            };
 
             //
             // Seeding for users
@@ -59,15 +55,15 @@ namespace PreventionAdvisor
 
 
             var identityUser2 = new IdentityUser();
-            if (await userManager.FindByEmailAsync("user2@test.be") == null)
+            if (await userManager.FindByEmailAsync("raf@pellens.be") == null)
             {
                 identityUser2 = new IdentityUser()
                 {
-                    UserName = "user2",
-                    Email = "user2@test.be"
+                    UserName = "rafpellens",
+                    Email = "raf@pellens.be"
                 };
 
-                await userManager.CreateAsync(identityUser2, "user2");
+                await userManager.CreateAsync(identityUser2, "rafpellens");
             }
 
             var identityUser3 = new IdentityUser();
@@ -75,7 +71,7 @@ namespace PreventionAdvisor
             {
                 identityUser3 = new IdentityUser()
                 {
-                    UserName = "user3",
+                    UserName = "rafpellens",
                     Email = "user3@test.be"
                 };
 
@@ -87,134 +83,135 @@ namespace PreventionAdvisor
                 Firstname = "Niek",
                 Lastname = "Vandael",
                 IdentityUser = identityUser,
-                Organizations = organizations
+                Organizations = new List<Organization>(){org1, org2}
             };
             context.AppUsers.Add(appUser);
-
-            context.SaveChanges();
 
             //
             // Seeding for workplaces
             //
             Workplace wp1 = new Workplace()
             {
-                Organization = org1,
                 ProjectNumber = "193022",
                 Address = new Address { City = "Hasselt", Country = "Belgium", Number = "17.01", Street = "Kempische Steenweg", Zipcode = "3520" },
                 Title = "Corda Campus",
                 ProjectLead = "Ludo Pellens",
                 ProjectController = "Guy Loenders",
                 Description = "Corda campus verbouwingen",
-                ChecklistItems = new List<ChecklistItem>()
+                User = appUser,
+                Categories = new List<Category>()
             };
 
             Workplace wp2 = new Workplace()
             {
-                Organization = org1,
                 ProjectNumber = "193022",
                 Address = new Address { City = "Beringen", Country = "Belgium", Number = "201", Street = "Koolmijnlaan", Zipcode = "3580" },
                 Title = "Werf Soval",
                 ProjectLead = "Ludo Pellens",
                 ProjectController = "Guy Loenders",
                 Description = "Soval inspectie project",
-                ChecklistItems = new List<ChecklistItem>()
+                User = appUser,
+                Categories = new List<Category>()
             };
 
-            context.Workplaces.Add(wp1);
-            context.Workplaces.Add(wp2);
+            Workplace defaultWorkplace = DbInitializer.getDefaultWorkplace();
+            
+            foreach (Category cat in defaultWorkplace.Categories){
+                wp1.Categories.Add(cat.getClone());
+                wp2.Categories.Add(cat.getClone());
+            }
+        
+            org1.Workplaces.Add(wp1);
+            org1.Workplaces.Add(wp2);
+            
+            var organizations = new Organization[] {
+                org1,
+                org2
+            };
+            context.Organizations.Add(org1);
+            context.Organizations.Add(org2);
 
             context.SaveChanges();
+        }
 
-            // Seeding for Categories
-            Category category1 = new Category { Title = "Werfinrichting", User = appUser };
-            Category category2 = new Category { Title = "Orde & netheid", User = appUser };
+        public static Workplace getDefaultWorkplace()
+        {
+            Workplace workplace = new Workplace()
+            {
+                ProjectNumber = "",
+                Address = new Address {  },
+                Title = "default",
+                ProjectLead = "",
+                ProjectController = "",
+                Description = "",
+                Categories = new List<Category>()
+            };
 
-            context.Categories.Add(category1);
-            context.Categories.Add(category2);
+            Category cat1 = new Category { Title = "Werfinrichting", ChecklistItems = new List<ChecklistItem>() };
+            Category cat2 = new Category { Title = "Orde & netheid", ChecklistItems = new List<ChecklistItem>()  };
 
-            context.SaveChanges();
-
-            // Seeding for Checklist items
             ChecklistItem item1 = new ChecklistItem
             {
-                Category = category1,
-                CategoryId = category1.Id,
                 Title = "Toegang en wegen",
                 Status = 1,
                 Description = "Wegen zijn in orde",
-                User = appUser
             };
 
             ChecklistItem item2 = new ChecklistItem
             {
-                Category = category1,
-                CategoryId = category1.Id,
                 Title = "Verlichting",
                 Status = 2,
-                Description = "",
-                User = appUser
+                Description = ""
             };
 
             ChecklistItem item3 = new ChecklistItem
             {
-                Category = category1,
-                CategoryId = category1.Id,
                 Title = "Opslag en materiaal",
                 Status = 1,
-                Description = "",
-                User = appUser
-
+                Description = ""
             };
 
             ChecklistItem item4 = new ChecklistItem
             {
-                Category = category1,
-                CategoryId = category1.Id,
                 Title = "Eet- en kleedruimte",
                 Status = 1,
-                Description = "",
-                User = appUser
+                Description = ""
             };
 
             ChecklistItem item5 = new ChecklistItem
             {
-                Category = category2,
-                CategoryId = category2.Id,
-                Title = "Bouwterreind / Bouwwegen",
+                Title = "Bouwterrein / Bouwwegen",
                 Status = 1,
-                Description = "",
-                User = appUser,
-                UserId = appUser.Id
+                Description = ""
             };
 
             ChecklistItem item6 = new ChecklistItem
             {
-                Category = category2,
-                CategoryId = category2.Id,
                 Title = "Werkplek",
                 Status = 1,
-                Description = "",
-                User = appUser
+                Description = ""
             };
 
             ChecklistItem item7 = new ChecklistItem
             {
-                Category = category2,
-                CategoryId = category2.Id,
                 Title = "Opslag (inclusief stabiliteit)",
                 Status = 2,
-                Description = "",
-                User = appUser
+                Description = ""
             };
+            
+            cat1.ChecklistItems.Add(item1);
+            cat1.ChecklistItems.Add(item2);
+            cat1.ChecklistItems.Add(item3);
+            cat2.ChecklistItems.Add(item4);
+            cat2.ChecklistItems.Add(item5);
+            cat2.ChecklistItems.Add(item6);
+            cat2.ChecklistItems.Add(item7);
 
-            wp1.ChecklistItems.Add(item1);
-            wp1.ChecklistItems.Add(item2);
-            wp1.ChecklistItems.Add(item3);
-            wp1.ChecklistItems.Add(item4);
-            wp1.ChecklistItems.Add(item5);
-            wp1.ChecklistItems.Add(item6);
+            workplace.Categories.Add(cat1);
+            workplace.Categories.Add(cat2);
 
-            context.SaveChanges();
+            return workplace;
         }
+
     }
 }

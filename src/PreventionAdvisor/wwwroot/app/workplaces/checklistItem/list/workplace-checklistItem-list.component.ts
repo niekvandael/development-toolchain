@@ -9,7 +9,6 @@ import { Workplace } from '../../workplace';
 
 import { WorkplaceService } from '../../workplace.service';
 import { ChecklistItemService } from '../../checklistItem.service';
-import { CategoryService } from '../../category.service';
 
 import { Subscription } from 'rxjs/Subscription';
 
@@ -32,7 +31,7 @@ export class CheckListItemListComponent implements AfterViewInit {
     private selectedItemCopy: ChecklistItem;
     public workplace: Workplace;
 
-    constructor(private _notifier: NotifierService, private _categoryService: CategoryService, private _checklistItemService: ChecklistItemService, private _route: ActivatedRoute, private _router: Router, private _location: Location) {
+    constructor(private _notifier: NotifierService, private _checklistItemService: ChecklistItemService, private _route: ActivatedRoute, private _router: Router, private _location: Location) {
     };
 
     @Input('workplace')
@@ -46,8 +45,6 @@ export class CheckListItemListComponent implements AfterViewInit {
         }
         
         this.workplace = workplace;
-        this.newChecklistItem = new ChecklistItem(workplace.id);
-        this.findFilteredCategories();
     }
 
     @Output('updateWorkplace') 
@@ -58,14 +55,6 @@ export class CheckListItemListComponent implements AfterViewInit {
 
     ngAfterViewInit(): void {
         this.getCategories();
-    }
-
-    findFilteredCategories(): void {
-        for (let checklistItem of this.workplace.checklistItems) {
-            if (!this.filteredCategories.filter(x => x.id === checklistItem.categoryId).length) {
-                this.filteredCategories.push(checklistItem.category);
-            }
-        }
     }
 
     editChecklistItem(checkListItem: ChecklistItem): void {
@@ -91,7 +80,7 @@ export class CheckListItemListComponent implements AfterViewInit {
         if (this.selecteditemsModalItem === addItemsModalNavOptions.ChecklistItem) {
             this._checklistItemService.addChecklistItem(this.newChecklistItem, this.addChecklistItemCallback.bind(this));
         } else if (this.selecteditemsModalItem === addItemsModalNavOptions.Category) {
-            this._categoryService.addCategory(this.newCategory, this.addCategoryCallback.bind(this));
+            // TODO
         }
     }
 
@@ -110,7 +99,7 @@ export class CheckListItemListComponent implements AfterViewInit {
     }
 
     getCategories(): void {
-        this._categoryService.getCategories(this.getCategoriesCallback.bind(this));
+        // TODO
     }
 
     getCategoriesCallback(categories: Category[]): void {
@@ -119,13 +108,11 @@ export class CheckListItemListComponent implements AfterViewInit {
 
     resetAddItemsModal(defaultModalNavSelection: addItemsModalNavOptions = addItemsModalNavOptions.ChecklistItem): void {
         this.newCategory = new Category();
-        this.newChecklistItem = new ChecklistItem(this.workplace.id);
         this.selecteditemsModalItem = defaultModalNavSelection;
     }
 
     updateCategory(category: Category, newValue: string){
-        category.title = newValue;
-        this._categoryService.updateCategory(category, this.updateCategoryCallback.bind(this));
+        // TODO
     }
 
     updateCategoryCallback(category: Category){

@@ -48,16 +48,13 @@ namespace GreenLiving.Controllers
                 // All workplaces
                 var workplaces = this._WorkplaceRepository.Get(HttpContext);
 
-                // All checklistItems
-                var checkListItems = this._ChecklistItemRepository.Get(HttpContext);
-
                 dashboardModel.ReportsCount = workplaces.Count;
                 dashboardModel.TotalItemsFail = this._ChecklistItemRepository.GetCountWithStatus(HttpContext, CheckListItemStatus.NOT_OK);
                 dashboardModel.TotalItemsOk = this._ChecklistItemRepository.GetCountWithStatus(HttpContext, CheckListItemStatus.OK);
                 dashboardModel.TotalItemsNvt = this._ChecklistItemRepository.GetCountWithStatus(HttpContext, CheckListItemStatus.NVT);
                 dashboardModel.TotalItemsNull = this._ChecklistItemRepository.GetCountWithStatus(HttpContext, CheckListItemStatus.NOT_FILLED_IN);
 
-                dashboardModel.TotalItems = checkListItems.Count;
+                dashboardModel.TotalItems = this._ChecklistItemRepository.GetCount(HttpContext);
 
                 return Ok(dashboardModel);
             }

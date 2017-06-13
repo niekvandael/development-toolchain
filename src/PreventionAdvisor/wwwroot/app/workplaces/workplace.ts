@@ -1,6 +1,7 @@
 import { ChecklistItem } from './checklistItem';
 import { IOrganization } from './../organizations/organization';
 import { IAddress } from './../address/address';
+import { Category } from "./category";
 
 export class Workplace {
     id: string = '00000000-0000-0000-0000-000000000000';
@@ -11,5 +12,5 @@ export class Workplace {
     projectLead: string = '';
     projectController: string = '';
     description: string = '';
-    checklistItems: ChecklistItem[] = [];
+    categories: Category[] = [];
 }

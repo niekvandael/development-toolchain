@@ -16,19 +16,5 @@ namespace PreventionAdvisor.Models
         public String Title { get; set; }
         public String Description { get; set; }
         public int Status { get; set; }
-
-        [ForeignKey("WorkplaceId")]
-        [JsonIgnore]
-        public Workplace Workplace { get; set; }
-
-        [ForeignKey("Workplace")]
-        public Guid WorkplaceId { get; set; }
-
-
-        public Guid CategoryId { get; set; }
-        public virtual Category Category { get; set; }
-
-        public Guid UserId { get; set; }
-        public virtual AppUser User { get; set; }
     }
 }
