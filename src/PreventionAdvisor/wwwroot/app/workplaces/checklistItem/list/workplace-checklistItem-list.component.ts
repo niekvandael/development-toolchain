@@ -8,8 +8,6 @@ import { NotifierService } from 'angular-notifier';
 import { Workplace } from '../../workplace';
 
 import { WorkplaceService } from '../../workplace.service';
-import { ChecklistItemService } from '../../checklistItem.service';
-
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
@@ -22,8 +20,7 @@ export class CheckListItemListComponent implements AfterViewInit {
     private errorMessage: string;
     private mode: string;
     private completedItems: number = 0;
-    private filteredCategories: Category[] = [];
-    private categories: Category[] = [];
+    private selectedCategoryId: string;
     private selectedItem: ChecklistItem = new ChecklistItem();
     private selecteditemsModalItem: number = addItemsModalNavOptions.ChecklistItem;
     private newCategory: Category = new Category();
@@ -31,12 +28,15 @@ export class CheckListItemListComponent implements AfterViewInit {
     private selectedItemCopy: ChecklistItem;
     public workplace: Workplace;
 
-    constructor(private _notifier: NotifierService, private _checklistItemService: ChecklistItemService, private _route: ActivatedRoute, private _router: Router, private _location: Location) {
+    constructor(private _notifier: NotifierService, private _route: ActivatedRoute, private _router: Router, private _location: Location, protected _workplaceService: WorkplaceService) {
     };
 
     @Input('workplace')
     set _setWorkplace(workplace: Workplace) {
-        this.setWorkplace(workplace);
+        if(workplace != undefined){
+            this.setWorkplace(workplace);
+        }
+        
     }
 
     public setWorkplace(workplace:Workplace){
@@ -54,7 +54,6 @@ export class CheckListItemListComponent implements AfterViewInit {
     requestDataRefresh = new EventEmitter<string>();
 
     ngAfterViewInit(): void {
-        this.getCategories();
     }
 
     editChecklistItem(checkListItem: ChecklistItem): void {
@@ -69,7 +68,7 @@ export class CheckListItemListComponent implements AfterViewInit {
     }
 
     saveItem(): void {
-        this._checklistItemService.updateChecklistItem(this.selectedItem, this.saveItemCallback.bind(this));
+        this._workplaceService.updateWorkplace(this.workplace, this.saveItemCallback.bind(this));
     }
 
     saveItemCallback(): void {
@@ -78,32 +77,32 @@ export class CheckListItemListComponent implements AfterViewInit {
 
     onSubmitAddItemsModal(): void {
         if (this.selecteditemsModalItem === addItemsModalNavOptions.ChecklistItem) {
-            this._checklistItemService.addChecklistItem(this.newChecklistItem, this.addChecklistItemCallback.bind(this));
+            let category = this.findCategoryById(this.selectedCategoryId);
+            category.checklistItems.push(this.newChecklistItem);
+            this._workplaceService.updateWorkplace(this.workplace, this.addChecklistItemCallback.bind(this));
+
         } else if (this.selecteditemsModalItem === addItemsModalNavOptions.Category) {
-            // TODO
+            this.workplace.categories.push(this.newCategory);
+            this._workplaceService.updateWorkplace(this.workplace, this.addCategoryCallback.bind(this));
+            this.newCategory = new Category();
         }
     }
 
-    addChecklistItemCallback(): void {
+    addChecklistItemCallback(workplace: Workplace): void {
+        this.setWorkplace(workplace);
+
         this.resetAddItemsModal(addItemsModalNavOptions.ChecklistItem);
         this._notifier.notify('success', 'Werkpunt toegevoegd');
         
         this.requestDataRefresh.emit(this.workplace.id);
     }
 
-    addCategoryCallback(): void {
+    addCategoryCallback(workplace: Workplace): void {
+        this.setWorkplace(workplace);
+
         this.newCategory = new Category();
-        this.getCategories();
         this.resetAddItemsModal(addItemsModalNavOptions.Category);
         this._notifier.notify('success', 'Categorie toegevoegd');
-    }
-
-    getCategories(): void {
-        // TODO
-    }
-
-    getCategoriesCallback(categories: Category[]): void {
-        this.categories = categories;
     }
 
     resetAddItemsModal(defaultModalNavSelection: addItemsModalNavOptions = addItemsModalNavOptions.ChecklistItem): void {
@@ -112,11 +111,20 @@ export class CheckListItemListComponent implements AfterViewInit {
     }
 
     updateCategory(category: Category, newValue: string){
-        // TODO
+        category.title = newValue;
+        this._workplaceService.updateWorkplace(this.workplace, this.updateCategoryCallback.bind(this));
     }
 
     updateCategoryCallback(category: Category){
         this._notifier.notify('success', 'Categorie aangepast');
+    }
+
+    findCategoryById(id: string){
+        for (let category of this.workplace.categories) {
+           if(category.id === id){
+               return category;
+           }
+        }
     }
 }
 

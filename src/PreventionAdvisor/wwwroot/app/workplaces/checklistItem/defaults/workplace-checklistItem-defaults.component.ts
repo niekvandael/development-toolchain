@@ -9,8 +9,6 @@ import { NotifierService } from 'angular-notifier';
 import { Workplace } from '../../workplace';
 
 import { WorkplaceService } from '../../workplace.service';
-import { ChecklistItemService } from '../../checklistItem.service';
-
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
@@ -20,8 +18,8 @@ import { Subscription } from 'rxjs/Subscription';
 
 export class CheckListItemDefaultsComponent extends CheckListItemListComponent {
     
-    constructor(private _workplaceService: WorkplaceService, _notifier: NotifierService, _checklistItemService: ChecklistItemService, _route: ActivatedRoute, _router: Router, _location: Location) {
-        super(_notifier, _checklistItemService, _route, _router, _location);
+    constructor(_workplaceService: WorkplaceService, _notifier: NotifierService, _route: ActivatedRoute, _router: Router, _location: Location) {
+        super(_notifier, _route, _router, _location, _workplaceService);
 
         _workplaceService.getDefaultWorkplace(this.getDefaultWorkplaceCallback.bind(this));
     };

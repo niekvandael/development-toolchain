@@ -136,6 +136,11 @@ namespace PreventionAdvisor
 
         public static Workplace getDefaultWorkplace()
         {
+            Organization org = new Organization(){
+                Address = new Address(){},
+                Name = "default"
+            };
+
             Workplace workplace = new Workplace()
             {
                 ProjectNumber = "",
@@ -210,6 +215,7 @@ namespace PreventionAdvisor
             workplace.Categories.Add(cat1);
             workplace.Categories.Add(cat2);
 
+            workplace.Organization = org;
             return workplace;
         }
 

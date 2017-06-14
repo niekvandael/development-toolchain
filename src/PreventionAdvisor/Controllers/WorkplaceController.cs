@@ -129,7 +129,6 @@ namespace GreenLiving.Controllers
         private void CreateDefaultWorkplace(){
            Guid UserId = this._sessionTasks.GetAppUserId(HttpContext);
            Workplace defaultWorkplace = DbInitializer.getDefaultWorkplace();
-           defaultWorkplace.User.Id = UserId;
            _workplaceRepository.Create(HttpContext, defaultWorkplace);
         }
     }

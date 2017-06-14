@@ -9,22 +9,23 @@
             </div>
             <br />
             <div class='has-error' *ngIf='errorMessage'>{{errorMessage}}</div>
-
-            <div *ngFor='let category of workplace.categories'>
-                <input class='editableTitle' (change)='updateCategory(category, $event.target.value)' value='{{ category.title }}' />
-                <div class='table-responsive'>
-                    <table class='table' *ngIf='workplace.checklistItems && workplace.checklistItems.length'>
-                        <tbody>
-                            <tr (click)="editChecklistItem(checklistItem) ; editStateModal.show()" *ngFor='let checklistItem of category.checklistItems | checkListItemFilter:listFilter '>
-                                <td class="checkListItemListName">{{ checklistItem.title }}</td>
-                                <td class="checkListItemListStatus">
-                                    <img *ngIf='checklistItem.status === 1' src='images/success.png'>
-                                    <img *ngIf='checklistItem.status === 2' src='images/nvt.png'>
-                                    <img *ngIf='checklistItem.status === 3' src='images/warning.png'>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <div *ngIf ='workplace?.categories'>
+                <div *ngFor='let category of workplace?.categories'>
+                    <input class='editableTitle' (change)='updateCategory(category, $event.target.value)' value='{{ category.title }}' />
+                    <div class='table-responsive'>
+                        <table class='table' *ngIf='category.checklistItems && category.checklistItems.length'>
+                            <tbody>
+                                <tr (click)="editChecklistItem(checklistItem) ; editStateModal.show()" *ngFor='let checklistItem of category.checklistItems | checkListItemFilter:listFilter '>
+                                    <td class="checkListItemListName">{{ checklistItem.title }}</td>
+                                    <td class="checkListItemListStatus">
+                                        <img *ngIf='checklistItem.status === 1' src='images/success.png'>
+                                        <img *ngIf='checklistItem.status === 2' src='images/nvt.png'>
+                                        <img *ngIf='checklistItem.status === 3' src='images/warning.png'>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -74,9 +75,9 @@
                 <input type="text" [(ngModel)]='newChecklistItem.title' placeholder="brandblussers" required name='newChecklistItem.title' />                <br /> <br />
                 <br />
                 <b>Binnen categorie</b> <br />
-                <select placeholder="Acme BVBA" required [(ngModel)]='newChecklistItem.categoryId' name='newChecklistItem.categoryId'>
+                <select placeholder="Acme BVBA" required [(ngModel)]='selectedCategoryId' name='selectedCategoryId'>
                     <option disabled selected value> -- Selecteer een optie -- </option>
-                    <option *ngFor='let category of categories' value="{{ category.id }}">{{ category.title }}</option>
+                    <option *ngFor='let category of workplace?.categories' value="{{ category.id }}">{{ category.title }}</option>
                 </select>
             </div>
 

@@ -14,8 +14,6 @@ import { CheckListItemListComponent } from './checklistItem/list/workplace-check
 import { ModalComponent } from '../shared/modal/modal.component';
 
 import { WorkplaceService } from './workplace.service';
-import { ChecklistItemService } from './checklistItem.service';
-import { CategoryService } from './category.service';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
@@ -41,9 +39,7 @@ import { SharedModule } from '../shared/shared.module';
     ModalComponent
   ],
   providers: [
-    WorkplaceService,
-    ChecklistItemService,
-    CategoryService
-  ]
+    WorkplaceService
+    ]
 })
 export class WorkplaceModule {}

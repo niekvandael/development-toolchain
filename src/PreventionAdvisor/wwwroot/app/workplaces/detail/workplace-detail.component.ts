@@ -8,9 +8,6 @@ import { NotifierService } from 'angular-notifier';
 import { Workplace } from '../workplace';
 
 import { WorkplaceService } from '../workplace.service';
-import { ChecklistItemService } from '../checklistItem.service';
-import { CategoryService } from '../category.service';
-
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
@@ -22,7 +19,7 @@ export class WorkplaceDetailComponent implements AfterViewInit {
     listFilter: string;
     errorMessage: string;
     mode: string;
-    completedItems: number = 0;
+    completion: number = 0;
 
     private workplaceSub: Subscription;
 
@@ -48,14 +45,18 @@ export class WorkplaceDetailComponent implements AfterViewInit {
     }
 
     calculateCompletion(): void {
-        this.completedItems = 0;
+        let completedItems = 0;
+        let totalItems = 0;
+
         for (let category of this.workplace.categories) {
             for(let checklistItem of category.checklistItems){
+                totalItems++;
                 if (checklistItem.status === 1 || checklistItem.status === 2) {
-                    this.completedItems++;
+                    completedItems++;
                 }
             }
-
         }
+
+        this.completion = completedItems/totalItems*100;
     }
 }

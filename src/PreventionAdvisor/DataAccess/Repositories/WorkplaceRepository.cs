@@ -97,19 +97,21 @@ namespace PreventionAdvisorDataAccess.Repositories
         {
             try
             {
-                setForeignKeysById(workplace);
+                setForeignKeysById(workplace, httpContext);
                 workplace.UserId = this._sessionTasks.GetAppUserId(httpContext);
                 
-                Workplace defaultWorkplace = this.GetWorkplaceByName(httpContext, "default");
-                workplace.Categories = new List<Category>();
-                foreach(Category category in defaultWorkplace.Categories){
-                    workplace.Categories.Add(category.getClone());
+                if(workplace.Title != "default"){
+                    Workplace defaultWorkplace = this.GetWorkplaceByName(httpContext, "default");
+                    workplace.Categories = new List<Category>();
+                    foreach(Category category in defaultWorkplace.Categories){
+                        workplace.Categories.Add(category.getClone());
+                    }
                 }
 
                 _context.Add(workplace);
                 _context.SaveChanges();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 throw;
             }
@@ -121,7 +123,7 @@ namespace PreventionAdvisorDataAccess.Repositories
         {
             try
             {
-                this.setForeignKeysById(workplace);
+                this.setForeignKeysById(workplace, httpContext);
                 workplace.Organization.UserId = this._sessionTasks.GetAppUserId(httpContext);
 
                 _context.Update(workplace);
@@ -151,16 +153,17 @@ namespace PreventionAdvisorDataAccess.Repositories
             }
         }
 
-        private void setForeignKeysById(Workplace workplace)
+        private void setForeignKeysById(Workplace workplace, HttpContext httpContext)
         {
-            if (workplace.Organization.Id != workplace.OrganizationId) {
-                Organization org = _context.Organizations.Find(workplace.OrganizationId);
-                if (org != null) {
-                    workplace.Organization = org;
+            if (workplace.Organization != null) {
+                if(workplace.Organization.Id != workplace.OrganizationId){
+                    Organization org = _context.Organizations.Find(workplace.OrganizationId);
+                    if (org != null) {
+                        workplace.Organization = org;
+                    }
                 }
+                workplace.Organization.UserId = this._sessionTasks.GetAppUserId(httpContext);
             }
         }
-
-
     }
 }
