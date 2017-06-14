@@ -29,23 +29,23 @@ export class WorkplaceInputComponent implements OnInit {
     onSubmit(){
         if(this.mode === 'add')
         {
-            this._workplaceService.addWorkplace(this.workplace, this.navigateToList.bind(this));
+            this._workplaceService.addWorkplace(this.workplace, this.navigateToWorkplace.bind(this));
         }
         else
         {
-            this._workplaceService.updateWorkplace(this.workplace, this.navigateToList.bind(this));
+            this._workplaceService.updateWorkplace(this.workplace, this.navigateToWorkplace.bind(this));
         }
     }
 
-    navigateToList(){
-         this._location.back();
+    navigateToWorkplace(workplace: Workplace){
+         this._router.navigate(['/workplace/detail', workplace.id]);
     }
 
    getWorkplace(id: string) {
        if (id !== '00000000-0000-0000-0000-000000000000')
        {
-           this.mode = 'update';
-        this._workplaceService.getWorkplace(id, this.setWorkplace.bind(this));
+            this.mode = 'update';
+            this._workplaceService.getWorkplace(id, this.setWorkplace.bind(this));
        } 
        else
        {
