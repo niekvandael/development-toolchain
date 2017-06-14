@@ -29,6 +29,7 @@ export class CheckListItemListComponent implements AfterViewInit {
     public workplace: Workplace;
 
     constructor(private _notifier: NotifierService, private _route: ActivatedRoute, private _router: Router, private _location: Location, protected _workplaceService: WorkplaceService) {
+        this.canChangeItemState = true;
     };
 
     @Input('workplace')
@@ -38,6 +39,9 @@ export class CheckListItemListComponent implements AfterViewInit {
         }
         
     }
+
+    @Input('canChangeItemState')
+    private canChangeItemState: boolean;
 
     public setWorkplace(workplace:Workplace){
         if(workplace === undefined){
@@ -56,9 +60,17 @@ export class CheckListItemListComponent implements AfterViewInit {
     ngAfterViewInit(): void {
     }
 
-    editChecklistItem(checkListItem: ChecklistItem): void {
+    editChecklistItem(checkListItem: ChecklistItem): boolean {
+        if(!this.canChangeItemState)
+        {
+            return false;
+        }
+        
+        
         this.selectedItem = checkListItem;
         this.selectedItemCopy = Object.assign({}, this.selectedItem);
+
+        return true;
     }
 
     resetChecklistItem(checkListItem: ChecklistItem) {

@@ -5,6 +5,7 @@ using PreventionAdvisor.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using PreventionAdvisor.Enums;
 
 namespace PreventionAdvisor
 {
@@ -158,49 +159,49 @@ namespace PreventionAdvisor
             ChecklistItem item1 = new ChecklistItem
             {
                 Title = "Toegang en wegen",
-                Status = 1,
+                Status = (int) CheckListItemStatus.NVT,
                 Description = "Wegen zijn in orde",
             };
 
             ChecklistItem item2 = new ChecklistItem
             {
                 Title = "Verlichting",
-                Status = 2,
+                Status = (int) CheckListItemStatus.NVT,
                 Description = ""
             };
 
             ChecklistItem item3 = new ChecklistItem
             {
                 Title = "Opslag en materiaal",
-                Status = 1,
+                Status = (int) CheckListItemStatus.NVT,
                 Description = ""
             };
 
             ChecklistItem item4 = new ChecklistItem
             {
                 Title = "Eet- en kleedruimte",
-                Status = 1,
+                Status = (int) CheckListItemStatus.NVT,
                 Description = ""
             };
 
             ChecklistItem item5 = new ChecklistItem
             {
                 Title = "Bouwterrein / Bouwwegen",
-                Status = 1,
+                Status = (int) CheckListItemStatus.NVT,
                 Description = ""
             };
 
             ChecklistItem item6 = new ChecklistItem
             {
                 Title = "Werkplek",
-                Status = 1,
+                Status = (int) CheckListItemStatus.NVT,
                 Description = ""
             };
 
             ChecklistItem item7 = new ChecklistItem
             {
                 Title = "Opslag (inclusief stabiliteit)",
-                Status = 2,
+                Status = (int) CheckListItemStatus.NVT,
                 Description = ""
             };
             
